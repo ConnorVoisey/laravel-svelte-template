@@ -1,0 +1,199 @@
+/*
+* One Dark theme
+** This theme was generated from the theme generator.
+*/
+
+@mixin content-width($width: 900px) {
+	max-width: $width;
+	margin: auto;
+
+	@media (max-width: $width) {
+		padding: size(8);
+	}
+	@media (max-width: 600px) {
+		padding: size(4);
+	}
+}
+@mixin pseudo($display: block, $pos: absolute, $width: 100%, $height: 100%, $content: '') {
+	content: $content;
+	display: $display;
+	position: $pos;
+	width: $width;
+	heigh: $height;
+}
+
+@function size($num) {
+	@return $num * 0.25rem;
+}
+
+:root {
+	/***
+	** Colors
+	***/
+
+	/* primary #6da0c9 */
+	--clr-primary-0: 207, 46%, 61%; /* #6ea0c9 */
+	--clr-primary-1: 207, 46%, 59%; /* #669bc7 */
+	--clr-primary-2: 207, 46%, 57%; /* #5f96c4 */
+	--clr-primary-3: 207, 46%, 55%; /* #5792c1 */
+	--clr-primary-4: 207, 46%, 52%; /* #4c8abd */
+	--clr-primary-5: 207, 46%, 49%; /* #4383b6 */
+	--clr-primary-6: 207, 46%, 45%; /* #3e78a8 */
+	--clr-primary-7: 207, 46%, 40%; /* #376b95 */
+	--clr-primary-8: 207, 46%, 36%; /* #326086 */
+	--clr-primary-9: 207, 46%, 34%; /* #2f5b7f */
+	/* on primary #0c0c0c */
+	--clr-on-primary-0: 0, 0%, 7.705882352941177%; /* #141414 */
+	--clr-on-primary-1: 0, 0%, 4.705882352941177%; /* #0c0c0c */
+	--clr-on-primary-2: 0, 0%, 1.7058823529411766%; /* #040404 */
+
+	/* secondary #81269d */
+	--clr-secondary-0: 286, 61%, 38%; /* #80269c */
+	--clr-secondary-1: 286, 61%, 37%; /* #7d2598 */
+	--clr-secondary-2: 286, 61%, 35%; /* #762390 */
+	--clr-secondary-3: 286, 61%, 33%; /* #702187 */
+	--clr-secondary-4: 286, 61%, 31%; /* #691f7f */
+	--clr-secondary-5: 286, 61%, 30%; /* #651e7b */
+	--clr-secondary-6: 286, 61%, 27%; /* #5b1b6f */
+	--clr-secondary-7: 286, 61%, 24%; /* #511863 */
+	--clr-secondary-8: 286, 61%, 22%; /* #4a165a */
+	--clr-secondary-9: 286, 61%, 20%; /* #441452 */
+	/* on secondary #fbfbfb */
+	--clr-on-secondary-0: 0, 0%, 100%; /* #ffffff */
+	--clr-on-secondary-1: 0, 0%, 98.4313725490196%; /* #fbfbfb */
+	--clr-on-secondary-2: 0, 0%, 95.4313725490196%; /* #f3f3f3 */
+
+	/* surface #222222 */
+	--clr-surface-0: 0, 0%, 13%;
+	--clr-surface-1: 0, 0%, 17%;
+	--clr-surface-2: 0, 0%, 20%;
+	--clr-surface-3: 0, 0%, 23%;
+	--clr-surface-4: 0, 0%, 25%;
+	--clr-surface-5: 0, 0%, 29%;
+	--clr-surface-6: 0, 0%, 35%;
+	--clr-surface-7: 0, 0%, 40%;
+	--clr-surface-8: 0, 0%, 43%;
+	--clr-surface-9: 0, 0%, 49%;
+	/* on surface #fbfbfb */
+	--clr-on-surface-0: 0, 0%, 100%;
+	--clr-on-surface-1: 0, 0%, 98.4313725490196%;
+	--clr-on-surface-2: 0, 0%, 95.4313725490196%;
+
+	/* success #98c379 */
+	--clr-success-0: 95, 38%, 62%; /* #98c379 */
+	--clr-success-1: 95, 38%, 60%; /* #93c072 */
+	--clr-success-2: 95, 38%, 57%; /* #8abb68 */
+	--clr-success-3: 95, 38%, 56%; /* #88b964 */
+	--clr-success-4: 95, 38%, 53%; /* #80b55a */
+	--clr-success-5: 95, 38%, 50%; /* #77b04f */
+	--clr-success-6: 95, 38%, 46%; /* #6ea249 */
+	--clr-success-7: 95, 38%, 40%; /* #608d3f */
+	--clr-success-8: 95, 38%, 36%; /* #567f39 */
+	--clr-success-9: 95, 38%, 34%; /* #517836 */
+	/* on success #0c0c0c */
+	--clr-on-success-0: 0, 0%, 7.705882352941177%; /* #141414 */
+	--clr-on-success-1: 0, 0%, 4.705882352941177%; /* #0c0c0c */
+	--clr-on-success-2: 0, 0%, 1.7058823529411766%; /* #040404 */
+
+	/* warning #d19a66 */
+	--clr-warning-0: 29, 54%, 61%; /* #d19a66 */
+	--clr-warning-1: 29, 54%, 59%; /* #cf955e */
+	--clr-warning-2: 29, 54%, 57%; /* #cd8f56 */
+	--clr-warning-3: 29, 54%, 55%; /* #ca8a4e */
+	--clr-warning-4: 29, 54%, 52%; /* #c78243 */
+	--clr-warning-5: 29, 54%, 49%; /* #c07b39 */
+	--clr-warning-6: 29, 54%, 46%; /* #b57336 */
+	--clr-warning-7: 29, 54%, 40%; /* #9d642f */
+	--clr-warning-8: 29, 54%, 37%; /* #915d2b */
+	--clr-warning-9: 29, 54%, 34%; /* #865528 */
+	/* on warning #0c0c0c */
+	--clr-on-warning-0: 0, 0%, 7.705882352941177%; /* #141414 */
+	--clr-on-warning-1: 0, 0%, 4.705882352941177%; /* #0c0c0c */
+	--clr-on-warning-2: 0, 0%, 1.7058823529411766%; /* #040404 */
+
+	/* error #f5776c */
+	--clr-error-0: 5, 87%, 69%; /* #f5776b */
+	--clr-error-1: 5, 87%, 67%; /* #f46e62 */
+	--clr-error-2: 5, 87%, 64%; /* #f36153 */
+	--clr-error-3: 5, 87%, 62%; /* #f2584a */
+	--clr-error-4: 5, 87%, 60%; /* #f24f40 */
+	--clr-error-5: 5, 87%, 57%; /* #f14232 */
+	--clr-error-6: 5, 87%, 53%; /* #ef301f */
+	--clr-error-7: 5, 87%, 47%; /* #e02110 */
+	--clr-error-8: 5, 87%, 43%; /* #cd1e0e */
+	--clr-error-9: 5, 87%, 40%; /* #bf1c0d */
+	/* on error #0c0c0c */
+	--clr-on-error-0: 0, 0%, 7.705882352941177%; /* #141414 */
+	--clr-on-error-1: 0, 0%, 4.705882352941177%; /* #0c0c0c */
+	--clr-on-error-2: 0, 0%, 1.7058823529411766%; /* #040404 */
+}
+
+@function get-color($key, $num, $alpha) {
+	@if $num > 9 or $num < 0 {
+		@error 'number not in range';
+	}
+	$color-list: 'primary', 'secondary', 'surface', 'neutral', 'success', 'warning', 'error';
+	@each $current-key in $color-list {
+		@if $key == $current-key {
+			@return hsl(var(--clr-#{$current-key}-#{$num}), $alpha);
+		}
+	}
+	@error 'key not found';
+}
+@function get-on-color($key, $num, $alpha) {
+	@if $num > 2 or $num < 0 {
+		@error 'number not in range';
+	}
+	$color-list: 'primary', 'secondary', 'surface', 'neutral', 'success', 'warning', 'error';
+	@each $current-key in $color-list {
+		@if $key == $current-key {
+			@return hsl(var(--clr-on-#{$current-key}-#{$num}), $alpha);
+		}
+	}
+	@error 'key not found';
+}
+
+@function primary($num, $alpha: 1) {
+	@return get-color('primary', $num, $alpha);
+}
+@function on-primary($num, $alpha: 1) {
+	@return get-on-color('primary', $num, $alpha);
+}
+
+@function secondary($num, $alpha: 1) {
+	@return get-color('secondary', $num, $alpha);
+}
+@function on-secondary($num, $alpha: 1) {
+	@return get-on-color('secondary', $num, $alpha);
+}
+
+@function success($num, $alpha: 1) {
+	@return get-color('success', $num, $alpha);
+}
+@function on-success($num, $alpha: 1) {
+	@return get-on-color('success', $num, $alpha);
+}
+
+@function warning($num, $alpha: 1) {
+	@return get-color('warning', $num, $alpha);
+}
+@function on-warning($num, $alpha: 1) {
+	@return get-on-color('warning', $num, $alpha);
+}
+
+@function error($num, $alpha: 1) {
+	@return get-color('error', $num, $alpha);
+}
+@function on-error($num, $alpha: 1) {
+	@return get-on-color('error', $num, $alpha);
+}
+
+@function surface($num, $alpha: 1) {
+	@if $num > 2 or $num < 0 {
+		@error 'number not in range';
+	}
+	@return hsl(var(--clr-surface-#{$num}), $alpha);
+}
+@function on-surface($num, $alpha: 1) {
+	@return get-on-color('surface', $num, $alpha);
+}

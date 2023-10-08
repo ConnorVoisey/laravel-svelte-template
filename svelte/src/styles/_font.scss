@@ -1,0 +1,18 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@500;600;700&display=swap');
+
+:root {
+	font-family: system-ui, sans-serif;
+}
+.title {
+	color: on-surface(0);
+	font-size: 25px;
+	font-weight: 500;
+	font-family: 'Poppins', sans-serif;
+}
+
+.subtitle {
+	color: on-surface(0);
+	font-size: 20px;
+	font-weight: 400;
+	font-family: 'Poppins', sans-serif;
+}

@@ -1,0 +1,44 @@
+@use '../variables' as *;
+@mixin btn {
+	padding: size(2) size(8);
+	border-radius: size(2);
+	border: solid 0px on-surface(1);
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	gap: 8px;
+	cursor: pointer;
+	font-weight: 500;
+	width: max-content;
+	&:hover {
+		transition: all 0.2s;
+		transform: scale(calc((100 - 0) / 100));
+	}
+}
+
+.btn {
+	@include btn;
+	background-color: on-surface(2);
+	color: surface(1);
+	box-shadow: 0 0 size(0) 0 on-surface(1);
+
+	&:hover {
+		box-shadow: 0 0 size(8) on-surface(1);
+		background-color: surface(2);
+	}
+}
+$colors: 'primary', 'secondary', 'success', 'warning', 'error';
+@each $color in $colors {
+	.btn-#{$color} {
+		@include btn;
+		background-color: hsl(var(--clr-#{$color}-5));
+		color: hsl(var(--clr-on-#{$color}-2));
+		box-shadow: 0 0 var(--btn-shadow-size) 0 hsl(var(--clr-#{$color}-7));
+		border-color: hsl(var(--clr-#{$color}-4));
+
+		&:hover {
+			box-shadow: 0 0 var(--btn-animation-shadow) hsl(var(--clr-#{$color}-6));
+			background-color: hsl(var(--clr-#{$color}-6));
+		}
+	}
+}

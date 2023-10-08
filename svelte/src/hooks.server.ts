@@ -3,7 +3,7 @@ import { redirect, type Handle } from '@sveltejs/kit';
 
 export const handle: Handle = async ({ event, resolve }) => {
 	// Verify we are authenticated
-	const responseFromServer = await axiosBackend('/user', {
+	const responseFromServer = await axiosBackend('/api/user', {
 		method: 'get',
 		headers: {
 			Referer: event.url.host,
@@ -12,9 +12,11 @@ export const handle: Handle = async ({ event, resolve }) => {
 				'laravel_session'
 			)}`
 		}
-	}).catch(() => {
+	}).catch((e) => {
+		console.error(e);
 		// Unauthenticated
 	});
+	//   console.log(responseFromServer);
 
 	event.locals.user = responseFromServer?.data ?? null;
 	const routeId = event.route.id ?? '';

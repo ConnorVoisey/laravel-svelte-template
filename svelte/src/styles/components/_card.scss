@@ -1,0 +1,49 @@
+@use '../variables' as *;
+$colors: 'primary', 'secondary', 'success', 'warning', 'error';
+.card,
+.card-lg {
+	height: max-content;
+	background-color: surface(1);
+	display: flex;
+	flex-direction: column;
+	padding: size(4);
+	gap: size(4);
+	border: solid 0 on-surface(1);
+	border-radius: size(4);
+	box-shadow: 0 0 0 0 on-surface(1);
+	.card {
+		background-color: surface(2);
+	}
+}
+.card-lg {
+	padding: size(8);
+	gap: size(2);
+}
+@each $btn-shade in $colors {
+	.card-#{$btn-shade} {
+		height: max-content;
+		background: linear-gradient(
+			45deg,
+			hsl(var(--clr-#{$btn-shade}-5)) 0%,
+			hsl(var(--clr-#{$btn-shade}-7)) 50.3%
+		);
+		color: hsl(var(--clr-on-#{$btn-shade}-2));
+		display: flex;
+		flex-direction: column;
+		padding: size(4);
+		gap: size(4);
+		border: solid 0 hsl(var(--clr-#{$btn-shade}-4));
+		border-radius: size(4);
+		box-shadow: 0 0 0 0 hsl(var(--clr-#{$btn-shade}-7));
+		&:hover {
+			transition: all 0.2s;
+			box-shadow: 0 0 var(--button-animation-shadow) hsl(var(--clr-#{$btn-shade}-6));
+			background-color: hsl(var(--clr-#{$btn-shade}-6));
+		}
+
+		&.card-lg {
+			padding: size(8);
+			gap: size(2);
+		}
+	}
+}
