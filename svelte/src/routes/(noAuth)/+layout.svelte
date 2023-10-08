@@ -1,6 +1,5 @@
 <script lang="ts">
 	import { page } from '$app/stores';
-	import '../../styles/main.scss';
 </script>
 
 <div class="page">

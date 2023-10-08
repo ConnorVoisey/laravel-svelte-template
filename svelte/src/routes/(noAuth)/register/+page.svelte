@@ -35,7 +35,7 @@
 		// send request
 		axios
 			.post<ResData>('register', body)
-			.then((res) => goto('/'))
+			.then((res) => goto('/', { invalidateAll: true }))
 			.catch((err: AxiosError<ErrorData>) => {
 				if (!err.response?.data.errors) {
 					// something else went wrong in the request, could be csrf, network issue, database issue or anything

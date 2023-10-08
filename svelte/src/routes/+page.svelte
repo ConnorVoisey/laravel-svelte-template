@@ -1,24 +1,13 @@
-<h1>Welcome to SvelteKit</h1>
-<p>Visit <a href="https://kit.svelte.dev">kit.svelte.dev</a> to read the documentation</p>
+<script lang="ts">
+	export let data;
+</script>
 
-<div class="grid">
-	<div class="left">Left</div>
-	<div class="right">Right</div>
-</div>
-
-<style lang="scss">
-	.grid {
-		display: grid;
-		grid-template-columns: 48px calc(100% - 48px);
-		transition: 1000ms;
-		&:hover {
-			grid-template-columns: calc(100% - 48px) 48px;
-		}
-	}
-	.right {
-		background-color: red;
-	}
-	.left {
-		background-color: blue;
-	}
-</style>
+<h1 class="title">Hello {data.user?.name ?? 'there'}</h1>
+{#if data.user === null}
+	<p>You are not logged in.</p>
+	<a href="/login" class="btn">Login</a>
+	<a href="/register" class="btn">Register</a>
+{:else}
+	<a href="/logout" class="btn">Logout</a>
+	<a href="/profile" class="btn">Profile</a>
+{/if}
