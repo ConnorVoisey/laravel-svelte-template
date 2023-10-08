@@ -26,7 +26,17 @@ export const handle: Handle = async ({ event, resolve }) => {
 		throw redirect(303, '/login');
 	}
 
-	const response = await resolve(event);
+    let theme: string | null | undefined = null;
 
-	return response;
+	const newTheme = event.url.searchParams.get('theme');
+	const cookieTheme = event.cookies.get('theme');
+	if (newTheme) {
+		theme = newTheme;
+	} else {
+		theme = cookieTheme;
+	}
+
+	return await resolve(event, {
+		transformPageChunk: ({ html }) => html.replace('theme=""', `theme="${theme}"`),
+	});
 };

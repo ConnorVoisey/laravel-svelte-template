@@ -63,21 +63,21 @@
 	--clr-on-secondary-1: 0, 0%, 98.4313725490196%; /* #fbfbfb */
 	--clr-on-secondary-2: 0, 0%, 95.4313725490196%; /* #f3f3f3 */
 
-	/* surface #222222 */
-	--clr-surface-0: 0, 0%, 13%;
-	--clr-surface-1: 0, 0%, 17%;
-	--clr-surface-2: 0, 0%, 20%;
-	--clr-surface-3: 0, 0%, 23%;
-	--clr-surface-4: 0, 0%, 25%;
-	--clr-surface-5: 0, 0%, 29%;
-	--clr-surface-6: 0, 0%, 35%;
-	--clr-surface-7: 0, 0%, 40%;
-	--clr-surface-8: 0, 0%, 43%;
-	--clr-surface-9: 0, 0%, 49%;
-	/* on surface #fbfbfb */
-	--clr-on-surface-0: 0, 0%, 100%;
-	--clr-on-surface-1: 0, 0%, 98.4313725490196%;
-	--clr-on-surface-2: 0, 0%, 95.4313725490196%;
+    /* surface #3e403f */
+	--clr-surface-0: 150, 0%, 95%; /* #f2f2f2 */
+	--clr-surface-1: 150, 0%, 89%; /* #e3e3e3 */
+	--clr-surface-2: 150, 1%, 81%; /* #cecfcf */
+	--clr-surface-3: 150, 1%, 72%; /* #b7b8b8 */
+	--clr-surface-4: 150, 1%, 42%; /* #6a6c6b */
+	--clr-surface-5: 150, 2%, 25%; /* #3e4140 */
+	--clr-surface-6: 150, 4%, 21%; /* #333836 */
+	--clr-surface-7: 150, 7%, 18%; /* #2b312e */
+	--clr-surface-8: 150, 15%, 11%; /* #18201c */
+	--clr-surface-9: 150, 22%, 7%; /* #0e1612 */
+	/* on surface #393236 */
+	--clr-on-surface-0: 240, 7%, 14%; /* #222225 */
+	--clr-on-surface-1: 240, 6%, 12%; /* #1d1d20 */
+	--clr-on-surface-2: 240, 6%, 10%; /* #18181B */
 
 	/* success #98c379 */
 	--clr-success-0: 95, 38%, 62%; /* #98c379 */
@@ -126,6 +126,24 @@
 	--clr-on-error-0: 0, 0%, 7.705882352941177%; /* #141414 */
 	--clr-on-error-1: 0, 0%, 4.705882352941177%; /* #0c0c0c */
 	--clr-on-error-2: 0, 0%, 1.7058823529411766%; /* #040404 */
+
+    &[theme='dark'] {
+        /* surface #222222 */
+        --clr-surface-0: 0, 0%, 13%;
+        --clr-surface-1: 0, 0%, 17%;
+        --clr-surface-2: 0, 0%, 20%;
+        --clr-surface-3: 0, 0%, 23%;
+        --clr-surface-4: 0, 0%, 25%;
+        --clr-surface-5: 0, 0%, 29%;
+        --clr-surface-6: 0, 0%, 35%;
+        --clr-surface-7: 0, 0%, 40%;
+        --clr-surface-8: 0, 0%, 43%;
+        --clr-surface-9: 0, 0%, 49%;
+        /* on surface #fbfbfb */
+        --clr-on-surface-0: 0, 0%, 100%;
+        --clr-on-surface-1: 0, 0%, 98.4313725490196%;
+        --clr-on-surface-2: 0, 0%, 95.4313725490196%;
+    }
 }
 
 @function get-color($key, $num, $alpha) {

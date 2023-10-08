@@ -11,23 +11,7 @@
 	scroll-behavior: smooth;
 }
 
-h1,
-h2,
-h3,
-h4,
-h5,
-h6,
-legend {
-	color: on-surface(0);
-}
-p,
-input,
-button,
-a,
-label {
-	color: on-surface(1);
-}
-
 body {
 	background-color: surface(1);
+    color: on-surface(1);
 }
