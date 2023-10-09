@@ -1,0 +1,33 @@
+@use '../variables' as *;
+$colors: 'surface', 'secondary', 'success', 'warning', 'error';
+
+@mixin underline-hover($clr) {
+	position: relative;
+	&::before {
+		@include pseudo;
+		left: 0;
+		bottom: -2px;
+		height: 2px;
+		background-color: $clr;
+		width: 0;
+		transition: width 200ms;
+	}
+	&:hover::before {
+		width: 100%;
+	}
+}
+.link{
+	@include underline-hover(hsl(var(--clr-primary-5)));
+	color: primary(5);
+}
+@each $color in $colors {
+	.link-#{$color} {
+		@include underline-hover(hsl(var(--clr-#{$color}-5)));
+		color: hsl(var(--clr-#{$color}-5));
+	}
+
+	.link-on-#{$color} {
+		@include underline-hover(hsl(var(--clr-on-#{$color}-1)));
+		color: hsl(var(--clr-on-#{$color}-1));
+	}
+}

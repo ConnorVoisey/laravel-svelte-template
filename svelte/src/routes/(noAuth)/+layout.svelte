@@ -1,4 +1,5 @@
 <script lang="ts">
+    import '../../styles/main.scss';
 	import { page } from '$app/stores';
 </script>
 
