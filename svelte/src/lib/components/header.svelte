@@ -1,7 +1,7 @@
 <script lang="ts">
 	import ThemeSelector from './themeSelector.svelte';
 	import UserIcon from './userIcon.svelte';
-    export let user: User | null;
+	export let user: User | null;
 </script>
 
 <div class="header-wrapper">
@@ -26,7 +26,7 @@
 			</ul>
 			<ul class="additional">
 				<li>
-					<UserIcon {user}/>
+					<UserIcon {user} />
 				</li>
 				<li>
 					<ThemeSelector />

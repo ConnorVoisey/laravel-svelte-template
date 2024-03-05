@@ -1,5 +1,5 @@
 <script lang="ts">
-    import '../../styles/main.scss';
+	import '../../styles/main.scss';
 	import { page } from '$app/stores';
 </script>
 
@@ -41,7 +41,7 @@
 		align-items: center;
 		justify-items: center;
 		align-items: center;
-			background-color: surface(0);
+		background-color: surface(0);
 		.page-content {
 			background-color: surface(1);
 			display: grid;

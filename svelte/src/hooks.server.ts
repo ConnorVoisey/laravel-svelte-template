@@ -2,7 +2,7 @@ import { axiosBackend } from '$lib/js/axiosBackend';
 import { redirect, type Handle } from '@sveltejs/kit';
 
 export const handle: Handle = async ({ event, resolve }) => {
-    console.log('called');
+	console.log('called');
 	// Verify we are authenticated
 	const responseFromServer = await axiosBackend('/api/user', {
 		method: 'get',
@@ -21,14 +21,14 @@ export const handle: Handle = async ({ event, resolve }) => {
 
 	event.locals.user = responseFromServer?.data ?? null;
 	const routeId = event.route.id ?? '';
-    console.log({routeId});
+	console.log({ routeId });
 
 	if (!event.locals.user && routeId.includes('/(auth)/')) {
 		// Need authentication
 		throw redirect(303, '/login');
 	}
 
-    let theme: string | null | undefined = null;
+	let theme: string | null | undefined = null;
 
 	const newTheme = event.url.searchParams.get('theme');
 	const cookieTheme = event.cookies.get('theme');
@@ -39,6 +39,6 @@ export const handle: Handle = async ({ event, resolve }) => {
 	}
 
 	return await resolve(event, {
-		transformPageChunk: ({ html }) => html.replace('theme=""', `theme="${theme}"`),
+		transformPageChunk: ({ html }) => html.replace('theme=""', `theme="${theme}"`)
 	});
 };

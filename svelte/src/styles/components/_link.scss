@@ -16,7 +16,7 @@ $colors: 'surface', 'secondary', 'success', 'warning', 'error';
 		width: 100%;
 	}
 }
-.link{
+.link {
 	@include underline-hover(hsl(var(--clr-primary-5)));
 	color: primary(5);
 }

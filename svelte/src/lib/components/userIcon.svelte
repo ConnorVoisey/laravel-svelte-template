@@ -30,20 +30,20 @@
 		display: flex;
 		gap: size(2);
 		align-items: center;
-        position: relative;
+		position: relative;
 	}
 
 	svg {
 		width: size(8);
 	}
-    .drop-down{
-        position: absolute;
-        top: 100%;
-        background-color: surface(1);
-        padding: size(4);
-        border-radius: size(4);
-        display: flex;
-        flex-direction: column;
-        gap: size(2);
-    }
+	.drop-down {
+		position: absolute;
+		top: 100%;
+		background-color: surface(1);
+		padding: size(4);
+		border-radius: size(4);
+		display: flex;
+		flex-direction: column;
+		gap: size(2);
+	}
 </style>

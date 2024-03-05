@@ -18,7 +18,8 @@ Route::get('/', function () {
 });
 
 Route::get('/backend', function () {
-dd('backend');
+    dd('backend');
+
     return ['Laravel' => app()->version()];
 });
 

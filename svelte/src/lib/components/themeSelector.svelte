@@ -30,7 +30,12 @@
 		<input type="checkbox" name="theme-selector" id="theme-selector" checked={themeIndex === 0} />
 		<span>
 			{#if themeIndex === 1}
-				<svg fill="none" stroke="var(--svg-color)" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+				<svg
+					fill="none"
+					stroke="var(--svg-color)"
+					viewBox="0 0 24 24"
+					xmlns="http://www.w3.org/2000/svg"
+				>
 					<path
 						stroke-linecap="round"
 						stroke-linejoin="round"
@@ -39,7 +44,12 @@
 					/>
 				</svg>
 			{:else}
-				<svg fill="none" stroke="var(--svg-color)" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+				<svg
+					fill="none"
+					stroke="var(--svg-color)"
+					viewBox="0 0 24 24"
+					xmlns="http://www.w3.org/2000/svg"
+				>
 					<path
 						stroke-linecap="round"
 						stroke-linejoin="round"
