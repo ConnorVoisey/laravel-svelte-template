@@ -11,3 +11,4 @@ generate_docs:
 pre_commit:
     just format
     just generate_docs
+    bun test
