@@ -1,14 +1,21 @@
 default:
     just --list
 
+pre_commit:
+    just generate_docs
+    just format
+    just test
+
 format:
     cd laravel && composer format
     cd svelte && bun format
 
 generate_docs:
     cd laravel && php artisan scribe:generate
+    cd svelte && bun gen_backend_types
 
-pre_commit:
-    just format
+test:
     just generate_docs
+    cd svelte && bun tsc --noEmit
     bun test
+    cd laravel && composer test
