@@ -22,9 +22,9 @@ declare global {
 		id: number;
 		name: string;
 		email: string;
-		email_verified_at: Date;
-		created_at: Date;
-		updated_at: Date;
+		email_verified_at: string | undefined;
+		created_at: string | undefined;
+		updated_at: string | undefined;
 	}
 }
 

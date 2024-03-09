@@ -34,7 +34,7 @@
 
 		// send request
 		axios
-			.post<ResData>('register', body)
+			.post<ResData>('auth/register', body)
 			.then((res) => goto('/', { invalidateAll: true }))
 			.catch((err: AxiosError<ErrorData>) => {
 				if (!err.response?.data.errors) {

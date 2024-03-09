@@ -1,0 +1,333 @@
+name: Auth
+description: ''
+endpoints:
+  -
+    httpMethods:
+      - POST
+    uri: auth/register
+    metadata:
+      groupName: Auth
+      groupDescription: ''
+      subgroup: ''
+      subgroupDescription: ''
+      title: Register
+      description: 'Handle an incoming registration request.'
+      authenticated: false
+      custom: []
+    headers:
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters: []
+    cleanUrlParameters: []
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters:
+      name:
+        name: name
+        description: 'Must not be greater than 255 characters.'
+        required: true
+        example: ugbsywicgz
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        custom: []
+      email:
+        name: email
+        description: 'Must be a valid email address. Must not be greater than 255 characters.'
+        required: true
+        example: hessel.russ@example.com
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        custom: []
+      password:
+        name: password
+        description: ''
+        required: true
+        example: minus
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        custom: []
+    cleanBodyParameters:
+      name: ugbsywicgz
+      email: hessel.russ@example.com
+      password: minus
+    fileParameters: []
+    responses: []
+    responseFields: []
+    auth: []
+    controller: null
+    method: null
+    route: null
+    custom: []
+  -
+    httpMethods:
+      - POST
+    uri: auth/login
+    metadata:
+      groupName: Auth
+      groupDescription: ''
+      subgroup: ''
+      subgroupDescription: ''
+      title: Login
+      description: 'Handle an incoming authentication request.'
+      authenticated: false
+      custom: []
+    headers:
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters: []
+    cleanUrlParameters: []
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters:
+      email:
+        name: email
+        description: 'Must be a valid email address.'
+        required: true
+        example: kjacobs@example.com
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        custom: []
+      password:
+        name: password
+        description: ''
+        required: true
+        example: 'MUK`&l`HUR9mZV'
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        custom: []
+    cleanBodyParameters:
+      email: kjacobs@example.com
+      password: 'MUK`&l`HUR9mZV'
+    fileParameters: []
+    responses: []
+    responseFields: []
+    auth: []
+    controller: null
+    method: null
+    route: null
+    custom: []
+  -
+    httpMethods:
+      - POST
+    uri: auth/forgot-password
+    metadata:
+      groupName: Auth
+      groupDescription: ''
+      subgroup: ''
+      subgroupDescription: ''
+      title: 'Forgot Password'
+      description: 'Handle an incoming password reset link request.'
+      authenticated: false
+      custom: []
+    headers:
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters: []
+    cleanUrlParameters: []
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters:
+      email:
+        name: email
+        description: 'Must be a valid email address.'
+        required: true
+        example: urban.osinski@example.org
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        custom: []
+    cleanBodyParameters:
+      email: urban.osinski@example.org
+    fileParameters: []
+    responses: []
+    responseFields: []
+    auth: []
+    controller: null
+    method: null
+    route: null
+    custom: []
+  -
+    httpMethods:
+      - POST
+    uri: auth/reset-password
+    metadata:
+      groupName: Auth
+      groupDescription: ''
+      subgroup: ''
+      subgroupDescription: ''
+      title: 'Reset Password'
+      description: 'Handle an incoming new password request.'
+      authenticated: false
+      custom: []
+    headers:
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters: []
+    cleanUrlParameters: []
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters:
+      token:
+        name: token
+        description: ''
+        required: true
+        example: odio
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        custom: []
+      email:
+        name: email
+        description: 'Must be a valid email address.'
+        required: true
+        example: enoch.cormier@example.com
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        custom: []
+      password:
+        name: password
+        description: ''
+        required: true
+        example: soluta
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        custom: []
+    cleanBodyParameters:
+      token: odio
+      email: enoch.cormier@example.com
+      password: soluta
+    fileParameters: []
+    responses: []
+    responseFields: []
+    auth: []
+    controller: null
+    method: null
+    route: null
+    custom: []
+  -
+    httpMethods:
+      - GET
+    uri: 'auth/verify-email/{id}/{hash}'
+    metadata:
+      groupName: Auth
+      groupDescription: ''
+      subgroup: ''
+      subgroupDescription: ''
+      title: 'Verify Email'
+      description: "Mark the authenticated user's email address as verified."
+      authenticated: false
+      custom: []
+    headers:
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters:
+      id:
+        name: id
+        description: 'The ID of the verify email.'
+        required: true
+        example: consequatur
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        custom: []
+      hash:
+        name: hash
+        description: ''
+        required: true
+        example: error
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        custom: []
+    cleanUrlParameters:
+      id: consequatur
+      hash: error
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters: []
+    cleanBodyParameters: []
+    fileParameters: []
+    responses:
+      -
+        status: 401
+        content: '{"message":"Unauthenticated."}'
+        headers:
+          cache-control: 'no-cache, private'
+          content-type: application/json
+          vary: Origin
+          set-cookie: 'XSRF-TOKEN=eyJpdiI6ImtJUHVpL0h5ZC9NVlM3WFlZdVNXaGc9PSIsInZhbHVlIjoieDJoUXJmTmx3U09EWEl3VzB4STNISUdxQ2VORStTUWEvREdDelRFMFA4NDJCQXZvVjZzanRwNUhCdkE3UktnNFpEZFNmQ2FGZW8rS25FUmhaK0hhWWZOUEtjNnJmYlVJaVA0bFlzWDR0REo3RDNPbWZtMnBOcGNIZWFMQ0p2engiLCJtYWMiOiJhYzU4ZGI5ZDU3ZGJjODc3YTIzMzJjZjk4MDhiZDZiY2UwZmIxMzY3MTdiNTQ4Njc1NzRlOWM3MDQwYmJjMTFjIiwidGFnIjoiIn0%3D; expires=Sat, 09 Mar 2024 21:11:34 GMT; Max-Age=7200; path=/; domain=laravel-svelte-template.local; secure; samesite=lax; laravel_session=eyJpdiI6IjVJcC9WVGZKZ2hqQXdLTWxMS1V4Ymc9PSIsInZhbHVlIjoieTdiNksyMzVlUUpIYkp1WVhuOG1ZYjV6V1Ivd0I5Y1F3eW1MNUJqbUlwbzlsczZIbmlUMGZGVCtNSlp3QjhMMU5DTUp0UUtsMjh2SjU4WjdZWlR3TEhpcmVKT0NUSkJZNVg0M2tGdy9CbVUyZkhHNDNQTS9TUVhTdFczVmxsMGwiLCJtYWMiOiIwN2U0MTViZmE2MTVkNmZmOTY1ZTZmM2NiOTI0NWM4Njc2Y2VhMTNhY2UzMzg5MWRkNzg0NTE1M2E4ZWZlMzZlIiwidGFnIjoiIn0%3D; expires=Sat, 09 Mar 2024 21:11:34 GMT; Max-Age=7200; path=/; domain=laravel-svelte-template.local; secure; httponly; samesite=lax'
+        description: null
+        custom: []
+    responseFields: []
+    auth: []
+    controller: null
+    method: null
+    route: null
+    custom: []
+  -
+    httpMethods:
+      - POST
+    uri: auth/email/verification-notification
+    metadata:
+      groupName: Auth
+      groupDescription: ''
+      subgroup: ''
+      subgroupDescription: ''
+      title: 'Email Verification notification'
+      description: 'Send a new email verification notification.'
+      authenticated: false
+      custom: []
+    headers:
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters: []
+    cleanUrlParameters: []
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters: []
+    cleanBodyParameters: []
+    fileParameters: []
+    responses: []
+    responseFields: []
+    auth: []
+    controller: null
+    method: null
+    route: null
+    custom: []
+  -
+    httpMethods:
+      - POST
+    uri: auth/logout
+    metadata:
+      groupName: Auth
+      groupDescription: ''
+      subgroup: ''
+      subgroupDescription: ''
+      title: Logout
+      description: 'Destroy an authenticated session.'
+      authenticated: false
+      custom: []
+    headers:
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters: []
+    cleanUrlParameters: []
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters: []
+    cleanBodyParameters: []
+    fileParameters: []
+    responses: []
+    responseFields: []
+    auth: []
+    controller: null
+    method: null
+    route: null
+    custom: []

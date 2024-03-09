@@ -15,9 +15,13 @@ use Illuminate\Validation\ValidationException;
 class NewPasswordController extends Controller
 {
     /**
+     * Reset Password
+     *
      * Handle an incoming new password request.
      *
      * @throws \Illuminate\Validation\ValidationException
+     *
+     * @group Auth
      */
     public function store(Request $request): JsonResponse
     {

@@ -4,7 +4,46 @@ endpoints:
   -
     httpMethods:
       - GET
-    uri: api/user
+    uri: sanctum/csrf-cookie
+    metadata:
+      groupName: Endpoints
+      groupDescription: ''
+      subgroup: ''
+      subgroupDescription: ''
+      title: 'Return an empty response simply to trigger the storage of the CSRF cookie in the browser.'
+      description: ''
+      authenticated: false
+      custom: []
+    headers:
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters: []
+    cleanUrlParameters: []
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters: []
+    cleanBodyParameters: []
+    fileParameters: []
+    responses:
+      -
+        status: 204
+        content: ''
+        headers:
+          cache-control: 'no-cache, private'
+          vary: Origin
+          set-cookie: 'XSRF-TOKEN=eyJpdiI6IlNqUDU4TUM3Z2FMVFVqT2FvRFpTN2c9PSIsInZhbHVlIjoiZXl4ZjFYQ3NqSUtkL2tKQ2tlMjJZYXlsMUFKeGptR1IrcDZUeXFOMHFpSDcrTjlrbkNEM0kzblh5NjZJQXNycDgzNFFmREtyeGRYVzhsNlV1OHNaNHZIR1BqWEhZUzh5WUtoVExLaXpHZ3JITVowUVFzZjJscWloUitVS0x5L20iLCJtYWMiOiJlZDM4NDkxM2E3ZWQ3ZDQzN2Y4YmFkN2RkZTI2Mjc4MzIzMjNiYzI3MDNlNDg3NDgwYWI4MDNhYTU1ZDUyYzk5IiwidGFnIjoiIn0%3D; expires=Sat, 09 Mar 2024 21:11:34 GMT; Max-Age=7200; path=/; domain=laravel-svelte-template.local; secure; samesite=lax; laravel_session=eyJpdiI6IjRFdTBLKzdZN0Z3VmhDcjVEZ1pBS3c9PSIsInZhbHVlIjoiVW01WjBLWGZKbi9UbVk0NG1KNFJuNlUrc1RoVm0rOUVoWExMa0QwUmNmY3JlK3F0T3NnT2tkQlp0dlJvVkRnOWNhUTNVN0pXYzBRamJvNzRKSWlQM08xZFdoSWRXT1FXL0d5RmR2Wi8zSkQyYlVsYU8wYWo5T2h2a0dHeEpiTWQiLCJtYWMiOiJhYjdiYWUyMDRjNTNiZjQ0NWNhMGU4NjZlZjUwNjViZTQ1MTcyYjhlNTliNzliMWE3YTMzOWMwYzJhMzczN2E5IiwidGFnIjoiIn0%3D; expires=Sat, 09 Mar 2024 21:11:34 GMT; Max-Age=7200; path=/; domain=laravel-svelte-template.local; secure; httponly; samesite=lax'
+        description: null
+        custom: []
+    responseFields: []
+    auth: []
+    controller: null
+    method: null
+    route: null
+    custom: []
+  -
+    httpMethods:
+      - GET
+    uri: _ignition/health-check
     metadata:
       groupName: Endpoints
       groupDescription: ''
@@ -26,8 +65,8 @@ endpoints:
     fileParameters: []
     responses:
       -
-        status: 401
-        content: '{"message":"Unauthenticated."}'
+        status: 200
+        content: '{"can_execute_commands":true}'
         headers:
           cache-control: 'no-cache, private'
           content-type: application/json
@@ -42,8 +81,213 @@ endpoints:
     custom: []
   -
     httpMethods:
+      - POST
+    uri: _ignition/execute-solution
+    metadata:
+      groupName: Endpoints
+      groupDescription: ''
+      subgroup: ''
+      subgroupDescription: ''
+      title: ''
+      description: ''
+      authenticated: false
+      custom: []
+    headers:
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters: []
+    cleanUrlParameters: []
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters:
+      solution:
+        name: solution
+        description: ''
+        required: true
+        example: molestiae
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        custom: []
+      parameters:
+        name: parameters
+        description: ''
+        required: false
+        example: null
+        type: object
+        enumValues: []
+        exampleWasSpecified: false
+        custom: []
+    cleanBodyParameters:
+      solution: molestiae
+    fileParameters: []
+    responses: []
+    responseFields: []
+    auth: []
+    controller: null
+    method: null
+    route: null
+    custom: []
+  -
+    httpMethods:
+      - POST
+    uri: _ignition/update-config
+    metadata:
+      groupName: Endpoints
+      groupDescription: ''
+      subgroup: ''
+      subgroupDescription: ''
+      title: ''
+      description: ''
+      authenticated: false
+      custom: []
+    headers:
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters: []
+    cleanUrlParameters: []
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters:
+      theme:
+        name: theme
+        description: ''
+        required: true
+        example: dark
+        type: string
+        enumValues:
+          - light
+          - dark
+          - auto
+        exampleWasSpecified: false
+        custom: []
+      editor:
+        name: editor
+        description: ''
+        required: true
+        example: et
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        custom: []
+      hide_solutions:
+        name: hide_solutions
+        description: ''
+        required: true
+        example: true
+        type: boolean
+        enumValues: []
+        exampleWasSpecified: false
+        custom: []
+    cleanBodyParameters:
+      theme: dark
+      editor: et
+      hide_solutions: true
+    fileParameters: []
+    responses: []
+    responseFields: []
+    auth: []
+    controller: null
+    method: null
+    route: null
+    custom: []
+  -
+    httpMethods:
       - GET
-    uri: api/todo
+    uri: /
+    metadata:
+      groupName: Endpoints
+      groupDescription: ''
+      subgroup: ''
+      subgroupDescription: ''
+      title: ''
+      description: ''
+      authenticated: false
+      custom: []
+    headers:
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters: []
+    cleanUrlParameters: []
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters: []
+    cleanBodyParameters: []
+    fileParameters: []
+    responses:
+      -
+        status: 200
+        content: '{"Laravel":"10.26.2"}'
+        headers:
+          cache-control: 'no-cache, private'
+          content-type: application/json
+          vary: Origin
+          set-cookie: 'XSRF-TOKEN=eyJpdiI6ImVQcmt1TW9MM2VrV1VGYWlKYmp4enc9PSIsInZhbHVlIjoiTFBhOUJwL1UrMk1lY0tXWVMwL1RGYXo5Q2NKRVgxL0o4MDNxUVJNRWQyNi9maU1qcHRVVjIreEtWRTNHdjFCcUVlcEJWdURZZTlJQ3NkbjlMRVRVR1dJaVlraG05Q0V4ODZpS0xjZENlWjRRQjArTTJMMzVFcWtpaW1QWWhSWlAiLCJtYWMiOiIyMTNmZDk2Y2FmN2M5N2RhOTkwZGI2ZjU2YjNhYjI4YzQ5MDU0NGQ3YThlNDJhMmI3NzVkZWQ0OTFlMmU2NTI4IiwidGFnIjoiIn0%3D; expires=Sat, 09 Mar 2024 21:11:34 GMT; Max-Age=7200; path=/; domain=laravel-svelte-template.local; secure; samesite=lax; laravel_session=eyJpdiI6Ii9VSVZjblZIOTBtbUhUZlFEQmQyQnc9PSIsInZhbHVlIjoibEFiaG5MNmNJWVNWYUE5KzltK1pSVGpkQkRoNjAvNnM5cS9LbnRVYzhxUkRjT0JsODd3YWtXNGJVNUVNazY3dzVFblJDZE80VnBJbThaaHdRWUtNQlNYVmNjdmtIZlp4YVlLTXVXdndUd3JtU2ZoNGYrbXF3WXB6aHMwTkZoMnciLCJtYWMiOiI2Mzk5MDA0MjdjZDU0ZjFmNTdlN2NiZDg3NjE4YWMzNDY1OTA4MWY1NmI2NzZkYTgxZjkwY2VjOGM0MTdkYmFmIiwidGFnIjoiIn0%3D; expires=Sat, 09 Mar 2024 21:11:34 GMT; Max-Age=7200; path=/; domain=laravel-svelte-template.local; secure; httponly; samesite=lax'
+        description: null
+        custom: []
+    responseFields: []
+    auth: []
+    controller: null
+    method: null
+    route: null
+    custom: []
+  -
+    httpMethods:
+      - GET
+    uri: user
+    metadata:
+      groupName: Endpoints
+      groupDescription: ''
+      subgroup: ''
+      subgroupDescription: ''
+      title: ''
+      description: ''
+      authenticated: false
+      custom: []
+    headers:
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters: []
+    cleanUrlParameters: []
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters: []
+    cleanBodyParameters: []
+    fileParameters: []
+    responses:
+      -
+        status: 200
+        content: |-
+          {
+             "id": 1,
+             "name": "Testing",
+             "email": "test@test.test",
+             "email_verified_at": null,
+             "created_at": "2024-03-06T21:36:21.000000Z",
+             "updated_at": "2024-03-06T21:36:21.000000Z"
+           }
+        headers: []
+        description: ''
+        custom: []
+    responseFields:
+      id:
+        name: id
+        description: required
+        required: true
+        example: null
+        type: integer
+        enumValues: []
+        exampleWasSpecified: false
+        custom: []
+    auth: []
+    controller: null
+    method: null
+    route: null
+    custom: []
+  -
+    httpMethods:
+      - GET
+    uri: todo
     metadata:
       groupName: Endpoints
       groupDescription: ''
@@ -65,455 +309,28 @@ endpoints:
     fileParameters: []
     responses:
       -
-        status: 500
+        status: 200
         content: |-
-          {
-              "message": "Unable to create lockable file: /home/connor/code/laravel-svelte-template/laravel/storage/framework/cache/data/ec/c4/ecc49f49f4da6b940dcde13f0571e79c299871e6. Please ensure you have permission to create files in this location.",
-              "exception": "Exception",
-              "file": "/home/connor/code/laravel-svelte-template/laravel/vendor/laravel/framework/src/Illuminate/Filesystem/LockableFile.php",
-              "line": 73,
-              "trace": [
-                  {
-                      "file": "/home/connor/code/laravel-svelte-template/laravel/vendor/laravel/framework/src/Illuminate/Filesystem/LockableFile.php",
-                      "line": 43,
-                      "function": "createResource",
-                      "class": "Illuminate\\Filesystem\\LockableFile",
-                      "type": "->"
-                  },
-                  {
-                      "file": "/home/connor/code/laravel-svelte-template/laravel/vendor/laravel/framework/src/Illuminate/Cache/FileStore.php",
-                      "line": 108,
-                      "function": "__construct",
-                      "class": "Illuminate\\Filesystem\\LockableFile",
-                      "type": "->"
-                  },
-                  {
-                      "file": "/home/connor/code/laravel-svelte-template/laravel/vendor/laravel/framework/src/Illuminate/Cache/Repository.php",
-                      "line": 318,
-                      "function": "add",
-                      "class": "Illuminate\\Cache\\FileStore",
-                      "type": "->"
-                  },
-                  {
-                      "file": "/home/connor/code/laravel-svelte-template/laravel/vendor/laravel/framework/src/Illuminate/Cache/RateLimiter.php",
-                      "line": 118,
-                      "function": "add",
-                      "class": "Illuminate\\Cache\\Repository",
-                      "type": "->"
-                  },
-                  {
-                      "file": "/home/connor/code/laravel-svelte-template/laravel/vendor/laravel/framework/src/Illuminate/Routing/Middleware/ThrottleRequests.php",
-                      "line": 156,
-                      "function": "hit",
-                      "class": "Illuminate\\Cache\\RateLimiter",
-                      "type": "->"
-                  },
-                  {
-                      "file": "/home/connor/code/laravel-svelte-template/laravel/vendor/laravel/framework/src/Illuminate/Routing/Middleware/ThrottleRequests.php",
-                      "line": 125,
-                      "function": "handleRequest",
-                      "class": "Illuminate\\Routing\\Middleware\\ThrottleRequests",
-                      "type": "->"
-                  },
-                  {
-                      "file": "/home/connor/code/laravel-svelte-template/laravel/vendor/laravel/framework/src/Illuminate/Routing/Middleware/ThrottleRequests.php",
-                      "line": 87,
-                      "function": "handleRequestUsingNamedLimiter",
-                      "class": "Illuminate\\Routing\\Middleware\\ThrottleRequests",
-                      "type": "->"
-                  },
-                  {
-                      "file": "/home/connor/code/laravel-svelte-template/laravel/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php",
-                      "line": 180,
-                      "function": "handle",
-                      "class": "Illuminate\\Routing\\Middleware\\ThrottleRequests",
-                      "type": "->"
-                  },
-                  {
-                      "file": "/home/connor/code/laravel-svelte-template/laravel/vendor/laravel/sanctum/src/Http/Middleware/EnsureFrontendRequestsAreStateful.php",
-                      "line": 25,
-                      "function": "Illuminate\\Pipeline\\{closure}",
-                      "class": "Illuminate\\Pipeline\\Pipeline",
-                      "type": "->"
-                  },
-                  {
-                      "file": "/home/connor/code/laravel-svelte-template/laravel/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php",
-                      "line": 141,
-                      "function": "Laravel\\Sanctum\\Http\\Middleware\\{closure}",
-                      "class": "Laravel\\Sanctum\\Http\\Middleware\\EnsureFrontendRequestsAreStateful",
-                      "type": "->"
-                  },
-                  {
-                      "file": "/home/connor/code/laravel-svelte-template/laravel/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php",
-                      "line": 116,
-                      "function": "Illuminate\\Pipeline\\{closure}",
-                      "class": "Illuminate\\Pipeline\\Pipeline",
-                      "type": "->"
-                  },
-                  {
-                      "file": "/home/connor/code/laravel-svelte-template/laravel/vendor/laravel/sanctum/src/Http/Middleware/EnsureFrontendRequestsAreStateful.php",
-                      "line": 24,
-                      "function": "then",
-                      "class": "Illuminate\\Pipeline\\Pipeline",
-                      "type": "->"
-                  },
-                  {
-                      "file": "/home/connor/code/laravel-svelte-template/laravel/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php",
-                      "line": 180,
-                      "function": "handle",
-                      "class": "Laravel\\Sanctum\\Http\\Middleware\\EnsureFrontendRequestsAreStateful",
-                      "type": "->"
-                  },
-                  {
-                      "file": "/home/connor/code/laravel-svelte-template/laravel/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php",
-                      "line": 116,
-                      "function": "Illuminate\\Pipeline\\{closure}",
-                      "class": "Illuminate\\Pipeline\\Pipeline",
-                      "type": "->"
-                  },
-                  {
-                      "file": "/home/connor/code/laravel-svelte-template/laravel/vendor/laravel/framework/src/Illuminate/Routing/Router.php",
-                      "line": 798,
-                      "function": "then",
-                      "class": "Illuminate\\Pipeline\\Pipeline",
-                      "type": "->"
-                  },
-                  {
-                      "file": "/home/connor/code/laravel-svelte-template/laravel/vendor/laravel/framework/src/Illuminate/Routing/Router.php",
-                      "line": 777,
-                      "function": "runRouteWithinStack",
-                      "class": "Illuminate\\Routing\\Router",
-                      "type": "->"
-                  },
-                  {
-                      "file": "/home/connor/code/laravel-svelte-template/laravel/vendor/laravel/framework/src/Illuminate/Routing/Router.php",
-                      "line": 741,
-                      "function": "runRoute",
-                      "class": "Illuminate\\Routing\\Router",
-                      "type": "->"
-                  },
-                  {
-                      "file": "/home/connor/code/laravel-svelte-template/laravel/vendor/laravel/framework/src/Illuminate/Routing/Router.php",
-                      "line": 730,
-                      "function": "dispatchToRoute",
-                      "class": "Illuminate\\Routing\\Router",
-                      "type": "->"
-                  },
-                  {
-                      "file": "/home/connor/code/laravel-svelte-template/laravel/vendor/laravel/framework/src/Illuminate/Foundation/Http/Kernel.php",
-                      "line": 200,
-                      "function": "dispatch",
-                      "class": "Illuminate\\Routing\\Router",
-                      "type": "->"
-                  },
-                  {
-                      "file": "/home/connor/code/laravel-svelte-template/laravel/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php",
-                      "line": 141,
-                      "function": "Illuminate\\Foundation\\Http\\{closure}",
-                      "class": "Illuminate\\Foundation\\Http\\Kernel",
-                      "type": "->"
-                  },
-                  {
-                      "file": "/home/connor/code/laravel-svelte-template/laravel/vendor/laravel/framework/src/Illuminate/Foundation/Http/Middleware/TransformsRequest.php",
-                      "line": 21,
-                      "function": "Illuminate\\Pipeline\\{closure}",
-                      "class": "Illuminate\\Pipeline\\Pipeline",
-                      "type": "->"
-                  },
-                  {
-                      "file": "/home/connor/code/laravel-svelte-template/laravel/vendor/laravel/framework/src/Illuminate/Foundation/Http/Middleware/ConvertEmptyStringsToNull.php",
-                      "line": 31,
-                      "function": "handle",
-                      "class": "Illuminate\\Foundation\\Http\\Middleware\\TransformsRequest",
-                      "type": "->"
-                  },
-                  {
-                      "file": "/home/connor/code/laravel-svelte-template/laravel/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php",
-                      "line": 180,
-                      "function": "handle",
-                      "class": "Illuminate\\Foundation\\Http\\Middleware\\ConvertEmptyStringsToNull",
-                      "type": "->"
-                  },
-                  {
-                      "file": "/home/connor/code/laravel-svelte-template/laravel/vendor/laravel/framework/src/Illuminate/Foundation/Http/Middleware/TransformsRequest.php",
-                      "line": 21,
-                      "function": "Illuminate\\Pipeline\\{closure}",
-                      "class": "Illuminate\\Pipeline\\Pipeline",
-                      "type": "->"
-                  },
-                  {
-                      "file": "/home/connor/code/laravel-svelte-template/laravel/vendor/laravel/framework/src/Illuminate/Foundation/Http/Middleware/TrimStrings.php",
-                      "line": 40,
-                      "function": "handle",
-                      "class": "Illuminate\\Foundation\\Http\\Middleware\\TransformsRequest",
-                      "type": "->"
-                  },
-                  {
-                      "file": "/home/connor/code/laravel-svelte-template/laravel/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php",
-                      "line": 180,
-                      "function": "handle",
-                      "class": "Illuminate\\Foundation\\Http\\Middleware\\TrimStrings",
-                      "type": "->"
-                  },
-                  {
-                      "file": "/home/connor/code/laravel-svelte-template/laravel/vendor/laravel/framework/src/Illuminate/Foundation/Http/Middleware/ValidatePostSize.php",
-                      "line": 27,
-                      "function": "Illuminate\\Pipeline\\{closure}",
-                      "class": "Illuminate\\Pipeline\\Pipeline",
-                      "type": "->"
-                  },
-                  {
-                      "file": "/home/connor/code/laravel-svelte-template/laravel/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php",
-                      "line": 180,
-                      "function": "handle",
-                      "class": "Illuminate\\Foundation\\Http\\Middleware\\ValidatePostSize",
-                      "type": "->"
-                  },
-                  {
-                      "file": "/home/connor/code/laravel-svelte-template/laravel/vendor/laravel/framework/src/Illuminate/Foundation/Http/Middleware/PreventRequestsDuringMaintenance.php",
-                      "line": 99,
-                      "function": "Illuminate\\Pipeline\\{closure}",
-                      "class": "Illuminate\\Pipeline\\Pipeline",
-                      "type": "->"
-                  },
-                  {
-                      "file": "/home/connor/code/laravel-svelte-template/laravel/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php",
-                      "line": 180,
-                      "function": "handle",
-                      "class": "Illuminate\\Foundation\\Http\\Middleware\\PreventRequestsDuringMaintenance",
-                      "type": "->"
-                  },
-                  {
-                      "file": "/home/connor/code/laravel-svelte-template/laravel/vendor/laravel/framework/src/Illuminate/Http/Middleware/HandleCors.php",
-                      "line": 62,
-                      "function": "Illuminate\\Pipeline\\{closure}",
-                      "class": "Illuminate\\Pipeline\\Pipeline",
-                      "type": "->"
-                  },
-                  {
-                      "file": "/home/connor/code/laravel-svelte-template/laravel/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php",
-                      "line": 180,
-                      "function": "handle",
-                      "class": "Illuminate\\Http\\Middleware\\HandleCors",
-                      "type": "->"
-                  },
-                  {
-                      "file": "/home/connor/code/laravel-svelte-template/laravel/vendor/laravel/framework/src/Illuminate/Http/Middleware/TrustProxies.php",
-                      "line": 39,
-                      "function": "Illuminate\\Pipeline\\{closure}",
-                      "class": "Illuminate\\Pipeline\\Pipeline",
-                      "type": "->"
-                  },
-                  {
-                      "file": "/home/connor/code/laravel-svelte-template/laravel/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php",
-                      "line": 180,
-                      "function": "handle",
-                      "class": "Illuminate\\Http\\Middleware\\TrustProxies",
-                      "type": "->"
-                  },
-                  {
-                      "file": "/home/connor/code/laravel-svelte-template/laravel/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php",
-                      "line": 116,
-                      "function": "Illuminate\\Pipeline\\{closure}",
-                      "class": "Illuminate\\Pipeline\\Pipeline",
-                      "type": "->"
-                  },
-                  {
-                      "file": "/home/connor/code/laravel-svelte-template/laravel/vendor/laravel/framework/src/Illuminate/Foundation/Http/Kernel.php",
-                      "line": 175,
-                      "function": "then",
-                      "class": "Illuminate\\Pipeline\\Pipeline",
-                      "type": "->"
-                  },
-                  {
-                      "file": "/home/connor/code/laravel-svelte-template/laravel/vendor/laravel/framework/src/Illuminate/Foundation/Http/Kernel.php",
-                      "line": 144,
-                      "function": "sendRequestThroughRouter",
-                      "class": "Illuminate\\Foundation\\Http\\Kernel",
-                      "type": "->"
-                  },
-                  {
-                      "file": "/home/connor/code/laravel-svelte-template/laravel/vendor/knuckleswtf/scribe/src/Extracting/Strategies/Responses/ResponseCalls.php",
-                      "line": 300,
-                      "function": "handle",
-                      "class": "Illuminate\\Foundation\\Http\\Kernel",
-                      "type": "->"
-                  },
-                  {
-                      "file": "/home/connor/code/laravel-svelte-template/laravel/vendor/knuckleswtf/scribe/src/Extracting/Strategies/Responses/ResponseCalls.php",
-                      "line": 288,
-                      "function": "callLaravelOrLumenRoute",
-                      "class": "Knuckles\\Scribe\\Extracting\\Strategies\\Responses\\ResponseCalls",
-                      "type": "->"
-                  },
-                  {
-                      "file": "/home/connor/code/laravel-svelte-template/laravel/vendor/knuckleswtf/scribe/src/Extracting/Strategies/Responses/ResponseCalls.php",
-                      "line": 91,
-                      "function": "makeApiCall",
-                      "class": "Knuckles\\Scribe\\Extracting\\Strategies\\Responses\\ResponseCalls",
-                      "type": "->"
-                  },
-                  {
-                      "file": "/home/connor/code/laravel-svelte-template/laravel/vendor/knuckleswtf/scribe/src/Extracting/Strategies/Responses/ResponseCalls.php",
-                      "line": 44,
-                      "function": "makeResponseCall",
-                      "class": "Knuckles\\Scribe\\Extracting\\Strategies\\Responses\\ResponseCalls",
-                      "type": "->"
-                  },
-                  {
-                      "file": "/home/connor/code/laravel-svelte-template/laravel/vendor/knuckleswtf/scribe/src/Extracting/Strategies/Responses/ResponseCalls.php",
-                      "line": 35,
-                      "function": "makeResponseCallIfConditionsPass",
-                      "class": "Knuckles\\Scribe\\Extracting\\Strategies\\Responses\\ResponseCalls",
-                      "type": "->"
-                  },
-                  {
-                      "file": "/home/connor/code/laravel-svelte-template/laravel/vendor/knuckleswtf/scribe/src/Extracting/Extractor.php",
-                      "line": 236,
-                      "function": "__invoke",
-                      "class": "Knuckles\\Scribe\\Extracting\\Strategies\\Responses\\ResponseCalls",
-                      "type": "->"
-                  },
-                  {
-                      "file": "/home/connor/code/laravel-svelte-template/laravel/vendor/knuckleswtf/scribe/src/Extracting/Extractor.php",
-                      "line": 163,
-                      "function": "iterateThroughStrategies",
-                      "class": "Knuckles\\Scribe\\Extracting\\Extractor",
-                      "type": "->"
-                  },
-                  {
-                      "file": "/home/connor/code/laravel-svelte-template/laravel/vendor/knuckleswtf/scribe/src/Extracting/Extractor.php",
-                      "line": 95,
-                      "function": "fetchResponses",
-                      "class": "Knuckles\\Scribe\\Extracting\\Extractor",
-                      "type": "->"
-                  },
-                  {
-                      "file": "/home/connor/code/laravel-svelte-template/laravel/vendor/knuckleswtf/scribe/src/GroupedEndpoints/GroupedEndpointsFromApp.php",
-                      "line": 125,
-                      "function": "processRoute",
-                      "class": "Knuckles\\Scribe\\Extracting\\Extractor",
-                      "type": "->"
-                  },
-                  {
-                      "file": "/home/connor/code/laravel-svelte-template/laravel/vendor/knuckleswtf/scribe/src/GroupedEndpoints/GroupedEndpointsFromApp.php",
-                      "line": 72,
-                      "function": "extractEndpointsInfoFromLaravelApp",
-                      "class": "Knuckles\\Scribe\\GroupedEndpoints\\GroupedEndpointsFromApp",
-                      "type": "->"
-                  },
-                  {
-                      "file": "/home/connor/code/laravel-svelte-template/laravel/vendor/knuckleswtf/scribe/src/GroupedEndpoints/GroupedEndpointsFromApp.php",
-                      "line": 50,
-                      "function": "extractEndpointsInfoAndWriteToDisk",
-                      "class": "Knuckles\\Scribe\\GroupedEndpoints\\GroupedEndpointsFromApp",
-                      "type": "->"
-                  },
-                  {
-                      "file": "/home/connor/code/laravel-svelte-template/laravel/vendor/knuckleswtf/scribe/src/Commands/GenerateDocumentation.php",
-                      "line": 53,
-                      "function": "get",
-                      "class": "Knuckles\\Scribe\\GroupedEndpoints\\GroupedEndpointsFromApp",
-                      "type": "->"
-                  },
-                  {
-                      "file": "/home/connor/code/laravel-svelte-template/laravel/vendor/laravel/framework/src/Illuminate/Container/BoundMethod.php",
-                      "line": 36,
-                      "function": "handle",
-                      "class": "Knuckles\\Scribe\\Commands\\GenerateDocumentation",
-                      "type": "->"
-                  },
-                  {
-                      "file": "/home/connor/code/laravel-svelte-template/laravel/vendor/laravel/framework/src/Illuminate/Container/Util.php",
-                      "line": 41,
-                      "function": "Illuminate\\Container\\{closure}",
-                      "class": "Illuminate\\Container\\BoundMethod",
-                      "type": "::"
-                  },
-                  {
-                      "file": "/home/connor/code/laravel-svelte-template/laravel/vendor/laravel/framework/src/Illuminate/Container/BoundMethod.php",
-                      "line": 93,
-                      "function": "unwrapIfClosure",
-                      "class": "Illuminate\\Container\\Util",
-                      "type": "::"
-                  },
-                  {
-                      "file": "/home/connor/code/laravel-svelte-template/laravel/vendor/laravel/framework/src/Illuminate/Container/BoundMethod.php",
-                      "line": 35,
-                      "function": "callBoundMethod",
-                      "class": "Illuminate\\Container\\BoundMethod",
-                      "type": "::"
-                  },
-                  {
-                      "file": "/home/connor/code/laravel-svelte-template/laravel/vendor/laravel/framework/src/Illuminate/Container/Container.php",
-                      "line": 662,
-                      "function": "call",
-                      "class": "Illuminate\\Container\\BoundMethod",
-                      "type": "::"
-                  },
-                  {
-                      "file": "/home/connor/code/laravel-svelte-template/laravel/vendor/laravel/framework/src/Illuminate/Console/Command.php",
-                      "line": 211,
-                      "function": "call",
-                      "class": "Illuminate\\Container\\Container",
-                      "type": "->"
-                  },
-                  {
-                      "file": "/home/connor/code/laravel-svelte-template/laravel/vendor/symfony/console/Command/Command.php",
-                      "line": 326,
-                      "function": "execute",
-                      "class": "Illuminate\\Console\\Command",
-                      "type": "->"
-                  },
-                  {
-                      "file": "/home/connor/code/laravel-svelte-template/laravel/vendor/laravel/framework/src/Illuminate/Console/Command.php",
-                      "line": 180,
-                      "function": "run",
-                      "class": "Symfony\\Component\\Console\\Command\\Command",
-                      "type": "->"
-                  },
-                  {
-                      "file": "/home/connor/code/laravel-svelte-template/laravel/vendor/symfony/console/Application.php",
-                      "line": 1081,
-                      "function": "run",
-                      "class": "Illuminate\\Console\\Command",
-                      "type": "->"
-                  },
-                  {
-                      "file": "/home/connor/code/laravel-svelte-template/laravel/vendor/symfony/console/Application.php",
-                      "line": 320,
-                      "function": "doRunCommand",
-                      "class": "Symfony\\Component\\Console\\Application",
-                      "type": "->"
-                  },
-                  {
-                      "file": "/home/connor/code/laravel-svelte-template/laravel/vendor/symfony/console/Application.php",
-                      "line": 174,
-                      "function": "doRun",
-                      "class": "Symfony\\Component\\Console\\Application",
-                      "type": "->"
-                  },
-                  {
-                      "file": "/home/connor/code/laravel-svelte-template/laravel/vendor/laravel/framework/src/Illuminate/Foundation/Console/Kernel.php",
-                      "line": 201,
-                      "function": "run",
-                      "class": "Symfony\\Component\\Console\\Application",
-                      "type": "->"
-                  },
-                  {
-                      "file": "/home/connor/code/laravel-svelte-template/laravel/artisan",
-                      "line": 35,
-                      "function": "handle",
-                      "class": "Illuminate\\Foundation\\Console\\Kernel",
-                      "type": "->"
-                  }
-              ]
-          }
-        headers:
-          cache-control: 'no-cache, private'
-          content-type: application/json
-          vary: Origin
-        description: null
+          [
+           {
+             "id": 9223372036854776000,
+             "task": "sjuwanaltitwq",
+             "completed": false,
+             "user_id": 1,
+             "created_at": "2024-03-09T00:13:13.000000Z",
+             "updated_at": "2024-03-09T00:13:13.000000Z"
+           },
+           {
+             "id": 9223372036854776000,
+             "task": "testing",
+             "completed": false,
+             "user_id": 1,
+             "created_at": "2024-03-09T00:13:31.000000Z",
+             "updated_at": "2024-03-09T00:13:31.000000Z"
+           }
+          ]
+        headers: []
+        description: ''
         custom: []
     responseFields: []
     auth: []
@@ -524,7 +341,7 @@ endpoints:
   -
     httpMethods:
       - POST
-    uri: api/todo
+    uri: todo
     metadata:
       groupName: Endpoints
       groupDescription: ''
@@ -542,27 +359,27 @@ endpoints:
     queryParameters: []
     cleanQueryParameters: []
     bodyParameters:
-      title:
-        name: title
+      task:
+        name: task
         description: 'Must not be greater than 255 characters.'
         required: true
-        example: svloqxcdjksvyxpsdncarw
+        example: mesfn
         type: string
         enumValues: []
         exampleWasSpecified: false
         custom: []
-      description:
-        name: description
-        description: 'Must not be greater than 255 characters.'
+      completed:
+        name: completed
+        description: ''
         required: true
-        example: 'Ut amet voluptatem ipsum sint.'
-        type: string
+        example: true
+        type: boolean
         enumValues: []
         exampleWasSpecified: false
         custom: []
     cleanBodyParameters:
-      title: svloqxcdjksvyxpsdncarw
-      description: 'Ut amet voluptatem ipsum sint.'
+      task: mesfn
+      completed: true
     fileParameters: []
     responses: []
     responseFields: []
@@ -573,14 +390,15 @@ endpoints:
     custom: []
   -
     httpMethods:
-      - GET
-    uri: 'api/todo/{id}'
+      - PUT
+      - PATCH
+    uri: 'todo/{id}'
     metadata:
       groupName: Endpoints
       groupDescription: ''
       subgroup: ''
       subgroupDescription: ''
-      title: 'Display the specified resource.'
+      title: 'Update the specified resource in storage.'
       description: ''
       authenticated: false
       custom: []
@@ -592,470 +410,19 @@ endpoints:
         name: id
         description: 'The ID of the todo.'
         required: true
-        example: 14
+        example: 8
         type: integer
         enumValues: []
         exampleWasSpecified: false
         custom: []
     cleanUrlParameters:
-      id: 14
+      id: 8
     queryParameters: []
     cleanQueryParameters: []
     bodyParameters: []
     cleanBodyParameters: []
     fileParameters: []
-    responses:
-      -
-        status: 500
-        content: |-
-          {
-              "message": "Unable to create lockable file: /home/connor/code/laravel-svelte-template/laravel/storage/framework/cache/data/ec/c4/ecc49f49f4da6b940dcde13f0571e79c299871e6. Please ensure you have permission to create files in this location.",
-              "exception": "Exception",
-              "file": "/home/connor/code/laravel-svelte-template/laravel/vendor/laravel/framework/src/Illuminate/Filesystem/LockableFile.php",
-              "line": 73,
-              "trace": [
-                  {
-                      "file": "/home/connor/code/laravel-svelte-template/laravel/vendor/laravel/framework/src/Illuminate/Filesystem/LockableFile.php",
-                      "line": 43,
-                      "function": "createResource",
-                      "class": "Illuminate\\Filesystem\\LockableFile",
-                      "type": "->"
-                  },
-                  {
-                      "file": "/home/connor/code/laravel-svelte-template/laravel/vendor/laravel/framework/src/Illuminate/Cache/FileStore.php",
-                      "line": 108,
-                      "function": "__construct",
-                      "class": "Illuminate\\Filesystem\\LockableFile",
-                      "type": "->"
-                  },
-                  {
-                      "file": "/home/connor/code/laravel-svelte-template/laravel/vendor/laravel/framework/src/Illuminate/Cache/Repository.php",
-                      "line": 318,
-                      "function": "add",
-                      "class": "Illuminate\\Cache\\FileStore",
-                      "type": "->"
-                  },
-                  {
-                      "file": "/home/connor/code/laravel-svelte-template/laravel/vendor/laravel/framework/src/Illuminate/Cache/RateLimiter.php",
-                      "line": 118,
-                      "function": "add",
-                      "class": "Illuminate\\Cache\\Repository",
-                      "type": "->"
-                  },
-                  {
-                      "file": "/home/connor/code/laravel-svelte-template/laravel/vendor/laravel/framework/src/Illuminate/Routing/Middleware/ThrottleRequests.php",
-                      "line": 156,
-                      "function": "hit",
-                      "class": "Illuminate\\Cache\\RateLimiter",
-                      "type": "->"
-                  },
-                  {
-                      "file": "/home/connor/code/laravel-svelte-template/laravel/vendor/laravel/framework/src/Illuminate/Routing/Middleware/ThrottleRequests.php",
-                      "line": 125,
-                      "function": "handleRequest",
-                      "class": "Illuminate\\Routing\\Middleware\\ThrottleRequests",
-                      "type": "->"
-                  },
-                  {
-                      "file": "/home/connor/code/laravel-svelte-template/laravel/vendor/laravel/framework/src/Illuminate/Routing/Middleware/ThrottleRequests.php",
-                      "line": 87,
-                      "function": "handleRequestUsingNamedLimiter",
-                      "class": "Illuminate\\Routing\\Middleware\\ThrottleRequests",
-                      "type": "->"
-                  },
-                  {
-                      "file": "/home/connor/code/laravel-svelte-template/laravel/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php",
-                      "line": 180,
-                      "function": "handle",
-                      "class": "Illuminate\\Routing\\Middleware\\ThrottleRequests",
-                      "type": "->"
-                  },
-                  {
-                      "file": "/home/connor/code/laravel-svelte-template/laravel/vendor/laravel/sanctum/src/Http/Middleware/EnsureFrontendRequestsAreStateful.php",
-                      "line": 25,
-                      "function": "Illuminate\\Pipeline\\{closure}",
-                      "class": "Illuminate\\Pipeline\\Pipeline",
-                      "type": "->"
-                  },
-                  {
-                      "file": "/home/connor/code/laravel-svelte-template/laravel/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php",
-                      "line": 141,
-                      "function": "Laravel\\Sanctum\\Http\\Middleware\\{closure}",
-                      "class": "Laravel\\Sanctum\\Http\\Middleware\\EnsureFrontendRequestsAreStateful",
-                      "type": "->"
-                  },
-                  {
-                      "file": "/home/connor/code/laravel-svelte-template/laravel/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php",
-                      "line": 116,
-                      "function": "Illuminate\\Pipeline\\{closure}",
-                      "class": "Illuminate\\Pipeline\\Pipeline",
-                      "type": "->"
-                  },
-                  {
-                      "file": "/home/connor/code/laravel-svelte-template/laravel/vendor/laravel/sanctum/src/Http/Middleware/EnsureFrontendRequestsAreStateful.php",
-                      "line": 24,
-                      "function": "then",
-                      "class": "Illuminate\\Pipeline\\Pipeline",
-                      "type": "->"
-                  },
-                  {
-                      "file": "/home/connor/code/laravel-svelte-template/laravel/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php",
-                      "line": 180,
-                      "function": "handle",
-                      "class": "Laravel\\Sanctum\\Http\\Middleware\\EnsureFrontendRequestsAreStateful",
-                      "type": "->"
-                  },
-                  {
-                      "file": "/home/connor/code/laravel-svelte-template/laravel/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php",
-                      "line": 116,
-                      "function": "Illuminate\\Pipeline\\{closure}",
-                      "class": "Illuminate\\Pipeline\\Pipeline",
-                      "type": "->"
-                  },
-                  {
-                      "file": "/home/connor/code/laravel-svelte-template/laravel/vendor/laravel/framework/src/Illuminate/Routing/Router.php",
-                      "line": 798,
-                      "function": "then",
-                      "class": "Illuminate\\Pipeline\\Pipeline",
-                      "type": "->"
-                  },
-                  {
-                      "file": "/home/connor/code/laravel-svelte-template/laravel/vendor/laravel/framework/src/Illuminate/Routing/Router.php",
-                      "line": 777,
-                      "function": "runRouteWithinStack",
-                      "class": "Illuminate\\Routing\\Router",
-                      "type": "->"
-                  },
-                  {
-                      "file": "/home/connor/code/laravel-svelte-template/laravel/vendor/laravel/framework/src/Illuminate/Routing/Router.php",
-                      "line": 741,
-                      "function": "runRoute",
-                      "class": "Illuminate\\Routing\\Router",
-                      "type": "->"
-                  },
-                  {
-                      "file": "/home/connor/code/laravel-svelte-template/laravel/vendor/laravel/framework/src/Illuminate/Routing/Router.php",
-                      "line": 730,
-                      "function": "dispatchToRoute",
-                      "class": "Illuminate\\Routing\\Router",
-                      "type": "->"
-                  },
-                  {
-                      "file": "/home/connor/code/laravel-svelte-template/laravel/vendor/laravel/framework/src/Illuminate/Foundation/Http/Kernel.php",
-                      "line": 200,
-                      "function": "dispatch",
-                      "class": "Illuminate\\Routing\\Router",
-                      "type": "->"
-                  },
-                  {
-                      "file": "/home/connor/code/laravel-svelte-template/laravel/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php",
-                      "line": 141,
-                      "function": "Illuminate\\Foundation\\Http\\{closure}",
-                      "class": "Illuminate\\Foundation\\Http\\Kernel",
-                      "type": "->"
-                  },
-                  {
-                      "file": "/home/connor/code/laravel-svelte-template/laravel/vendor/laravel/framework/src/Illuminate/Foundation/Http/Middleware/TransformsRequest.php",
-                      "line": 21,
-                      "function": "Illuminate\\Pipeline\\{closure}",
-                      "class": "Illuminate\\Pipeline\\Pipeline",
-                      "type": "->"
-                  },
-                  {
-                      "file": "/home/connor/code/laravel-svelte-template/laravel/vendor/laravel/framework/src/Illuminate/Foundation/Http/Middleware/ConvertEmptyStringsToNull.php",
-                      "line": 31,
-                      "function": "handle",
-                      "class": "Illuminate\\Foundation\\Http\\Middleware\\TransformsRequest",
-                      "type": "->"
-                  },
-                  {
-                      "file": "/home/connor/code/laravel-svelte-template/laravel/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php",
-                      "line": 180,
-                      "function": "handle",
-                      "class": "Illuminate\\Foundation\\Http\\Middleware\\ConvertEmptyStringsToNull",
-                      "type": "->"
-                  },
-                  {
-                      "file": "/home/connor/code/laravel-svelte-template/laravel/vendor/laravel/framework/src/Illuminate/Foundation/Http/Middleware/TransformsRequest.php",
-                      "line": 21,
-                      "function": "Illuminate\\Pipeline\\{closure}",
-                      "class": "Illuminate\\Pipeline\\Pipeline",
-                      "type": "->"
-                  },
-                  {
-                      "file": "/home/connor/code/laravel-svelte-template/laravel/vendor/laravel/framework/src/Illuminate/Foundation/Http/Middleware/TrimStrings.php",
-                      "line": 40,
-                      "function": "handle",
-                      "class": "Illuminate\\Foundation\\Http\\Middleware\\TransformsRequest",
-                      "type": "->"
-                  },
-                  {
-                      "file": "/home/connor/code/laravel-svelte-template/laravel/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php",
-                      "line": 180,
-                      "function": "handle",
-                      "class": "Illuminate\\Foundation\\Http\\Middleware\\TrimStrings",
-                      "type": "->"
-                  },
-                  {
-                      "file": "/home/connor/code/laravel-svelte-template/laravel/vendor/laravel/framework/src/Illuminate/Foundation/Http/Middleware/ValidatePostSize.php",
-                      "line": 27,
-                      "function": "Illuminate\\Pipeline\\{closure}",
-                      "class": "Illuminate\\Pipeline\\Pipeline",
-                      "type": "->"
-                  },
-                  {
-                      "file": "/home/connor/code/laravel-svelte-template/laravel/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php",
-                      "line": 180,
-                      "function": "handle",
-                      "class": "Illuminate\\Foundation\\Http\\Middleware\\ValidatePostSize",
-                      "type": "->"
-                  },
-                  {
-                      "file": "/home/connor/code/laravel-svelte-template/laravel/vendor/laravel/framework/src/Illuminate/Foundation/Http/Middleware/PreventRequestsDuringMaintenance.php",
-                      "line": 99,
-                      "function": "Illuminate\\Pipeline\\{closure}",
-                      "class": "Illuminate\\Pipeline\\Pipeline",
-                      "type": "->"
-                  },
-                  {
-                      "file": "/home/connor/code/laravel-svelte-template/laravel/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php",
-                      "line": 180,
-                      "function": "handle",
-                      "class": "Illuminate\\Foundation\\Http\\Middleware\\PreventRequestsDuringMaintenance",
-                      "type": "->"
-                  },
-                  {
-                      "file": "/home/connor/code/laravel-svelte-template/laravel/vendor/laravel/framework/src/Illuminate/Http/Middleware/HandleCors.php",
-                      "line": 62,
-                      "function": "Illuminate\\Pipeline\\{closure}",
-                      "class": "Illuminate\\Pipeline\\Pipeline",
-                      "type": "->"
-                  },
-                  {
-                      "file": "/home/connor/code/laravel-svelte-template/laravel/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php",
-                      "line": 180,
-                      "function": "handle",
-                      "class": "Illuminate\\Http\\Middleware\\HandleCors",
-                      "type": "->"
-                  },
-                  {
-                      "file": "/home/connor/code/laravel-svelte-template/laravel/vendor/laravel/framework/src/Illuminate/Http/Middleware/TrustProxies.php",
-                      "line": 39,
-                      "function": "Illuminate\\Pipeline\\{closure}",
-                      "class": "Illuminate\\Pipeline\\Pipeline",
-                      "type": "->"
-                  },
-                  {
-                      "file": "/home/connor/code/laravel-svelte-template/laravel/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php",
-                      "line": 180,
-                      "function": "handle",
-                      "class": "Illuminate\\Http\\Middleware\\TrustProxies",
-                      "type": "->"
-                  },
-                  {
-                      "file": "/home/connor/code/laravel-svelte-template/laravel/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php",
-                      "line": 116,
-                      "function": "Illuminate\\Pipeline\\{closure}",
-                      "class": "Illuminate\\Pipeline\\Pipeline",
-                      "type": "->"
-                  },
-                  {
-                      "file": "/home/connor/code/laravel-svelte-template/laravel/vendor/laravel/framework/src/Illuminate/Foundation/Http/Kernel.php",
-                      "line": 175,
-                      "function": "then",
-                      "class": "Illuminate\\Pipeline\\Pipeline",
-                      "type": "->"
-                  },
-                  {
-                      "file": "/home/connor/code/laravel-svelte-template/laravel/vendor/laravel/framework/src/Illuminate/Foundation/Http/Kernel.php",
-                      "line": 144,
-                      "function": "sendRequestThroughRouter",
-                      "class": "Illuminate\\Foundation\\Http\\Kernel",
-                      "type": "->"
-                  },
-                  {
-                      "file": "/home/connor/code/laravel-svelte-template/laravel/vendor/knuckleswtf/scribe/src/Extracting/Strategies/Responses/ResponseCalls.php",
-                      "line": 300,
-                      "function": "handle",
-                      "class": "Illuminate\\Foundation\\Http\\Kernel",
-                      "type": "->"
-                  },
-                  {
-                      "file": "/home/connor/code/laravel-svelte-template/laravel/vendor/knuckleswtf/scribe/src/Extracting/Strategies/Responses/ResponseCalls.php",
-                      "line": 288,
-                      "function": "callLaravelOrLumenRoute",
-                      "class": "Knuckles\\Scribe\\Extracting\\Strategies\\Responses\\ResponseCalls",
-                      "type": "->"
-                  },
-                  {
-                      "file": "/home/connor/code/laravel-svelte-template/laravel/vendor/knuckleswtf/scribe/src/Extracting/Strategies/Responses/ResponseCalls.php",
-                      "line": 91,
-                      "function": "makeApiCall",
-                      "class": "Knuckles\\Scribe\\Extracting\\Strategies\\Responses\\ResponseCalls",
-                      "type": "->"
-                  },
-                  {
-                      "file": "/home/connor/code/laravel-svelte-template/laravel/vendor/knuckleswtf/scribe/src/Extracting/Strategies/Responses/ResponseCalls.php",
-                      "line": 44,
-                      "function": "makeResponseCall",
-                      "class": "Knuckles\\Scribe\\Extracting\\Strategies\\Responses\\ResponseCalls",
-                      "type": "->"
-                  },
-                  {
-                      "file": "/home/connor/code/laravel-svelte-template/laravel/vendor/knuckleswtf/scribe/src/Extracting/Strategies/Responses/ResponseCalls.php",
-                      "line": 35,
-                      "function": "makeResponseCallIfConditionsPass",
-                      "class": "Knuckles\\Scribe\\Extracting\\Strategies\\Responses\\ResponseCalls",
-                      "type": "->"
-                  },
-                  {
-                      "file": "/home/connor/code/laravel-svelte-template/laravel/vendor/knuckleswtf/scribe/src/Extracting/Extractor.php",
-                      "line": 236,
-                      "function": "__invoke",
-                      "class": "Knuckles\\Scribe\\Extracting\\Strategies\\Responses\\ResponseCalls",
-                      "type": "->"
-                  },
-                  {
-                      "file": "/home/connor/code/laravel-svelte-template/laravel/vendor/knuckleswtf/scribe/src/Extracting/Extractor.php",
-                      "line": 163,
-                      "function": "iterateThroughStrategies",
-                      "class": "Knuckles\\Scribe\\Extracting\\Extractor",
-                      "type": "->"
-                  },
-                  {
-                      "file": "/home/connor/code/laravel-svelte-template/laravel/vendor/knuckleswtf/scribe/src/Extracting/Extractor.php",
-                      "line": 95,
-                      "function": "fetchResponses",
-                      "class": "Knuckles\\Scribe\\Extracting\\Extractor",
-                      "type": "->"
-                  },
-                  {
-                      "file": "/home/connor/code/laravel-svelte-template/laravel/vendor/knuckleswtf/scribe/src/GroupedEndpoints/GroupedEndpointsFromApp.php",
-                      "line": 125,
-                      "function": "processRoute",
-                      "class": "Knuckles\\Scribe\\Extracting\\Extractor",
-                      "type": "->"
-                  },
-                  {
-                      "file": "/home/connor/code/laravel-svelte-template/laravel/vendor/knuckleswtf/scribe/src/GroupedEndpoints/GroupedEndpointsFromApp.php",
-                      "line": 72,
-                      "function": "extractEndpointsInfoFromLaravelApp",
-                      "class": "Knuckles\\Scribe\\GroupedEndpoints\\GroupedEndpointsFromApp",
-                      "type": "->"
-                  },
-                  {
-                      "file": "/home/connor/code/laravel-svelte-template/laravel/vendor/knuckleswtf/scribe/src/GroupedEndpoints/GroupedEndpointsFromApp.php",
-                      "line": 50,
-                      "function": "extractEndpointsInfoAndWriteToDisk",
-                      "class": "Knuckles\\Scribe\\GroupedEndpoints\\GroupedEndpointsFromApp",
-                      "type": "->"
-                  },
-                  {
-                      "file": "/home/connor/code/laravel-svelte-template/laravel/vendor/knuckleswtf/scribe/src/Commands/GenerateDocumentation.php",
-                      "line": 53,
-                      "function": "get",
-                      "class": "Knuckles\\Scribe\\GroupedEndpoints\\GroupedEndpointsFromApp",
-                      "type": "->"
-                  },
-                  {
-                      "file": "/home/connor/code/laravel-svelte-template/laravel/vendor/laravel/framework/src/Illuminate/Container/BoundMethod.php",
-                      "line": 36,
-                      "function": "handle",
-                      "class": "Knuckles\\Scribe\\Commands\\GenerateDocumentation",
-                      "type": "->"
-                  },
-                  {
-                      "file": "/home/connor/code/laravel-svelte-template/laravel/vendor/laravel/framework/src/Illuminate/Container/Util.php",
-                      "line": 41,
-                      "function": "Illuminate\\Container\\{closure}",
-                      "class": "Illuminate\\Container\\BoundMethod",
-                      "type": "::"
-                  },
-                  {
-                      "file": "/home/connor/code/laravel-svelte-template/laravel/vendor/laravel/framework/src/Illuminate/Container/BoundMethod.php",
-                      "line": 93,
-                      "function": "unwrapIfClosure",
-                      "class": "Illuminate\\Container\\Util",
-                      "type": "::"
-                  },
-                  {
-                      "file": "/home/connor/code/laravel-svelte-template/laravel/vendor/laravel/framework/src/Illuminate/Container/BoundMethod.php",
-                      "line": 35,
-                      "function": "callBoundMethod",
-                      "class": "Illuminate\\Container\\BoundMethod",
-                      "type": "::"
-                  },
-                  {
-                      "file": "/home/connor/code/laravel-svelte-template/laravel/vendor/laravel/framework/src/Illuminate/Container/Container.php",
-                      "line": 662,
-                      "function": "call",
-                      "class": "Illuminate\\Container\\BoundMethod",
-                      "type": "::"
-                  },
-                  {
-                      "file": "/home/connor/code/laravel-svelte-template/laravel/vendor/laravel/framework/src/Illuminate/Console/Command.php",
-                      "line": 211,
-                      "function": "call",
-                      "class": "Illuminate\\Container\\Container",
-                      "type": "->"
-                  },
-                  {
-                      "file": "/home/connor/code/laravel-svelte-template/laravel/vendor/symfony/console/Command/Command.php",
-                      "line": 326,
-                      "function": "execute",
-                      "class": "Illuminate\\Console\\Command",
-                      "type": "->"
-                  },
-                  {
-                      "file": "/home/connor/code/laravel-svelte-template/laravel/vendor/laravel/framework/src/Illuminate/Console/Command.php",
-                      "line": 180,
-                      "function": "run",
-                      "class": "Symfony\\Component\\Console\\Command\\Command",
-                      "type": "->"
-                  },
-                  {
-                      "file": "/home/connor/code/laravel-svelte-template/laravel/vendor/symfony/console/Application.php",
-                      "line": 1081,
-                      "function": "run",
-                      "class": "Illuminate\\Console\\Command",
-                      "type": "->"
-                  },
-                  {
-                      "file": "/home/connor/code/laravel-svelte-template/laravel/vendor/symfony/console/Application.php",
-                      "line": 320,
-                      "function": "doRunCommand",
-                      "class": "Symfony\\Component\\Console\\Application",
-                      "type": "->"
-                  },
-                  {
-                      "file": "/home/connor/code/laravel-svelte-template/laravel/vendor/symfony/console/Application.php",
-                      "line": 174,
-                      "function": "doRun",
-                      "class": "Symfony\\Component\\Console\\Application",
-                      "type": "->"
-                  },
-                  {
-                      "file": "/home/connor/code/laravel-svelte-template/laravel/vendor/laravel/framework/src/Illuminate/Foundation/Console/Kernel.php",
-                      "line": 201,
-                      "function": "run",
-                      "class": "Symfony\\Component\\Console\\Application",
-                      "type": "->"
-                  },
-                  {
-                      "file": "/home/connor/code/laravel-svelte-template/laravel/artisan",
-                      "line": 35,
-                      "function": "handle",
-                      "class": "Illuminate\\Foundation\\Console\\Kernel",
-                      "type": "->"
-                  }
-              ]
-          }
-        headers:
-          cache-control: 'no-cache, private'
-          content-type: application/json
-          vary: Origin
-        description: null
-        custom: []
+    responses: []
     responseFields: []
     auth: []
     controller: null
@@ -1064,15 +431,14 @@ endpoints:
     custom: []
   -
     httpMethods:
-      - PUT
-      - PATCH
-    uri: 'api/todo/{id}'
+      - DELETE
+    uri: 'todo/{id}'
     metadata:
       groupName: Endpoints
       groupDescription: ''
       subgroup: ''
       subgroupDescription: ''
-      title: 'Update the specified resource in storage.'
+      title: 'Remove the specified resource from storage.'
       description: ''
       authenticated: false
       custom: []
@@ -1091,46 +457,6 @@ endpoints:
         custom: []
     cleanUrlParameters:
       id: 5
-    queryParameters: []
-    cleanQueryParameters: []
-    bodyParameters: []
-    cleanBodyParameters: []
-    fileParameters: []
-    responses: []
-    responseFields: []
-    auth: []
-    controller: null
-    method: null
-    route: null
-    custom: []
-  -
-    httpMethods:
-      - DELETE
-    uri: 'api/todo/{id}'
-    metadata:
-      groupName: Endpoints
-      groupDescription: ''
-      subgroup: ''
-      subgroupDescription: ''
-      title: 'Remove the specified resource from storage.'
-      description: ''
-      authenticated: false
-      custom: []
-    headers:
-      Content-Type: application/json
-      Accept: application/json
-    urlParameters:
-      id:
-        name: id
-        description: 'The ID of the todo.'
-        required: true
-        example: 15
-        type: integer
-        enumValues: []
-        exampleWasSpecified: false
-        custom: []
-    cleanUrlParameters:
-      id: 15
     queryParameters: []
     cleanQueryParameters: []
     bodyParameters: []

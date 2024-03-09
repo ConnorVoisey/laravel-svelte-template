@@ -11,9 +11,13 @@ use Illuminate\Validation\ValidationException;
 class PasswordResetLinkController extends Controller
 {
     /**
+     * Forgot Password
+     *
      * Handle an incoming password reset link request.
      *
      * @throws \Illuminate\Validation\ValidationException
+     *
+     * @group Auth
      */
     public function store(Request $request): JsonResponse
     {

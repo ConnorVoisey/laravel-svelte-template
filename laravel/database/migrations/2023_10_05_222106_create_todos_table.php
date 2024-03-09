@@ -13,9 +13,9 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('todos', function (Blueprint $table) {
-            $table->id();
-            $table->string('title');
-            $table->string('description');
+            $table->uuid('id');
+            $table->string('task');
+            $table->boolean('completed')->default(false);
             $table->foreignIdFor(User::class);
             $table->timestamps();
         });

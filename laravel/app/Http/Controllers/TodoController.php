@@ -6,11 +6,31 @@ use App\Models\Todo;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
+use Ramsey\Uuid\Rfc4122\UuidV7;
 
 class TodoController extends Controller
 {
     /**
      * Display a listing of the resource.
+     *
+     * @response [
+     *  {
+     *    "id": 9223372036854776000,
+     *    "task": "sjuwanaltitwq",
+     *    "completed": false,
+     *    "user_id": 1,
+     *    "created_at": "2024-03-09T00:13:13.000000Z",
+     *    "updated_at": "2024-03-09T00:13:13.000000Z"
+     *  },
+     *  {
+     *    "id": 9223372036854776000,
+     *    "task": "testing",
+     *    "completed": false,
+     *    "user_id": 1,
+     *    "created_at": "2024-03-09T00:13:31.000000Z",
+     *    "updated_at": "2024-03-09T00:13:31.000000Z"
+     *  }
+     *]
      */
     public function index()
     {
@@ -25,16 +45,17 @@ class TodoController extends Controller
     public function store(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'title' => 'required|max:255|string',
-            'description' => 'required|max:255|string',
+            'task' => 'required|max:255|string',
+            'completed' => 'required|boolean',
         ]);
         if ($validator->fails()) {
             return response()->json(['errors' => $validator->errors()], 422);
         }
         $validated = $validator->validated();
         $todo = new Todo;
-        $todo->title = $validated['title'];
-        $todo->description = $validated['description'];
+        $todo->id = UuidV7::uuid7();
+        $todo->task = $validated['task'];
+        $todo->completed = $validated['completed'];
         $todo->user_id = $request->user()->id;
         $todo->save();
 
@@ -42,11 +63,21 @@ class TodoController extends Controller
     }
 
     /**
-     * Display the specified resource.
+     * Returns a single todo from its id
+     *
+     * @response {
+     *  "id": 4,
+     *  "task": "Write more todos",
+     *  "completed": false,
+     *  "created_at": "",
+     *  "updated_at": ""
+     * }
+     *
+     * @group Todo
      */
     public function show(Todo $todo)
     {
-        return response()->json($todo);
+        return $todo;
     }
 
     /**

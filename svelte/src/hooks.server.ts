@@ -1,32 +1,38 @@
+import { env } from '$env/dynamic/public';
 import { axiosBackend } from '$lib/js/axiosBackend';
+import type { paths } from '$lib/js/openApiSchema';
 import { redirect, type Handle } from '@sveltejs/kit';
+import createClient from 'openapi-fetch';
 
 export const handle: Handle = async ({ event, resolve }) => {
-	console.log('called');
-	// Verify we are authenticated
-	const responseFromServer = await axiosBackend('/api/user', {
-		method: 'get',
-		headers: {
-			Referer: event.url.host,
-			'X-XSRF-TOKEN': event.cookies.get('XSRF-TOKEN'),
-			Cookie: `XSRF-TOKEN=${event.cookies.get('XSRF-TOKEN')};laravel_session=${event.cookies.get(
-				'laravel_session'
-			)}`
-		}
-	}).catch((e) => {
-		console.error(e);
-		// Unauthenticated
-	});
-	//   console.log(responseFromServer);
-
-	event.locals.user = responseFromServer?.data ?? null;
+	const headers = {
+		Accept: 'application/json',
+		'Content-Type': 'application/json',
+		Referer: event.url.host,
+		'X-XSRF-TOKEN': event.cookies.get('XSRF-TOKEN'),
+		Cookie: `XSRF-TOKEN=${event.cookies.get('XSRF-TOKEN')};laravel_session=${event.cookies.get(
+			'laravel_session'
+		)}`
+	};
+	console.log({ headers });
 	const routeId = event.route.id ?? '';
-	console.log({ routeId });
+	const client = createClient<paths>({
+		baseUrl: env.PUBLIC_API_URL,
+		fetch: fetch,
+		credentials: 'include',
+		headers
+	});
+	// Verify we are authenticated
+	const { data, error } = await client.GET('/user'); //   console.log(responseFromServer);
+	console.log({ data, error });
 
-	if (!event.locals.user && routeId.includes('/(auth)/')) {
+	if (data === undefined && routeId.includes('/(auth)/')) {
 		// Need authentication
 		throw redirect(303, '/login');
 	}
+	// @ts-ignore
+	event.locals.user = data ?? null;
+	console.log({ routeId });
 
 	let theme: string | null | undefined = null;
 

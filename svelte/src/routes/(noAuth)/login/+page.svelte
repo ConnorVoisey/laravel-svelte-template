@@ -1,8 +1,7 @@
 <script lang="ts">
 	import { goto } from '$app/navigation';
 	import Field from '$lib/components/field.svelte';
-	import { axios } from '$lib/js/axios';
-	import type { AxiosError } from 'axios';
+	import { fetchClient } from '$lib/js/fetchClient';
 
 	type FieldName = 'email' | 'password';
 	type Errors = { [k in FieldName]?: string[] };
@@ -23,29 +22,17 @@
 	let errors: Errors = {};
 	let globalError = '';
 
-	function login() {
+	async function login() {
 		// do client validation here
 
 		// clear previous errors
 		globalError = '';
 
 		// send request
-		axios
-			.post<ResData>('login', body)
-			.then((res) =>
-				goto('/', {
-					invalidateAll: true
-				})
-			)
-			.catch((err: AxiosError<ErrorData>) => {
-				if (!err.response?.data.errors) {
-					// something else went wrong in the request, could be csrf, network issue, database issue or anything
-					// If this is reached we can't know the best thing to tell the user so we have to give a generic error
-					globalError = 'Something went wrong try again later';
-					return;
-				}
-				errors = err.response?.data?.errors ?? {};
-			});
+		const { data, error } = await fetchClient.POST('/auth/login', { body });
+		console.log({ data, error });
+		if (error === undefined) goto('/', { invalidateAll: true });
+		globalError = error.errors.email[0];
 	}
 </script>
 

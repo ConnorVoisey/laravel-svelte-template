@@ -11,7 +11,11 @@ use Illuminate\Http\Request;
 class EmailVerificationNotificationController extends Controller
 {
     /**
+     * Email Verification notification
+     *
      * Send a new email verification notification.
+     *
+     * @group Auth
      */
     public function store(Request $request): JsonResponse|RedirectResponse
     {
