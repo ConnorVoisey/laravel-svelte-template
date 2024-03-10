@@ -9,11 +9,11 @@
         "guzzlehttp/guzzle": "^7.2",
         "laravel/framework": "^10.10",
         "laravel/sanctum": "^3.2",
-        "laravel/tinker": "^2.8"
+        "laravel/tinker": "^2.8",
+        "vyuldashev/laravel-openapi": "^1.12"
     },
     "require-dev": {
         "fakerphp/faker": "^1.9.1",
-        "knuckleswtf/scribe": "^4.31",
         "laravel/breeze": "^1.24",
         "laravel/pint": "^1.14",
         "laravel/sail": "^1.18",
@@ -55,6 +55,9 @@
 	    ],
         "test": [
             "./vendor/bin/pest"
+        ],
+        "generate_docs": [
+            "@php artisan openapi:generate > ./storage/app/docs/openApi.json"
         ]
     },
     "extra": {

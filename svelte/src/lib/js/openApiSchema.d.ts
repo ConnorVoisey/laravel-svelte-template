@@ -5,105 +5,175 @@
 
 
 export interface paths {
-  "/auth/register": {
+  "/user": {
     /**
-     * Register
-     * @description Handle an incoming registration request.
+     * Show Profile
+     * @description Displays the logged in users profile information.
      */
-    post: operations["register"];
+    get: {
+      responses: {
+        /** @description Successful response */
+        201: {
+          content: {
+            "application/json": components["schemas"]["todo"];
+          };
+        };
+      };
+    };
+  };
+  "/todo": {
+    /**
+     * Index
+     * @description Displays all the todos related to the logged in user.
+     */
+    get: {
+      responses: {
+        /** @description Successful response */
+        201: {
+          content: {
+            "application/json": components["schemas"]["todo"];
+          };
+        };
+      };
+    };
+    /**
+     * Store
+     * @description Creates a new todo related to the logged in user.
+     */
+    post: {
+      /** @description Todo data */
+      requestBody?: {
+        content: {
+          "application/json": components["schemas"]["todo"];
+        };
+      };
+      responses: {
+        /** @description Successful response */
+        201: {
+          content: {
+            "application/json": components["schemas"]["todo"];
+          };
+        };
+        /** @description Validation errors */
+        422: {
+          content: {
+            "application/json": {
+              /** @example The given data was invalid. */
+              message?: string;
+              /**
+               * @example {
+               *   "field": [
+               *     "Something is wrong with this field!"
+               *   ]
+               * }
+               */
+              errors?: {
+                [key: string]: string[];
+              };
+            };
+          };
+        };
+      };
+    };
+  };
+  "/todo/{todo}": {
+    /**
+     * Show
+     * @description Returns a single todo from its id.
+     * The todo must be related to the logged in user.
+     */
+    get: {
+      parameters: {
+        path: {
+          todo: string;
+        };
+      };
+    };
   };
   "/auth/login": {
     /**
      * Login
      * @description Handle an incoming authentication request.
      */
-    post: operations["login"];
-  };
-  "/auth/forgot-password": {
-    /**
-     * Forgot Password
-     * @description Handle an incoming password reset link request.
-     */
-    post: operations["forgotPassword"];
-  };
-  "/auth/reset-password": {
-    /**
-     * Reset Password
-     * @description Handle an incoming new password request.
-     */
-    post: operations["resetPassword"];
-  };
-  "/auth/verify-email/{id}/{hash}": {
-    /**
-     * Verify Email
-     * @description Mark the authenticated user's email address as verified.
-     */
-    get: operations["verifyEmail"];
-    parameters: {
-      path: {
-        /**
-         * @description The ID of the verify email.
-         * @example consequatur
-         */
-        id: string;
-        /** @example error */
-        hash: string;
+    post: {
+      /** @description Authentication request */
+      requestBody?: {
+        content: {
+          "application/json": components["schemas"]["Authenticate"];
+        };
+      };
+      responses: {
+        /** @description Successful response */
+        204: {
+          content: never;
+        };
+        /** @description Validation errors */
+        422: {
+          content: {
+            "application/json": {
+              /** @example The given data was invalid. */
+              message?: string;
+              /**
+               * @example {
+               *   "field": [
+               *     "Something is wrong with this field!"
+               *   ]
+               * }
+               */
+              errors?: {
+                [key: string]: string[];
+              };
+            };
+          };
+        };
       };
     };
-  };
-  "/auth/email/verification-notification": {
-    /**
-     * Email Verification notification
-     * @description Send a new email verification notification.
-     */
-    post: operations["emailVerificationNotification"];
   };
   "/auth/logout": {
     /**
      * Logout
      * @description Destroy an authenticated session.
      */
-    post: operations["logout"];
-  };
-  "/sanctum/csrf-cookie": {
-    /** Return an empty response simply to trigger the storage of the CSRF cookie in the browser. */
-    get: operations["returnAnEmptyResponseSimplyToTriggerTheStorageOfTheCSRFCookieInTheBrowser"];
-  };
-  "/_ignition/health-check": {
-    get: operations["get_ignitionHealthCheck"];
-  };
-  "/_ignition/execute-solution": {
-    post: operations["post_ignitionExecuteSolution"];
-  };
-  "/_ignition/update-config": {
-    post: operations["post_ignitionUpdateConfig"];
-  };
-  "/": {
-    get: operations["get"];
-  };
-  "/user": {
-    get: operations["getUser"];
-  };
-  "/todo": {
-    /** Display a listing of the resource. */
-    get: operations["displayAListingOfTheResource"];
-    /** Store a newly created resource in storage. */
-    post: operations["storeANewlyCreatedResourceInStorage"];
-  };
-  "/todo/{id}": {
-    /** Returns a single todo from its id */
-    get: operations["returnsASingleTodoFromItsId"];
-    /** Update the specified resource in storage. */
-    put: operations["updateTheSpecifiedResourceInStorage"];
-    /** Remove the specified resource from storage. */
-    delete: operations["removeTheSpecifiedResourceFromStorage"];
-    parameters: {
-      path: {
-        /**
-         * @description The ID of the todo.
-         * @example 8
-         */
-        id: number;
+    post: {
+      /** @description Authentication request */
+      requestBody?: {
+        content: {
+          "application/json": components["schemas"]["Authenticate"];
+        };
+      };
+      responses: {
+        /** @description Successful response */
+        204: {
+          content: never;
+        };
+        /** @description Not logged in */
+        401: {
+          content: {
+            "application/json": {
+              /** @example Unauthenticated. */
+              message?: string;
+            };
+          };
+        };
+        /** @description Validation errors */
+        422: {
+          content: {
+            "application/json": {
+              /** @example The given data was invalid. */
+              message?: string;
+              /**
+               * @example {
+               *   "field": [
+               *     "Something is wrong with this field!"
+               *   ]
+               * }
+               */
+              errors?: {
+                [key: string]: string[];
+              };
+            };
+          };
+        };
       };
     };
   };
@@ -111,320 +181,41 @@ export interface paths {
 
 export type webhooks = Record<string, never>;
 
-export type components = Record<string, never>;
+export interface components {
+  schemas: {
+    Authenticate: {
+      /** @example test@test.test */
+      email?: string;
+      /**
+       * Format: password
+       * @example password
+       */
+      password?: string;
+    };
+    todo: {
+      /** Format: uuid */
+      id: string;
+      /** @example Write more todos */
+      task?: string;
+      /** @default false */
+      completed?: boolean;
+      /** Format: uuid */
+      user_id: string;
+      /** Format: date-time */
+      created_at: string;
+      /** Format: date-time */
+      updated_at: string;
+    };
+  };
+  responses: never;
+  parameters: never;
+  requestBodies: never;
+  headers: never;
+  pathItems: never;
+}
 
 export type $defs = Record<string, never>;
 
 export type external = Record<string, never>;
 
-export interface operations {
-
-  /**
-   * Register
-   * @description Handle an incoming registration request.
-   */
-  register: {
-    requestBody: {
-      content: {
-        "application/json": {
-          /**
-           * @description Must not be greater than 255 characters.
-           * @example ugbsywicgz
-           */
-          name: string;
-          /**
-           * @description Must be a valid email address. Must not be greater than 255 characters.
-           * @example hessel.russ@example.com
-           */
-          email: string;
-          /** @example minus */
-          password: string;
-        };
-      };
-    };
-    responses: {
-    };
-  };
-  /**
-   * Login
-   * @description Handle an incoming authentication request.
-   */
-  login: {
-    requestBody: {
-      content: {
-        "application/json": {
-          /**
-           * @description Must be a valid email address.
-           * @example kjacobs@example.com
-           */
-          email: string;
-          /** @example MUK`&l`HUR9mZV */
-          password: string;
-        };
-      };
-    };
-    responses: {
-    };
-  };
-  /**
-   * Forgot Password
-   * @description Handle an incoming password reset link request.
-   */
-  forgotPassword: {
-    requestBody: {
-      content: {
-        "application/json": {
-          /**
-           * @description Must be a valid email address.
-           * @example urban.osinski@example.org
-           */
-          email: string;
-        };
-      };
-    };
-    responses: {
-    };
-  };
-  /**
-   * Reset Password
-   * @description Handle an incoming new password request.
-   */
-  resetPassword: {
-    requestBody: {
-      content: {
-        "application/json": {
-          /** @example odio */
-          token: string;
-          /**
-           * @description Must be a valid email address.
-           * @example enoch.cormier@example.com
-           */
-          email: string;
-          /** @example soluta */
-          password: string;
-        };
-      };
-    };
-    responses: {
-    };
-  };
-  /**
-   * Verify Email
-   * @description Mark the authenticated user's email address as verified.
-   */
-  verifyEmail: {
-    parameters: {
-      path: {
-        /**
-         * @description The ID of the verify email.
-         * @example consequatur
-         */
-        id: string;
-        /** @example error */
-        hash: string;
-      };
-    };
-    responses: {
-      401: {
-        content: {
-          "application/json": {
-            /** @example Unauthenticated. */
-            message?: string;
-          };
-        };
-      };
-    };
-  };
-  /**
-   * Email Verification notification
-   * @description Send a new email verification notification.
-   */
-  emailVerificationNotification: {
-    responses: {
-    };
-  };
-  /**
-   * Logout
-   * @description Destroy an authenticated session.
-   */
-  logout: {
-    responses: {
-    };
-  };
-  /** Return an empty response simply to trigger the storage of the CSRF cookie in the browser. */
-  returnAnEmptyResponseSimplyToTriggerTheStorageOfTheCSRFCookieInTheBrowser: {
-    responses: {
-      204: {
-        content: never;
-      };
-    };
-  };
-  get_ignitionHealthCheck: {
-    responses: {
-      200: {
-        content: {
-          "application/json": {
-            /** @example true */
-            can_execute_commands?: boolean;
-          };
-        };
-      };
-    };
-  };
-  post_ignitionExecuteSolution: {
-    requestBody: {
-      content: {
-        "application/json": {
-          /** @example molestiae */
-          solution: string;
-          /** @example null */
-          parameters?: Record<string, never>;
-        };
-      };
-    };
-    responses: {
-    };
-  };
-  post_ignitionUpdateConfig: {
-    requestBody: {
-      content: {
-        "application/json": {
-          /**
-           * @example dark
-           * @enum {string}
-           */
-          theme: "light" | "dark" | "auto";
-          /** @example et */
-          editor: string;
-          /** @example true */
-          hide_solutions: boolean;
-        };
-      };
-    };
-    responses: {
-    };
-  };
-  get: {
-    responses: {
-      200: {
-        content: {
-          "application/json": {
-            /** @example 10.26.2 */
-            Laravel?: string;
-          };
-        };
-      };
-    };
-  };
-  getUser: {
-    responses: {
-      200: {
-        content: {
-          "application/json": {
-            /**
-             * @description required
-             * @example 1
-             */
-            id?: number;
-            /** @example Testing */
-            name?: string;
-            /** @example test@test.test */
-            email?: string;
-            /** @example null */
-            email_verified_at?: string;
-            /** @example 2024-03-06T21:36:21.000000Z */
-            created_at?: string;
-            /** @example 2024-03-06T21:36:21.000000Z */
-            updated_at?: string;
-          };
-        };
-      };
-    };
-  };
-  /** Display a listing of the resource. */
-  displayAListingOfTheResource: {
-    responses: {
-      200: {
-        content: {
-          "application/json": Record<string, never>[];
-        };
-      };
-    };
-  };
-  /** Store a newly created resource in storage. */
-  storeANewlyCreatedResourceInStorage: {
-    requestBody: {
-      content: {
-        "application/json": {
-          /**
-           * @description Must not be greater than 255 characters.
-           * @example mesfn
-           */
-          task: string;
-          /** @example true */
-          completed: boolean;
-        };
-      };
-    };
-    responses: {
-    };
-  };
-  /** Returns a single todo from its id */
-  returnsASingleTodoFromItsId: {
-    parameters: {
-      path: {
-        /**
-         * @description The ID of the todo.
-         * @example 8
-         */
-        id: number;
-      };
-    };
-    responses: {
-      200: {
-        content: {
-          "application/json": {
-            /** @example 4 */
-            id?: number;
-            /** @example Write more todos */
-            task?: string;
-            /** @example false */
-            completed?: boolean;
-            /** @example */
-            created_at?: string;
-            /** @example */
-            updated_at?: string;
-          };
-        };
-      };
-    };
-  };
-  /** Update the specified resource in storage. */
-  updateTheSpecifiedResourceInStorage: {
-    parameters: {
-      path: {
-        /**
-         * @description The ID of the todo.
-         * @example 8
-         */
-        id: number;
-      };
-    };
-    responses: {
-    };
-  };
-  /** Remove the specified resource from storage. */
-  removeTheSpecifiedResourceFromStorage: {
-    parameters: {
-      path: {
-        /**
-         * @description The ID of the todo.
-         * @example 8
-         */
-        id: number;
-      };
-    };
-    responses: {
-    };
-  };
-}
+export type operations = Record<string, never>;

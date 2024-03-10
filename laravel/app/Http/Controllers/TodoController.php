@@ -3,35 +3,27 @@
 namespace App\Http\Controllers;
 
 use App\Models\Todo;
+use App\OpenApi\RequestBodies\StoreTodoRequestBody;
+use App\OpenApi\Responses\ErrorValidationResponse;
+use App\OpenApi\Responses\ListTodosResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
-use Ramsey\Uuid\Rfc4122\UuidV7;
+use Vyuldashev\LaravelOpenApi\Attributes\Operation;
+use Vyuldashev\LaravelOpenApi\Attributes\PathItem;
+use Vyuldashev\LaravelOpenApi\Attributes\RequestBody;
+use Vyuldashev\LaravelOpenApi\Attributes\Response;
 
+#[PathItem]
 class TodoController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * Index
      *
-     * @response [
-     *  {
-     *    "id": 9223372036854776000,
-     *    "task": "sjuwanaltitwq",
-     *    "completed": false,
-     *    "user_id": 1,
-     *    "created_at": "2024-03-09T00:13:13.000000Z",
-     *    "updated_at": "2024-03-09T00:13:13.000000Z"
-     *  },
-     *  {
-     *    "id": 9223372036854776000,
-     *    "task": "testing",
-     *    "completed": false,
-     *    "user_id": 1,
-     *    "created_at": "2024-03-09T00:13:31.000000Z",
-     *    "updated_at": "2024-03-09T00:13:31.000000Z"
-     *  }
-     *]
+     * Displays all the todos related to the logged in user.
      */
+    #[Operation(tags: ['Requires Auth', 'Todo'])]
+    #[Response(factory: ListTodosResponse::class)]
     public function index()
     {
         $user = Auth::user();
@@ -40,8 +32,14 @@ class TodoController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Store
+     *
+     * Creates a new todo related to the logged in user.
      */
+    #[Operation(tags: ['Requires Auth', 'Todo'])]
+    #[RequestBody(factory: StoreTodoRequestBody::class)]
+    #[Response(factory: ListTodosResponse::class)]
+    #[Response(factory: ErrorValidationResponse::class, statusCode: 422)]
     public function store(Request $request)
     {
         $validator = Validator::make($request->all(), [
@@ -53,7 +51,6 @@ class TodoController extends Controller
         }
         $validated = $validator->validated();
         $todo = new Todo;
-        $todo->id = UuidV7::uuid7();
         $todo->task = $validated['task'];
         $todo->completed = $validated['completed'];
         $todo->user_id = $request->user()->id;
@@ -63,18 +60,12 @@ class TodoController extends Controller
     }
 
     /**
-     * Returns a single todo from its id
+     * Show
      *
-     * @response {
-     *  "id": 4,
-     *  "task": "Write more todos",
-     *  "completed": false,
-     *  "created_at": "",
-     *  "updated_at": ""
-     * }
-     *
-     * @group Todo
+     * Returns a single todo from its id.
+     * The todo must be related to the logged in user.
      */
+    #[Operation(tags: ['Requires Auth', 'Todo'])]
     public function show(Todo $todo)
     {
         return $todo;

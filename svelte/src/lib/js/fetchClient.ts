@@ -29,6 +29,7 @@ fetchClient.use({
 		let csrfToken = getCookie('XSRF-TOKEN');
 		if (!csrfToken) {
 			console.log('fetching csrf cookie');
+			// @ts-ignore // TODO: remove this ignore
 			await fetchClient.GET('/sanctum/csrf-cookie');
 			csrfToken = getCookie('XSRF-TOKEN');
 		}

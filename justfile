@@ -11,7 +11,7 @@ format:
     cd svelte && bun format
 
 generate_docs:
-    cd laravel && php artisan scribe:generate
+    cd laravel && php artisan openapi:generate > ./storage/app/docs/openApi.json
     cd svelte && bun gen_backend_types
 
 test:

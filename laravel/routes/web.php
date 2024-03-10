@@ -1,6 +1,9 @@
 <?php
 
+use App\Http\Controllers\OpenApiController;
+use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\TodoController;
+use App\Http\Middleware\LocalDebug;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use Knuckles\Scribe\Attributes\ResponseField;
@@ -41,6 +44,14 @@ Route::middleware(['auth:sanctum'])
             return $request->user();
         }
     );
-Route::resource('/todo', TodoController::class);
+
+Route::group(['middleware' => [LocalDebug::class]], function () {
+    Route::get('docs', [OpenApiController::class, 'docs'])->name('docs');
+    Route::get('docs/json', [OpenApiController::class, 'getOpenApiJson'])->name('open-api-json');
+});
+Route::group(['middleware' => ['auth:sanctum']], function () {
+    Route::apiResource('/todo', TodoController::class);
+    Route::get('/user', [ProfileController::class, 'user'])->name('profile-user');
+});
 
 require __DIR__.'/auth.php';
