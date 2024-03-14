@@ -33,7 +33,7 @@
 		"format": "prettier --plugin-search-dir . --write .",
 		"test:integration": "playwright test",
 		"test:unit": "vitest",
-		"gen_backend_types": "bunx openapi-typescript ../laravel/storage/app/docs/openApi.json -o ./src/lib/js/openApiSchema.d.ts"
+		"gen_backend_types": "bunx openapi-typescript http://localhost:8000/openapi.json -o ./src/lib/js/openApiSchema.d.ts"
 	},
 	"type": "module",
 	"dependencies": {

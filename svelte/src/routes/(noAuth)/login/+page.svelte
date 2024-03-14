@@ -31,7 +31,7 @@
 		// send request
 		const { data, error } = await fetchClient.POST('/auth/login', { body });
 		console.log({ data, error });
-		if (error === undefined) goto('/', { invalidateAll: true });
+		if (error === undefined) return goto('/', { invalidateAll: true });
 		globalError = error.errors.email[0];
 	}
 </script>

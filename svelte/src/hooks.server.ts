@@ -23,26 +23,17 @@ export const handle: Handle = async ({ event, resolve }) => {
 		headers
 	});
 	// Verify we are authenticated
-	const { data, error } = await client.GET('/user'); //   console.log(responseFromServer);
-	console.log({ data, error });
+	const { data, error } = await client.GET('/user');
 
 	if (data === undefined && routeId.includes('/(auth)/')) {
 		// Need authentication
 		throw redirect(303, '/login');
 	}
-	// @ts-ignore
 	event.locals.user = data ?? null;
-	console.log({ routeId });
-
-	let theme: string | null | undefined = null;
 
 	const newTheme = event.url.searchParams.get('theme');
 	const cookieTheme = event.cookies.get('theme');
-	if (newTheme) {
-		theme = newTheme;
-	} else {
-		theme = cookieTheme;
-	}
+	const theme = newTheme ? newTheme : cookieTheme;
 
 	return await resolve(event, {
 		transformPageChunk: ({ html }) => html.replace('theme=""', `theme="${theme}"`)

@@ -5,177 +5,74 @@
 
 
 export interface paths {
-  "/user": {
-    /**
-     * Show Profile
-     * @description Displays the logged in users profile information.
-     */
-    get: {
-      responses: {
-        /** @description Successful response */
-        201: {
-          content: {
-            "application/json": components["schemas"]["todo"];
-          };
-        };
-      };
-    };
-  };
   "/todo": {
     /**
-     * Index
-     * @description Displays all the todos related to the logged in user.
+     * Get all todos
+     * @description Get all the todos assigned to the logged in user
      */
-    get: {
-      responses: {
-        /** @description Successful response */
-        201: {
-          content: {
-            "application/json": components["schemas"]["todo"];
-          };
-        };
-      };
-    };
+    get: operations["indexTodo"];
     /**
-     * Store
-     * @description Creates a new todo related to the logged in user.
+     * Create a todo
+     * @description Creates a todo assigned to the user.
      */
-    post: {
-      /** @description Todo data */
-      requestBody?: {
-        content: {
-          "application/json": components["schemas"]["todo"];
-        };
-      };
-      responses: {
-        /** @description Successful response */
-        201: {
-          content: {
-            "application/json": components["schemas"]["todo"];
-          };
-        };
-        /** @description Validation errors */
-        422: {
-          content: {
-            "application/json": {
-              /** @example The given data was invalid. */
-              message?: string;
-              /**
-               * @example {
-               *   "field": [
-               *     "Something is wrong with this field!"
-               *   ]
-               * }
-               */
-              errors?: {
-                [key: string]: string[];
-              };
-            };
-          };
-        };
-      };
-    };
+    post: operations["storeTodo"];
   };
   "/todo/{todo}": {
     /**
-     * Show
-     * @description Returns a single todo from its id.
-     * The todo must be related to the logged in user.
+     * Gets a todo
+     * @description Get one todos from its id, it must be assigned to the logged in user
      */
-    get: {
-      parameters: {
-        path: {
-          todo: string;
-        };
+    get: operations["showTodo"];
+    /**
+     * Delete a todo
+     * @description Deletes a todo, must be assigned to the user.
+     */
+    delete: operations["deleteTodo"];
+    /**
+     * Update a todo
+     * @description Updates a todo, must be assigned to the user.
+     */
+    patch: operations["updateTodo"];
+    parameters: {
+      path: {
+        todo: string;
       };
     };
+  };
+  "/openapi": {
+    /**
+     * Json Openapi
+     * @description This sites json openapi spec
+     */
+    get: operations["openapiJson"];
+  };
+  "/auth/register": {
+    /**
+     * Register
+     * @description Register route
+     */
+    post: operations["register"];
   };
   "/auth/login": {
     /**
      * Login
-     * @description Handle an incoming authentication request.
+     * @description Login route
      */
-    post: {
-      /** @description Authentication request */
-      requestBody?: {
-        content: {
-          "application/json": components["schemas"]["Authenticate"];
-        };
-      };
-      responses: {
-        /** @description Successful response */
-        204: {
-          content: never;
-        };
-        /** @description Validation errors */
-        422: {
-          content: {
-            "application/json": {
-              /** @example The given data was invalid. */
-              message?: string;
-              /**
-               * @example {
-               *   "field": [
-               *     "Something is wrong with this field!"
-               *   ]
-               * }
-               */
-              errors?: {
-                [key: string]: string[];
-              };
-            };
-          };
-        };
-      };
-    };
+    post: operations["login"];
   };
   "/auth/logout": {
     /**
      * Logout
-     * @description Destroy an authenticated session.
+     * @description Logs the current user out.
      */
-    post: {
-      /** @description Authentication request */
-      requestBody?: {
-        content: {
-          "application/json": components["schemas"]["Authenticate"];
-        };
-      };
-      responses: {
-        /** @description Successful response */
-        204: {
-          content: never;
-        };
-        /** @description Not logged in */
-        401: {
-          content: {
-            "application/json": {
-              /** @example Unauthenticated. */
-              message?: string;
-            };
-          };
-        };
-        /** @description Validation errors */
-        422: {
-          content: {
-            "application/json": {
-              /** @example The given data was invalid. */
-              message?: string;
-              /**
-               * @example {
-               *   "field": [
-               *     "Something is wrong with this field!"
-               *   ]
-               * }
-               */
-              errors?: {
-                [key: string]: string[];
-              };
-            };
-          };
-        };
-      };
-    };
+    post: operations["logout"];
+  };
+  "/user": {
+    /**
+     * Profile
+     * @description Gets the profile of the currently logged in user.
+     */
+    get: operations["/user-get"];
   };
 }
 
@@ -183,24 +80,67 @@ export type webhooks = Record<string, never>;
 
 export interface components {
   schemas: {
-    Authenticate: {
-      /** @example test@test.test */
-      email?: string;
-      /**
-       * Format: password
-       * @example password
-       */
-      password?: string;
-    };
-    todo: {
+    Openapi: Record<string, never>;
+    Todo: {
       /** Format: uuid */
       id: string;
-      /** @example Write more todos */
-      task?: string;
-      /** @default false */
+      task: string;
       completed?: boolean;
+      /** Format: date-time */
+      created_at: string;
+      /** Format: date-time */
+      updated_at?: string;
+    };
+    "Todo Array": {
+        /** Format: uuid */
+        id: string;
+        task: string;
+        completed?: boolean;
+        /** Format: date-time */
+        created_at: string;
+        /** Format: date-time */
+        updated_at?: string;
+      }[];
+    TodoCreate: {
+      task: string;
+      completed?: boolean;
+    };
+    TodoUpdate: {
+      task?: string;
+      completed?: boolean;
+    };
+    RegisterRequest: {
+      name: string;
+      /** Format: email */
+      email: string;
+      /** Format: password */
+      password: string;
+      /** Format: password */
+      password_confirmation: string;
+    };
+    AuthenticateRequest: {
+      /** Format: email */
+      email: string;
+      /** Format: password */
+      password: string;
+    };
+    "Unauthenticated Error": {
+      /** @constant */
+      message: "Unauthenticated.";
+    };
+    "Validation Error": {
+      message: string;
+      errors: {
+        [key: string]: string[];
+      };
+    };
+    "Profile Schema": {
       /** Format: uuid */
-      user_id: string;
+      id: string;
+      name: string;
+      /** Format: email */
+      email: string;
+      email_verified_at: string | null;
       /** Format: date-time */
       created_at: string;
       /** Format: date-time */
@@ -218,4 +158,199 @@ export type $defs = Record<string, never>;
 
 export type external = Record<string, never>;
 
-export type operations = Record<string, never>;
+export interface operations {
+
+  /**
+   * Get all todos
+   * @description Get all the todos assigned to the logged in user
+   */
+  indexTodo: {
+    responses: {
+      /** @description Successful response */
+      200: {
+        content: {
+          "application/json": components["schemas"]["Todo Array"];
+        };
+      };
+      /** @description Successful response */
+      401: {
+        content: {
+          "application/json": components["schemas"]["Unauthenticated Error"];
+        };
+      };
+    };
+  };
+  /**
+   * Create a todo
+   * @description Creates a todo assigned to the user.
+   */
+  storeTodo: {
+    /** @description Input */
+    requestBody: {
+      content: {
+        "application/json": components["schemas"]["TodoCreate"];
+      };
+    };
+    responses: {
+      /** @description Created */
+      201: {
+        content: {
+          "application/json": components["schemas"]["Todo"];
+        };
+      };
+    };
+  };
+  /**
+   * Gets a todo
+   * @description Get one todos from its id, it must be assigned to the logged in user
+   */
+  showTodo: {
+    parameters: {
+      path: {
+        todo: string;
+      };
+    };
+    responses: {
+      /** @description Successful response */
+      200: {
+        content: {
+          "application/json": components["schemas"]["Todo"];
+        };
+      };
+    };
+  };
+  /**
+   * Delete a todo
+   * @description Deletes a todo, must be assigned to the user.
+   */
+  deleteTodo: {
+    parameters: {
+      path: {
+        todo: string;
+      };
+    };
+    responses: {
+      /** @description Successfully Deleted */
+      204: {
+        content: never;
+      };
+    };
+  };
+  /**
+   * Update a todo
+   * @description Updates a todo, must be assigned to the user.
+   */
+  updateTodo: {
+    parameters: {
+      path: {
+        todo: string;
+      };
+    };
+    /** @description Input */
+    requestBody: {
+      content: {
+        "application/json": components["schemas"]["TodoUpdate"];
+      };
+    };
+    responses: {
+      /** @description Created */
+      201: {
+        content: {
+          "application/json": components["schemas"]["Todo"];
+        };
+      };
+    };
+  };
+  /**
+   * Json Openapi
+   * @description This sites json openapi spec
+   */
+  openapiJson: {
+    responses: {
+      /** @description Successful response */
+      200: {
+        content: {
+          "application/json": components["schemas"]["Openapi"];
+        };
+      };
+    };
+  };
+  /**
+   * Register
+   * @description Register route
+   */
+  register: {
+    /** @description Input */
+    requestBody: {
+      content: {
+        "application/json": components["schemas"]["RegisterRequest"];
+      };
+    };
+    responses: {
+      /** @description Succssfully logged in */
+      204: {
+        content: never;
+      };
+      /** @description Successful response */
+      422: {
+        content: {
+          "application/json": components["schemas"]["Validation Error"];
+        };
+      };
+    };
+  };
+  /**
+   * Login
+   * @description Login route
+   */
+  login: {
+    /** @description Input */
+    requestBody: {
+      content: {
+        "application/json": components["schemas"]["AuthenticateRequest"];
+      };
+    };
+    responses: {
+      /** @description Succssfully logged in */
+      204: {
+        content: never;
+      };
+      /** @description Successful response */
+      422: {
+        content: {
+          "application/json": components["schemas"]["Validation Error"];
+        };
+      };
+    };
+  };
+  /**
+   * Logout
+   * @description Logs the current user out.
+   */
+  logout: {
+    responses: {
+      /** @description Succssfully logged out. */
+      204: {
+        content: {
+          "application/json": {
+            foo: string;
+          };
+        };
+      };
+    };
+  };
+  /**
+   * Profile
+   * @description Gets the profile of the currently logged in user.
+   */
+  "/user-get": {
+    responses: {
+      /** @description Successful response */
+      200: {
+        content: {
+          "application/json": components["schemas"]["Profile Schema"];
+        };
+      };
+    };
+  };
+}

@@ -13,7 +13,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('todos', function (Blueprint $table) {
-            $table->uuid('id');
+            $table->uuid('id')->primary();
             $table->string('task');
             $table->boolean('completed')->default(false);
             $table->foreignIdFor(User::class);

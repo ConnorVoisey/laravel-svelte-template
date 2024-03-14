@@ -11,7 +11,7 @@
 </script>
 
 <h1 class="title">Hello {data.user?.name ?? 'there'}</h1>
-<pre style="white-space: pre;">{JSON.stringify({ todos: data.data }, null, 8)}</pre>
+<a href="/todo" class="btn">Todos</a>
 {#if data.user === null}
 	<p>You are not logged in.</p>
 	<a href="/login" class="btn">Login</a>

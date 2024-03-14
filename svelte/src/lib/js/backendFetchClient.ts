@@ -1,12 +1,11 @@
 import createClient from 'openapi-fetch';
 import type { paths } from './openApiSchema';
 import { env } from '$env/dynamic/public';
-import type { RequestEvent } from '@sveltejs/kit';
+import type { Cookies, RequestEvent } from '@sveltejs/kit';
 
 export type FetchClient = ReturnType<typeof createClient<paths>>;
 
-type SvelteKitEvent = RequestEvent<Partial<Record<string, string>>, string | null>;
-export const getFetchClient = (event: SvelteKitEvent) =>
+export const getFetchClient = (event: { fetch: typeof fetch; url: URL; cookies: Cookies }) =>
 	createClient<paths>({
 		baseUrl: env.PUBLIC_API_URL,
 		fetch: event.fetch,

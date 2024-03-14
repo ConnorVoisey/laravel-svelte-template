@@ -10,7 +10,11 @@ class todo extends Model
     use HasFactory;
 
     protected $fillable = [
-        'title',
-        'description',
+        'id',
+        'task',
+        'completed',
+        'user_id',
     ];
+
+    protected $keyType = 'string';
 }

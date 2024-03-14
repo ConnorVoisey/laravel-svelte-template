@@ -4,11 +4,24 @@
 :root {
 	font-family: system-ui, sans-serif;
 }
-.title {
-	color: on-surface(0);
+
+@mixin title($color) {
+	color: $color;
 	font-size: 25px;
 	font-weight: 500;
 	font-family: 'Poppins', sans-serif;
+}
+
+.title {
+	@include title(on-surface(0));
+}
+
+.title-on-primary {
+	@include title(on-primary(0));
+}
+
+.title-on-secondary {
+	@include title(on-secondary(0));
 }
 
 .subtitle {

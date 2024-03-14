@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\OpenApi\Responses\ListTodosResponse;
+use App\OpenApi\Responses\UserResponse;
 use Illuminate\Support\Facades\Auth;
 use Vyuldashev\LaravelOpenApi\Attributes\Operation;
 use Vyuldashev\LaravelOpenApi\Attributes\PathItem;
@@ -17,7 +17,7 @@ class ProfileController extends Controller
      * Displays the logged in users profile information.
      */
     #[Operation(tags: ['Requires Auth', 'Profile'])]
-    #[Response(factory: ListTodosResponse::class)]
+    #[Response(factory: UserResponse::class)]
     public function user()
     {
         return response()->json(Auth::user());
