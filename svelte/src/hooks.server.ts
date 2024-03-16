@@ -33,7 +33,7 @@ export const handle: Handle = async ({ event, resolve }) => {
 
 	const newTheme = event.url.searchParams.get('theme');
 	const cookieTheme = event.cookies.get('theme');
-	const theme = newTheme ? newTheme : cookieTheme;
+	const theme = newTheme ?? cookieTheme;
 
 	return await resolve(event, {
 		transformPageChunk: ({ html }) => html.replace('theme=""', `theme="${theme}"`)

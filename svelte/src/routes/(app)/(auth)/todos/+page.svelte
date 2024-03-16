@@ -8,7 +8,11 @@
 		<li>
 			<p>{todo.task}</p>
 			<input type="checkbox" readonly={true} checked={todo.completed} class="checkbox" />
+			<a href={`/todos/${todo.id}`} class="btn-primary">View</a>
 		</li>
 	{/each}
 </ul>
+
 <pre style="white-space: pre;">{JSON.stringify({ todos: data.todos }, null, 8)}</pre>
+
+<a href="/todos/create" class="btn-primary">Create</a>

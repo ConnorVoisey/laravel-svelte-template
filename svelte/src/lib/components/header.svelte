@@ -20,7 +20,7 @@
 		</label>
 		<nav>
 			<ul>
-				<li><a href="/getting-started">Getting Started</a></li>
+				<li><a href="/todos">Todos</a></li>
 				<li><a href="/examples">Examples</a></li>
 				<li><a href="/docs">Documentation</a></li>
 			</ul>
