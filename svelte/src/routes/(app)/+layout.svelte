@@ -28,7 +28,7 @@
 
 <style lang="scss">
 	:global(::view-transition-old(root), ::view-transition-new(root)) {
-		animation-duration: 60ms;
+		animation-duration: 50ms;
 		width: 100%;
 		height: 100%;
 	}

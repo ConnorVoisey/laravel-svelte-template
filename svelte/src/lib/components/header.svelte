@@ -59,7 +59,7 @@
 	.menu {
 		svg {
 			width: size(8);
-			fill: on-primary(1);
+			fill: on-surface(1);
 		}
 	}
 	.title-on-primary {
@@ -102,7 +102,7 @@
 		position: relative;
 		width: max-content;
 		&::after {
-			background-color: on-primary(2);
+			background-color: on-surface(2);
 			@include pseudo;
 			height: 2px;
 			width: 0;
