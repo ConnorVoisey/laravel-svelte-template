@@ -3,23 +3,31 @@
 ** This theme was generated from the theme generator.
 */
 
-@mixin content-width($width: 900px) {
+@mixin content-width($width: 600px) {
 	max-width: $width;
 	margin: auto;
 
 	@media (max-width: $width) {
 		padding: size(8);
 	}
+
 	@media (max-width: 600px) {
 		padding: size(4);
 	}
 }
+
+@mixin flex-col($size: 4) {
+	display: flex;
+	flex-direction: column;
+	gap: size($size);
+}
+
 @mixin pseudo($display: block, $pos: absolute, $width: 100%, $height: 100%, $content: '') {
 	content: $content;
 	display: $display;
 	position: $pos;
 	width: $width;
-	heigh: $height;
+	height: $height;
 }
 
 @function size($num) {
@@ -30,149 +38,203 @@
 	/***
 	** Colors
 	***/
+	--clr-primary-0: 109, 46%, 97%;
+	--clr-primary-1: 109, 45%, 94%;
+	--clr-primary-2: 109, 43%, 90%;
+	--clr-primary-3: 109, 41%, 84%;
+	--clr-primary-4: 109, 35%, 64%;
+	--clr-primary-5: 109, 31%, 48%;
+	--clr-primary-6: 109, 34%, 44%;
+	--clr-primary-7: 109, 38%, 40%;
+	--clr-primary-8: 109, 47%, 31%;
+	--clr-primary-9: 109, 54%, 25%;
+	--clr-on-primary-0: 0, 0%, 7.705882352941177%;
+	--clr-on-primary-1: 0, 0%, 4.705882352941177%;
+	--clr-on-primary-2: 0, 0%, 1.7058823529411766%;
+	--clr-secondary-0: -13, 83%, 99%;
+	--clr-secondary-1: -13, 76%, 97%;
+	--clr-secondary-2: -13, 70%, 95%;
+	--clr-secondary-3: -13, 64%, 91%;
+	--clr-secondary-4: -13, 49%, 76%;
+	--clr-secondary-5: -13, 39%, 60%;
+	--clr-secondary-6: -13, 36%, 56%;
+	--clr-secondary-7: -13, 34%, 51%;
+	--clr-secondary-8: -13, 41%, 40%;
+	--clr-secondary-9: -13, 48%, 33%;
+	--clr-on-secondary-0: 0, 0%, 7.705882352941177%;
+	--clr-on-secondary-1: 0, 0%, 4.705882352941177%;
+	--clr-on-secondary-2: 0, 0%, 1.7058823529411766%;
+	--clr-surface-0: 220, 23%, 94%;
+	--clr-surface-1: 220, 23%, 89%;
+	--clr-surface-2: 220, 23%, 83%;
+	--clr-surface-3: 220, 23%, 80%;
+	--clr-surface-4: 220, 23%, 75%;
+	--clr-surface-5: 220, 23%, 71%;
+	--clr-surface-6: 220, 23%, 66%;
+	--clr-surface-7: 220, 23%, 57%;
+	--clr-surface-8: 220, 23%, 51%;
+	--clr-surface-9: 220, 23%, 46%;
+	--clr-on-surface-0: 0, 0%, 7.705882352941177%;
+	--clr-on-surface-1: 0, 0%, 4.705882352941177%;
+	--clr-on-surface-2: 0, 0%, 1.7058823529411766%;
+	--clr-success-0: 177, 96%, 96%;
+	--clr-success-1: 177, 93%, 92%;
+	--clr-success-2: 177, 91%, 87%;
+	--clr-success-3: 177, 88%, 81%;
+	--clr-success-4: 177, 76%, 59%;
+	--clr-success-5: 177, 80%, 45%;
+	--clr-success-6: 177, 83%, 42%;
+	--clr-success-7: 177, 85%, 39%;
+	--clr-success-8: 177, 90%, 32%;
+	--clr-success-9: 177, 93%, 27%;
+	--clr-on-success-0: 0, 0%, 7.705882352941177%;
+	--clr-on-success-1: 0, 0%, 4.705882352941177%;
+	--clr-on-success-2: 0, 0%, 1.7058823529411766%;
+	--clr-warning-0: 35, 97%, 97%;
+	--clr-warning-1: 35, 95%, 93%;
+	--clr-warning-2: 35, 93%, 88%;
+	--clr-warning-3: 35, 91%, 82%;
+	--clr-warning-4: 35, 82%, 61%;
+	--clr-warning-5: 35, 77%, 49%;
+	--clr-warning-6: 35, 80%, 46%;
+	--clr-warning-7: 35, 83%, 43%;
+	--clr-warning-8: 35, 88%, 35%;
+	--clr-warning-9: 35, 91%, 30%;
+	--clr-on-warning-0: 0, 0%, 7.705882352941177%;
+	--clr-on-warning-1: 0, 0%, 4.705882352941177%;
+	--clr-on-warning-2: 0, 0%, 1.7058823529411766%;
+	--clr-error-0: 0, 76%, 95%;
+	--clr-error-1: 0, 74%, 90%;
+	--clr-error-2: 0, 72%, 83%;
+	--clr-error-3: 0, 69%, 76%;
+	--clr-error-4: 0, 58%, 51%;
+	--clr-error-5: 0, 84%, 36%;
+	--clr-error-6: 0, 86%, 34%;
+	--clr-error-7: 0, 88%, 31%;
+	--clr-error-8: 0, 92%, 25%;
+	--clr-error-9: 0, 94%, 21%;
+	--clr-on-error-0: 0, 0%, 100%;
+	--clr-on-error-1: 0, 0%, 98.4313725490196%;
+	--clr-on-error-2: 0, 0%, 95.4313725490196%;
 
-	/* primary #6da0c9 */
-	--clr-primary-0: 207, 46%, 61%; /* #6ea0c9 */
-	--clr-primary-1: 207, 46%, 59%; /* #669bc7 */
-	--clr-primary-2: 207, 46%, 57%; /* #5f96c4 */
-	--clr-primary-3: 207, 46%, 55%; /* #5792c1 */
-	--clr-primary-4: 207, 46%, 52%; /* #4c8abd */
-	--clr-primary-5: 207, 46%, 49%; /* #4383b6 */
-	--clr-primary-6: 207, 46%, 45%; /* #3e78a8 */
-	--clr-primary-7: 207, 46%, 40%; /* #376b95 */
-	--clr-primary-8: 207, 46%, 36%; /* #326086 */
-	--clr-primary-9: 207, 46%, 34%; /* #2f5b7f */
-	/* on primary #0c0c0c */
-	--clr-on-primary-0: 0, 0%, 7.705882352941177%; /* #141414 */
-	--clr-on-primary-1: 0, 0%, 4.705882352941177%; /* #0c0c0c */
-	--clr-on-primary-2: 0, 0%, 1.7058823529411766%; /* #040404 */
-
-	/* secondary #81269d */
-	--clr-secondary-0: 286, 61%, 38%; /* #80269c */
-	--clr-secondary-1: 286, 61%, 37%; /* #7d2598 */
-	--clr-secondary-2: 286, 61%, 35%; /* #762390 */
-	--clr-secondary-3: 286, 61%, 33%; /* #702187 */
-	--clr-secondary-4: 286, 61%, 31%; /* #691f7f */
-	--clr-secondary-5: 286, 61%, 30%; /* #651e7b */
-	--clr-secondary-6: 286, 61%, 27%; /* #5b1b6f */
-	--clr-secondary-7: 286, 61%, 24%; /* #511863 */
-	--clr-secondary-8: 286, 61%, 22%; /* #4a165a */
-	--clr-secondary-9: 286, 61%, 20%; /* #441452 */
-	/* on secondary #fbfbfb */
-	--clr-on-secondary-0: 0, 0%, 100%; /* #ffffff */
-	--clr-on-secondary-1: 0, 0%, 98.4313725490196%; /* #fbfbfb */
-	--clr-on-secondary-2: 0, 0%, 95.4313725490196%; /* #f3f3f3 */
-
-	/* surface #3e403f */
-	--clr-surface-0: 150, 0%, 95%; /* #f2f2f2 */
-	--clr-surface-1: 150, 0%, 89%; /* #e3e3e3 */
-	--clr-surface-2: 150, 1%, 81%; /* #cecfcf */
-	--clr-surface-3: 150, 1%, 72%; /* #b7b8b8 */
-	--clr-surface-4: 150, 1%, 42%; /* #6a6c6b */
-	--clr-surface-5: 150, 2%, 25%; /* #3e4140 */
-	--clr-surface-6: 150, 4%, 21%; /* #333836 */
-	--clr-surface-7: 150, 7%, 18%; /* #2b312e */
-	--clr-surface-8: 150, 15%, 11%; /* #18201c */
-	--clr-surface-9: 150, 22%, 7%; /* #0e1612 */
-	/* on surface #393236 */
-	--clr-on-surface-0: 240, 7%, 14%; /* #222225 */
-	--clr-on-surface-1: 240, 6%, 12%; /* #1d1d20 */
-	--clr-on-surface-2: 240, 6%, 10%; /* #18181B */
-
-	/* success #98c379 */
-	--clr-success-0: 95, 38%, 62%; /* #98c379 */
-	--clr-success-1: 95, 38%, 60%; /* #93c072 */
-	--clr-success-2: 95, 38%, 57%; /* #8abb68 */
-	--clr-success-3: 95, 38%, 56%; /* #88b964 */
-	--clr-success-4: 95, 38%, 53%; /* #80b55a */
-	--clr-success-5: 95, 38%, 50%; /* #77b04f */
-	--clr-success-6: 95, 38%, 46%; /* #6ea249 */
-	--clr-success-7: 95, 38%, 40%; /* #608d3f */
-	--clr-success-8: 95, 38%, 36%; /* #567f39 */
-	--clr-success-9: 95, 38%, 34%; /* #517836 */
-	/* on success #0c0c0c */
-	--clr-on-success-0: 0, 0%, 7.705882352941177%; /* #141414 */
-	--clr-on-success-1: 0, 0%, 4.705882352941177%; /* #0c0c0c */
-	--clr-on-success-2: 0, 0%, 1.7058823529411766%; /* #040404 */
-
-	/* warning #d19a66 */
-	--clr-warning-0: 29, 54%, 61%; /* #d19a66 */
-	--clr-warning-1: 29, 54%, 59%; /* #cf955e */
-	--clr-warning-2: 29, 54%, 57%; /* #cd8f56 */
-	--clr-warning-3: 29, 54%, 55%; /* #ca8a4e */
-	--clr-warning-4: 29, 54%, 52%; /* #c78243 */
-	--clr-warning-5: 29, 54%, 49%; /* #c07b39 */
-	--clr-warning-6: 29, 54%, 46%; /* #b57336 */
-	--clr-warning-7: 29, 54%, 40%; /* #9d642f */
-	--clr-warning-8: 29, 54%, 37%; /* #915d2b */
-	--clr-warning-9: 29, 54%, 34%; /* #865528 */
-	/* on warning #0c0c0c */
-	--clr-on-warning-0: 0, 0%, 7.705882352941177%; /* #141414 */
-	--clr-on-warning-1: 0, 0%, 4.705882352941177%; /* #0c0c0c */
-	--clr-on-warning-2: 0, 0%, 1.7058823529411766%; /* #040404 */
-
-	/* error #f5776c */
-	--clr-error-0: 5, 87%, 69%; /* #f5776b */
-	--clr-error-1: 5, 87%, 67%; /* #f46e62 */
-	--clr-error-2: 5, 87%, 64%; /* #f36153 */
-	--clr-error-3: 5, 87%, 62%; /* #f2584a */
-	--clr-error-4: 5, 87%, 60%; /* #f24f40 */
-	--clr-error-5: 5, 87%, 57%; /* #f14232 */
-	--clr-error-6: 5, 87%, 53%; /* #ef301f */
-	--clr-error-7: 5, 87%, 47%; /* #e02110 */
-	--clr-error-8: 5, 87%, 43%; /* #cd1e0e */
-	--clr-error-9: 5, 87%, 40%; /* #bf1c0d */
-	/* on error #0c0c0c */
-	--clr-on-error-0: 0, 0%, 7.705882352941177%; /* #141414 */
-	--clr-on-error-1: 0, 0%, 4.705882352941177%; /* #0c0c0c */
-	--clr-on-error-2: 0, 0%, 1.7058823529411766%; /* #040404 */
 	&[theme='dark'] {
-		/* surface #222222 */
-		--clr-surface-0: 0, 0%, 13%;
-		--clr-surface-1: 0, 0%, 17%;
-		--clr-surface-2: 0, 0%, 20%;
-		--clr-surface-3: 0, 0%, 23%;
-		--clr-surface-4: 0, 0%, 25%;
-		--clr-surface-5: 0, 0%, 29%;
-		--clr-surface-6: 0, 0%, 35%;
-		--clr-surface-7: 0, 0%, 40%;
-		--clr-surface-8: 0, 0%, 43%;
-		--clr-surface-9: 0, 0%, 49%;
-		/* on surface #fbfbfb */
-		--clr-on-surface-0: 0, 0%, 100%;
-		--clr-on-surface-1: 0, 0%, 98.4313725490196%;
-		--clr-on-surface-2: 0, 0%, 95.4313725490196%;
+		--clr-surface-0: 240, 21%, 15%;
+		--clr-surface-1: 240, 21%, 19%;
+		--clr-surface-2: 240, 21%, 21%;
+		--clr-surface-3: 240, 21%, 24%;
+		--clr-surface-4: 240, 21%, 26%;
+		--clr-surface-5: 240, 21%, 29%;
+		--clr-surface-6: 240, 21%, 35%;
+		--clr-surface-7: 240, 21%, 40%;
+		--clr-surface-8: 240, 21%, 43%;
+		--clr-surface-9: 240, 21%, 49%;
+		--clr-on-surface-0: 0, 0%, 97%;
+		--clr-on-surface-1: 0, 0%, 90%;
+		--clr-on-surface-2: 0, 0%, 70%;
+		--clr-primary-0: 115, 78%, 100%;
+		--clr-primary-1: 115, 72%, 99%;
+		--clr-primary-2: 115, 68%, 98%;
+		--clr-primary-3: 115, 65%, 96%;
+		--clr-primary-4: 115, 58%, 87%;
+		--clr-primary-5: 115, 54%, 76%;
+		--clr-primary-6: 115, 48%, 71%;
+		--clr-primary-7: 115, 43%, 65%;
+		--clr-primary-8: 115, 34%, 52%;
+		--clr-primary-9: 115, 38%, 42%;
+		--clr-on-primary-0: 0, 0%, 7.705882352941177%;
+		--clr-on-primary-1: 0, 0%, 4.705882352941177%;
+		--clr-on-primary-2: 0, 0%, 1.7058823529411766%;
+		--clr-secondary-0: -10, 88%, 99%;
+		--clr-secondary-1: -10, 84%, 99%;
+		--clr-secondary-2: -10, 80%, 97%;
+		--clr-secondary-3: -10, 77%, 96%;
+		--clr-secondary-4: -10, 69%, 87%;
+		--clr-secondary-5: -10, 65%, 77%;
+		--clr-secondary-6: -10, 57%, 72%;
+		--clr-secondary-7: -10, 50%, 66%;
+		--clr-secondary-8: -10, 38%, 53%;
+		--clr-secondary-9: -10, 41%, 43%;
+		--clr-on-secondary-0: 0, 0%, 7.705882352941177%;
+		--clr-on-secondary-1: 0, 0%, 4.705882352941177%;
+		--clr-on-secondary-2: 0, 0%, 1.7058823529411766%;
+		--clr-success-0: 170, 87%, 99%;
+		--clr-success-1: 170, 82%, 98%;
+		--clr-success-2: 170, 77%, 97%;
+		--clr-success-3: 170, 73%, 95%;
+		--clr-success-4: 170, 63%, 84%;
+		--clr-success-5: 170, 57%, 73%;
+		--clr-success-6: 170, 51%, 68%;
+		--clr-success-7: 170, 46%, 63%;
+		--clr-success-8: 170, 36%, 50%;
+		--clr-success-9: 170, 43%, 41%;
+		--clr-on-success-0: 0, 0%, 7.705882352941177%;
+		--clr-on-success-1: 0, 0%, 4.705882352941177%;
+		--clr-on-success-2: 0, 0%, 1.7058823529411766%;
+		--clr-warning-0: 23, 99%, 99%;
+		--clr-warning-1: 23, 98%, 97%;
+		--clr-warning-2: 23, 97%, 95%;
+		--clr-warning-3: 23, 97%, 93%;
+		--clr-warning-4: 23, 94%, 83%;
+		--clr-warning-5: 23, 92%, 75%;
+		--clr-warning-6: 23, 80%, 70%;
+		--clr-warning-7: 23, 69%, 65%;
+		--clr-warning-8: 23, 50%, 52%;
+		--clr-warning-9: 23, 53%, 43%;
+		--clr-on-warning-0: 0, 0%, 7.705882352941177%;
+		--clr-on-warning-1: 0, 0%, 4.705882352941177%;
+		--clr-on-warning-2: 0, 0%, 1.7058823529411766%;
+		--clr-error-0: -17, 96%, 99%;
+		--clr-error-1: -17, 95%, 98%;
+		--clr-error-2: -17, 93%, 96%;
+		--clr-error-3: -17, 91%, 93%;
+		--clr-error-4: -17, 85%, 84%;
+		--clr-error-5: -17, 81%, 75%;
+		--clr-error-6: -17, 71%, 70%;
+		--clr-error-7: -17, 62%, 65%;
+		--clr-error-8: -17, 45%, 52%;
+		--clr-error-9: -17, 49%, 43%;
+		--clr-on-error-0: 0, 0%, 7.705882352941177%;
+		--clr-on-error-1: 0, 0%, 4.705882352941177%;
+		--clr-on-error-2: 0, 0%, 1.7058823529411766%;
 	}
 }
 
 @function get-color($key, $num, $alpha) {
-	@if $num > 9 or $num < 0 {
+	@if $num >9 or $num < 0 {
 		@error 'number not in range';
 	}
+
 	$color-list: 'primary', 'secondary', 'surface', 'neutral', 'success', 'warning', 'error';
+
 	@each $current-key in $color-list {
-		@if $key == $current-key {
+		@if $key ==$current-key {
 			@return hsl(var(--clr-#{$current-key}-#{$num}), $alpha);
 		}
 	}
+
 	@error 'key not found';
 }
+
 @function get-on-color($key, $num, $alpha) {
-	@if $num > 2 or $num < 0 {
+	@if $num >2 or $num < 0 {
 		@error 'number not in range';
 	}
+
 	$color-list: 'primary', 'secondary', 'surface', 'neutral', 'success', 'warning', 'error';
+
 	@each $current-key in $color-list {
-		@if $key == $current-key {
+		@if $key ==$current-key {
 			@return hsl(var(--clr-on-#{$current-key}-#{$num}), $alpha);
 		}
 	}
+
 	@error 'key not found';
 }
 
 @function primary($num, $alpha: 1) {
 	@return get-color('primary', $num, $alpha);
 }
+
 @function on-primary($num, $alpha: 1) {
 	@return get-on-color('primary', $num, $alpha);
 }
@@ -180,6 +242,7 @@
 @function secondary($num, $alpha: 1) {
 	@return get-color('secondary', $num, $alpha);
 }
+
 @function on-secondary($num, $alpha: 1) {
 	@return get-on-color('secondary', $num, $alpha);
 }
@@ -187,6 +250,7 @@
 @function success($num, $alpha: 1) {
 	@return get-color('success', $num, $alpha);
 }
+
 @function on-success($num, $alpha: 1) {
 	@return get-on-color('success', $num, $alpha);
 }
@@ -194,6 +258,7 @@
 @function warning($num, $alpha: 1) {
 	@return get-color('warning', $num, $alpha);
 }
+
 @function on-warning($num, $alpha: 1) {
 	@return get-on-color('warning', $num, $alpha);
 }
@@ -201,16 +266,19 @@
 @function error($num, $alpha: 1) {
 	@return get-color('error', $num, $alpha);
 }
+
 @function on-error($num, $alpha: 1) {
 	@return get-on-color('error', $num, $alpha);
 }
 
 @function surface($num, $alpha: 1) {
-	@if $num > 2 or $num < 0 {
+	@if $num >2 or $num < 0 {
 		@error 'number not in range';
 	}
+
 	@return hsl(var(--clr-surface-#{$num}), $alpha);
 }
+
 @function on-surface($num, $alpha: 1) {
 	@return get-on-color('surface', $num, $alpha);
 }

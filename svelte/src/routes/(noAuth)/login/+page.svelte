@@ -1,6 +1,7 @@
 <script lang="ts">
 	import { goto } from '$app/navigation';
 	import Field from '$lib/components/field.svelte';
+	import Checkbox from '$lib/components/fields/checkbox.svelte';
 	import { fetchClient } from '$lib/js/fetchClient';
 
 	type FieldName = 'email' | 'password';
@@ -17,7 +18,8 @@
 
 	const body = {
 		email: '',
-		password: ''
+		password: '',
+		rememberMe: false
 	};
 	let errors: Errors = {};
 	let globalError = '';
@@ -73,6 +75,7 @@
 				/></svg
 			>
 		</Field>
+		<Checkbox label="Remember me" bind:checked={body.rememberMe} />
 		<button class="btn-primary">Login</button>
 	</fieldset>
 </form>

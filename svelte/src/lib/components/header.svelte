@@ -1,13 +1,19 @@
 <script lang="ts">
+	import { onNavigate } from '$app/navigation';
 	import ThemeSelector from './themeSelector.svelte';
 	import UserIcon from './userIcon.svelte';
 	export let user: User | null;
+	export let isOpen = false;
+
+	onNavigate(() => {
+		isOpen = false;
+	});
 </script>
 
 <div class="header-wrapper">
 	<header>
-		<a href="/" class="title-on-primary">Shgrid</a>
-		<input type="checkbox" id="hamburger-toggle" aria-hidden="true" />
+		<a href="/" class="title">Shgrid</a>
+		<input type="checkbox" id="hamburger-toggle" aria-hidden="true" bind:checked={isOpen} />
 		<label for="hamburger-toggle" class="menu" aria-hidden="true">
 			<svg class="open-btn" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
 				><title>open menu</title><path d="M3,6H21V8H3V6M3,11H21V13H3V11M3,16H21V18H3V16Z" /></svg
@@ -39,11 +45,11 @@
 <style lang="scss">
 	// -- start region: All styling
 	.header-wrapper {
-		background-color: primary(5);
+		background-color: surface(1);
 	}
 	header {
 		@include content-width;
-		color: on-primary(0);
+		color: on-surface(1);
 		display: flex;
 		justify-content: space-between;
 		align-items: center;
@@ -81,9 +87,9 @@
 		opacity: 0;
 		transition: opacity 200ms;
 		padding: size(8) size(4);
-		background-color: primary(5, 0.8);
-		backdrop-filter: blur(0.4em);
+		backdrop-filter: blur(0.6em);
 		pointer-events: none;
+		background-color: surface(0, 0.8);
 
 		ul {
 			display: flex;
@@ -149,6 +155,7 @@
 			flex-direction: row;
 			justify-content: space-between;
 			padding: 0;
+			background-color: transparent;
 			ul {
 				flex-direction: row;
 				align-items: center;

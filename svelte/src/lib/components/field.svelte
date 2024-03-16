@@ -22,7 +22,9 @@
 	</div>
 	<label>
 		<input {type} {value} {name} {placeholder} {required} on:input={handleInput} />
-		<p>{label}</p>
+		{#if label !== null}
+			<p>{label}</p>
+		{/if}
 		<span><slot /></span>
 		<div class="box" />
 	</label>
@@ -34,10 +36,14 @@
 		flex-direction: column;
 		gap: size(1);
 		--box-clr: #{on-surface(1)};
+		label:focus-within p {
+			color: on-surface(2);
+			transition: color 200ms;
+		}
 	}
 	label {
 		display: grid;
-		gap: size(3) 0;
+		gap: size(2) 0;
 		grid-template-columns: max-content 1fr;
 		grid-template-rows: max-content 1fr max-content;
 		grid-template-areas:
@@ -45,6 +51,7 @@
 			'icon input';
 		span {
 			grid-area: icon;
+			display: flex;
 			:global(svg) {
 				width: size(8);
 				fill: var(--box-clr);
@@ -57,29 +64,24 @@
 			grid-area: input;
 			padding: size(2);
 			transition: color 200ms;
+			color: on-surface(1);
+			&::placeholder {
+				color: on-surface(2);
+			}
 		}
 		p {
 			grid-area: label;
 			font-weight: var(--fw-semibold);
-			transition: color 200ms;
 		}
 		.box {
 			grid-area: 2 / 1 / 3 / 3;
-			box-shadow: 0 0 0.25rem 0rem var(--box-clr);
+			border: solid 0.5px var(--box-clr);
 			padding: size(2);
 			border-radius: size(2);
 			transition: box-shadow 200ms;
 		}
-		input,
-		p {
-			transition: color var(--transition-200);
-		}
 	}
 
-	input:focus,
-	input:focus + p {
-		color: primary(5);
-	}
 	:global(input:focus + p + span svg, input:focus + p + span + .box) {
 		--box-clr: #{primary(5)};
 	}

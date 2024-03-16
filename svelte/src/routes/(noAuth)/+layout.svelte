@@ -1,6 +1,19 @@
 <script lang="ts">
 	import '../../styles/main.scss';
 	import { page } from '$app/stores';
+	import { onNavigate } from '$app/navigation';
+
+	onNavigate((nav) => {
+		// @ts-expect-error
+		if (!document.startViewTransition) return;
+		return new Promise((res) => {
+			// @ts-expect-error
+			document.startViewTransition(async () => {
+				res();
+				await nav.complete;
+			});
+		});
+	});
 </script>
 
 <div class="page">
@@ -30,10 +43,21 @@
 </div>
 
 <style lang="scss">
+	:global(::view-transition-old(root), ::view-transition-new(root)) {
+		animation-duration: 500ms;
+	}
+	.login {
+		view-transition-name: login;
+	}
+	.register {
+		view-transition-name: register;
+	}
+
 	hr.vertical {
 		width: 2px;
 		height: auto;
 		background-color: on-surface(1);
+		view-transition-name: hr;
 	}
 	.page {
 		min-height: 100vh;
@@ -47,6 +71,7 @@
 			display: grid;
 			gap: size(8);
 			grid-template-columns: max-content max-content max-content;
+			view-transition-name: card;
 			&.register-view {
 				.login {
 					max-width: size(24);

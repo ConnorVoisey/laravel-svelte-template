@@ -19,7 +19,7 @@ class TodoController extends Controller
     {
         $user = Auth::user();
 
-        return response()->json(Todo::where('user_id', $user->id)->get());
+        return response()->json(Todo::where('user_id', $user->id)->orderBy('completed')->orderBy('updated_at', 'DESC')->get());
     }
 
     /**
