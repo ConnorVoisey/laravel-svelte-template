@@ -20,8 +20,6 @@ class NewPasswordController extends Controller
      * Handle an incoming new password request.
      *
      * @throws \Illuminate\Validation\ValidationException
-     *
-     * @group Auth
      */
     public function store(Request $request): JsonResponse
     {

@@ -6,7 +6,7 @@ use Closure;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
 
-class LocalDebug
+class ViewDocs
 {
     /**
      * Handle an incoming request.
@@ -15,7 +15,7 @@ class LocalDebug
      */
     public function handle(Request $request, Closure $next): Response
     {
-        if (env('APP_DEBUG') != true) {
+        if (env('APP_DEBUG') != true && env('DISPLAY_DOCS') != true) {
             abort(401);
         }
 

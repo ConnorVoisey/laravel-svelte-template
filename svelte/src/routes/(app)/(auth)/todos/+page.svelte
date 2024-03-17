@@ -15,7 +15,7 @@
 		const res = await fetchClient.POST('/todo', {
 			body
 		});
-		if (res.error) error(500, { message: 'Something went wrong' });
+		if (res.error) error(res.response.status, res.error);
 		body.task = '';
 
 		goto('/todos', { invalidateAll: true });
@@ -41,7 +41,7 @@
 			}
 		});
 
-		if (res.error) error(500, { message: 'Something went wrong' });
+		if (res.error) error(500, res.error);
 
 		goto('/todos', { invalidateAll: true });
 	};
@@ -54,7 +54,7 @@
 			}
 		});
 
-		if (res.error) error(500, { message: 'Something went wrong' });
+		if (res.error) error(res.response.status, res.error);
 
 		goto('/todos', { invalidateAll: true });
 	};

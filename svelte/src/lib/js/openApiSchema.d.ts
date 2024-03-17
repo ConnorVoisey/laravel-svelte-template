@@ -134,6 +134,9 @@ export interface components {
         [key: string]: string[];
       };
     };
+    "Internal Server Error": {
+      message: string;
+    };
     "Profile Schema": {
       /** Format: uuid */
       id: string;
@@ -166,16 +169,21 @@ export interface operations {
    */
   indexTodo: {
     responses: {
-      /** @description Successful response */
       200: {
         content: {
           "application/json": components["schemas"]["Todo Array"];
         };
       };
-      /** @description Successful response */
+      /** @description Unauthenticated */
       401: {
         content: {
           "application/json": components["schemas"]["Unauthenticated Error"];
+        };
+      };
+      /** @description Internal Server Error */
+      500: {
+        content: {
+          "application/json": components["schemas"]["Internal Server Error"];
         };
       };
     };
@@ -185,7 +193,6 @@ export interface operations {
    * @description Creates a todo assigned to the user.
    */
   storeTodo: {
-    /** @description Input */
     requestBody: {
       content: {
         "application/json": components["schemas"]["TodoCreate"];
@@ -196,6 +203,24 @@ export interface operations {
       201: {
         content: {
           "application/json": components["schemas"]["Todo"];
+        };
+      };
+      /** @description Unauthenticated */
+      401: {
+        content: {
+          "application/json": components["schemas"]["Unauthenticated Error"];
+        };
+      };
+      /** @description Unprocessable Entity */
+      422: {
+        content: {
+          "application/json": components["schemas"]["Validation Error"];
+        };
+      };
+      /** @description Internal Server Error */
+      500: {
+        content: {
+          "application/json": components["schemas"]["Internal Server Error"];
         };
       };
     };
@@ -211,10 +236,21 @@ export interface operations {
       };
     };
     responses: {
-      /** @description Successful response */
       200: {
         content: {
           "application/json": components["schemas"]["Todo"];
+        };
+      };
+      /** @description Unauthenticated */
+      401: {
+        content: {
+          "application/json": components["schemas"]["Unauthenticated Error"];
+        };
+      };
+      /** @description Internal Server Error */
+      500: {
+        content: {
+          "application/json": components["schemas"]["Internal Server Error"];
         };
       };
     };
@@ -234,6 +270,18 @@ export interface operations {
       204: {
         content: never;
       };
+      /** @description Unauthenticated */
+      401: {
+        content: {
+          "application/json": components["schemas"]["Unauthenticated Error"];
+        };
+      };
+      /** @description Internal Server Error */
+      500: {
+        content: {
+          "application/json": components["schemas"]["Internal Server Error"];
+        };
+      };
     };
   };
   /**
@@ -246,7 +294,6 @@ export interface operations {
         todo: string;
       };
     };
-    /** @description Input */
     requestBody: {
       content: {
         "application/json": components["schemas"]["TodoUpdate"];
@@ -259,6 +306,24 @@ export interface operations {
           "application/json": components["schemas"]["Todo"];
         };
       };
+      /** @description Unauthenticated */
+      401: {
+        content: {
+          "application/json": components["schemas"]["Unauthenticated Error"];
+        };
+      };
+      /** @description Unprocessable Entity */
+      422: {
+        content: {
+          "application/json": components["schemas"]["Validation Error"];
+        };
+      };
+      /** @description Internal Server Error */
+      500: {
+        content: {
+          "application/json": components["schemas"]["Internal Server Error"];
+        };
+      };
     };
   };
   /**
@@ -267,7 +332,6 @@ export interface operations {
    */
   openapiJson: {
     responses: {
-      /** @description Successful response */
       200: {
         content: {
           "application/json": components["schemas"]["Openapi"];
@@ -280,7 +344,6 @@ export interface operations {
    * @description Register route
    */
   register: {
-    /** @description Input */
     requestBody: {
       content: {
         "application/json": components["schemas"]["RegisterRequest"];
@@ -291,10 +354,22 @@ export interface operations {
       204: {
         content: never;
       };
-      /** @description Successful response */
+      /** @description Unauthenticated */
+      401: {
+        content: {
+          "application/json": components["schemas"]["Unauthenticated Error"];
+        };
+      };
+      /** @description Unprocessable Entity */
       422: {
         content: {
           "application/json": components["schemas"]["Validation Error"];
+        };
+      };
+      /** @description Internal Server Error */
+      500: {
+        content: {
+          "application/json": components["schemas"]["Internal Server Error"];
         };
       };
     };
@@ -304,7 +379,6 @@ export interface operations {
    * @description Login route
    */
   login: {
-    /** @description Input */
     requestBody: {
       content: {
         "application/json": components["schemas"]["AuthenticateRequest"];
@@ -315,10 +389,16 @@ export interface operations {
       204: {
         content: never;
       };
-      /** @description Successful response */
+      /** @description Unprocessable Entity */
       422: {
         content: {
           "application/json": components["schemas"]["Validation Error"];
+        };
+      };
+      /** @description Internal Server Error */
+      500: {
+        content: {
+          "application/json": components["schemas"]["Internal Server Error"];
         };
       };
     };
@@ -337,6 +417,18 @@ export interface operations {
           };
         };
       };
+      /** @description Unauthenticated */
+      401: {
+        content: {
+          "application/json": components["schemas"]["Unauthenticated Error"];
+        };
+      };
+      /** @description Internal Server Error */
+      500: {
+        content: {
+          "application/json": components["schemas"]["Internal Server Error"];
+        };
+      };
     };
   };
   /**
@@ -345,10 +437,21 @@ export interface operations {
    */
   "/user-get": {
     responses: {
-      /** @description Successful response */
       200: {
         content: {
           "application/json": components["schemas"]["Profile Schema"];
+        };
+      };
+      /** @description Unauthenticated */
+      401: {
+        content: {
+          "application/json": components["schemas"]["Unauthenticated Error"];
+        };
+      };
+      /** @description Internal Server Error */
+      500: {
+        content: {
+          "application/json": components["schemas"]["Internal Server Error"];
         };
       };
     };
