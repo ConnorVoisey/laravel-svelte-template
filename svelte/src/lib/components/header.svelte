@@ -2,7 +2,7 @@
 	import { onNavigate } from '$app/navigation';
 	import ThemeSelector from './themeSelector.svelte';
 	import UserIcon from './userIcon.svelte';
-	export let user: User | null;
+	export let user: App.Locals['user'] | null;
 	export let isOpen = false;
 
 	onNavigate(() => {
@@ -28,7 +28,9 @@
 			<ul>
 				<li><a href="/todos">Todos</a></li>
 				<li><a href="/examples">Examples</a></li>
-				<li><a href="/docs">Documentation</a></li>
+				{#if user?.permissions.includes('crud:users')}
+					<li><a href="/users">Manage Users</a></li>
+				{/if}
 			</ul>
 			<ul class="additional">
 				<li>

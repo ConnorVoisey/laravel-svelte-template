@@ -138,16 +138,14 @@ export interface components {
       message: string;
     };
     "Profile Schema": {
-      /** Format: uuid */
       id: string;
       name: string;
-      /** Format: email */
       email: string;
-      email_verified_at: string | null;
-      /** Format: date-time */
+      email_verified_at: string;
       created_at: string;
-      /** Format: date-time */
       updated_at: string;
+      permissions: "crud:users"[];
+      roles: ("admin" | "user")[];
     };
   };
   responses: never;
@@ -169,6 +167,7 @@ export interface operations {
    */
   indexTodo: {
     responses: {
+      /** @description Successful Response */
       200: {
         content: {
           "application/json": components["schemas"]["Todo Array"];
@@ -193,6 +192,7 @@ export interface operations {
    * @description Creates a todo assigned to the user.
    */
   storeTodo: {
+    /** @description Input */
     requestBody: {
       content: {
         "application/json": components["schemas"]["TodoCreate"];
@@ -236,6 +236,7 @@ export interface operations {
       };
     };
     responses: {
+      /** @description Successful Response */
       200: {
         content: {
           "application/json": components["schemas"]["Todo"];
@@ -294,6 +295,7 @@ export interface operations {
         todo: string;
       };
     };
+    /** @description Input */
     requestBody: {
       content: {
         "application/json": components["schemas"]["TodoUpdate"];
@@ -332,6 +334,7 @@ export interface operations {
    */
   openapiJson: {
     responses: {
+      /** @description Successful Response */
       200: {
         content: {
           "application/json": components["schemas"]["Openapi"];
@@ -344,6 +347,7 @@ export interface operations {
    * @description Register route
    */
   register: {
+    /** @description Input */
     requestBody: {
       content: {
         "application/json": components["schemas"]["RegisterRequest"];
@@ -379,6 +383,7 @@ export interface operations {
    * @description Login route
    */
   login: {
+    /** @description Input */
     requestBody: {
       content: {
         "application/json": components["schemas"]["AuthenticateRequest"];
@@ -437,6 +442,7 @@ export interface operations {
    */
   "/user-get": {
     responses: {
+      /** @description Successful Response */
       200: {
         content: {
           "application/json": components["schemas"]["Profile Schema"];

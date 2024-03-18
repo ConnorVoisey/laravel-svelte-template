@@ -7,15 +7,6 @@
 	type FieldName = 'email' | 'password';
 	type Errors = { [k in FieldName]?: string[] };
 
-	// define the response types, this is optional but it will likely prevent errors and save you time
-	type ResData = {
-		foo: string;
-	};
-	type ErrorData = {
-		errors: Errors;
-		message: string;
-	};
-
 	const body = {
 		email: '',
 		password: '',
@@ -34,7 +25,7 @@
 		const { data, error } = await fetchClient.POST('/auth/login', { body });
 		console.log({ data, error });
 		if (error === undefined) return goto('/', { invalidateAll: true });
-		globalError = error.errors.email[0];
+		globalError = error.message;
 	}
 </script>
 

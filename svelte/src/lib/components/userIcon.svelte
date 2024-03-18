@@ -1,5 +1,5 @@
 <script lang="ts">
-	export let user: User | null;
+	export let user: App.Locals['user'] | null;
 	let isMenuOpen = false;
 </script>
 

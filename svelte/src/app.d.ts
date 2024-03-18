@@ -1,3 +1,4 @@
+import { components } from './lib/js/openApiSchema';
 /// <reference types="@sveltejs/kit" />
 
 // See https://kit.svelte.dev/docs#typescript
@@ -17,14 +18,7 @@ declare global {
 		// interface Session {}
 
 		// interface Stuff {}
-	}
-	interface User {
-		id: string;
-		name: string;
-		email: string;
-		email_verified_at: string | null;
-		created_at: string;
-		updated_at: string;
+		type User = components['schemas']['Profile Schema'];
 	}
 }
 

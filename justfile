@@ -22,3 +22,6 @@ pre_commit:
     just generate_docs
     just format
     just test
+
+follow_logs:
+    tail -f laravel/storage/logs/laravel.log
