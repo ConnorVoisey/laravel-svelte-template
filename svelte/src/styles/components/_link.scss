@@ -4,11 +4,12 @@ $colors: 'surface', 'secondary', 'success', 'warning', 'error';
 @mixin underline-hover($clr) {
 	position: relative;
 	width: max-content;
+	text-decoration: underline;
 	&::before {
 		@include pseudo;
 		left: 0;
-		bottom: -2px;
-		height: 2px;
+		bottom: 0px;
+		height: 1px;
 		background-color: $clr;
 		width: 0;
 		transition: width 200ms;

@@ -1,7 +1,6 @@
 <script lang="ts">
 	import { goto } from '$app/navigation';
 	import Field from '$lib/components/field.svelte';
-	import Checkbox from '$lib/components/fields/checkbox.svelte';
 	import { fetchClient } from '$lib/js/fetchClient';
 
 	type FieldName = 'email' | 'password';
@@ -31,7 +30,8 @@
 
 <form on:submit|preventDefault={login}>
 	<fieldset>
-		<legend class="title">Login</legend>
+		<legend class="title">Forgot Password</legend>
+		<p>Enter your email and we will send you instructions on how to recover your account.</p>
 		{#if globalError}
 			<p>{globalError}</p>
 		{/if}
@@ -52,26 +52,11 @@
 				/></svg
 			>
 		</Field>
-		<Field
-			name="password"
-			label="Password"
-			errors={errors.password}
-			required={true}
-			bind:value={body.password}
-			type="password"
-		>
-			<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
-				><title>Password</title><path
-					d="M12,17C10.89,17 10,16.1 10,15C10,13.89 10.89,13 12,13A2,2 0 0,1 14,15A2,2 0 0,1 12,17M18,20V10H6V20H18M18,8A2,2 0 0,1 20,10V20A2,2 0 0,1 18,22H6C4.89,22 4,21.1 4,20V10C4,8.89 4.89,8 6,8H7V6A5,5 0 0,1 12,1A5,5 0 0,1 17,6V8H18M12,3A3,3 0 0,0 9,6V8H15V6A3,3 0 0,0 12,3Z"
-				/></svg
-			>
-		</Field>
-		<Checkbox label="Remember me" bind:checked={body.rememberMe} />
 		<div class="row-link">
-			<a href="/forgot-password" class="link">Forgot Password</a>
+			<a href="/login" class="link">Login</a>
 			<a href="/" class="link">Home</a>
 		</div>
-		<button class="btn-primary">Login</button>
+		<button class="btn-primary">Reset Password</button>
 	</fieldset>
 </form>
 

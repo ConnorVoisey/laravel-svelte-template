@@ -29,7 +29,7 @@
 		task: string;
 		completed: boolean;
 	}) => {
-		const res = await fetchClient.PATCH('/todo/{todo}', {
+		const res = await fetchClient.PATCH('/todo/{todo}/', {
 			body: {
 				task,
 				completed
@@ -46,7 +46,7 @@
 		goto('/todos', { invalidateAll: true });
 	};
 	const deleteTodo = async (id: string) => {
-		const res = await fetchClient.DELETE('/todo/{todo}', {
+		const res = await fetchClient.DELETE('/todo/{todo}/', {
 			params: {
 				path: {
 					todo: id

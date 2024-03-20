@@ -17,9 +17,9 @@ export interface paths {
      */
     post: operations["storeTodo"];
   };
-  "/todo/{todo}": {
+  "/todo/{todo}/": {
     /**
-     * Gets a todo
+     * Gets a todo edit
      * @description Get one todos from its id, it must be assigned to the logged in user
      */
     get: operations["showTodo"];
@@ -38,13 +38,6 @@ export interface paths {
         todo: string;
       };
     };
-  };
-  "/openapi": {
-    /**
-     * Json Openapi
-     * @description This sites json openapi spec
-     */
-    get: operations["openapiJson"];
   };
   "/auth/register": {
     /**
@@ -80,7 +73,6 @@ export type webhooks = Record<string, never>;
 
 export interface components {
   schemas: {
-    Openapi: Record<string, never>;
     Todo: {
       /** Format: uuid */
       id: string;
@@ -91,7 +83,7 @@ export interface components {
       /** Format: date-time */
       updated_at?: string;
     };
-    "Todo Array": {
+    TodoArray: {
         /** Format: uuid */
         id: string;
         task: string;
@@ -124,20 +116,20 @@ export interface components {
       /** Format: password */
       password: string;
     };
-    "Unauthenticated Error": {
+    UnauthenticatedError: {
       /** @constant */
       message: "Unauthenticated.";
     };
-    "Validation Error": {
+    ValidationError: {
       message: string;
       errors: {
         [key: string]: string[];
       };
     };
-    "Internal Server Error": {
+    InternalServerError: {
       message: string;
     };
-    "Profile Schema": {
+    ProfileSchema: {
       id: string;
       name: string;
       email: string;
@@ -170,19 +162,19 @@ export interface operations {
       /** @description Successful Response */
       200: {
         content: {
-          "application/json": components["schemas"]["Todo Array"];
+          "application/json": components["schemas"]["TodoArray"];
         };
       };
       /** @description Unauthenticated */
       401: {
         content: {
-          "application/json": components["schemas"]["Unauthenticated Error"];
+          "application/json": components["schemas"]["UnauthenticatedError"];
         };
       };
       /** @description Internal Server Error */
       500: {
         content: {
-          "application/json": components["schemas"]["Internal Server Error"];
+          "application/json": components["schemas"]["InternalServerError"];
         };
       };
     };
@@ -208,25 +200,25 @@ export interface operations {
       /** @description Unauthenticated */
       401: {
         content: {
-          "application/json": components["schemas"]["Unauthenticated Error"];
+          "application/json": components["schemas"]["UnauthenticatedError"];
         };
       };
       /** @description Unprocessable Entity */
       422: {
         content: {
-          "application/json": components["schemas"]["Validation Error"];
+          "application/json": components["schemas"]["ValidationError"];
         };
       };
       /** @description Internal Server Error */
       500: {
         content: {
-          "application/json": components["schemas"]["Internal Server Error"];
+          "application/json": components["schemas"]["InternalServerError"];
         };
       };
     };
   };
   /**
-   * Gets a todo
+   * Gets a todo edit
    * @description Get one todos from its id, it must be assigned to the logged in user
    */
   showTodo: {
@@ -245,13 +237,13 @@ export interface operations {
       /** @description Unauthenticated */
       401: {
         content: {
-          "application/json": components["schemas"]["Unauthenticated Error"];
+          "application/json": components["schemas"]["UnauthenticatedError"];
         };
       };
       /** @description Internal Server Error */
       500: {
         content: {
-          "application/json": components["schemas"]["Internal Server Error"];
+          "application/json": components["schemas"]["InternalServerError"];
         };
       };
     };
@@ -274,13 +266,13 @@ export interface operations {
       /** @description Unauthenticated */
       401: {
         content: {
-          "application/json": components["schemas"]["Unauthenticated Error"];
+          "application/json": components["schemas"]["UnauthenticatedError"];
         };
       };
       /** @description Internal Server Error */
       500: {
         content: {
-          "application/json": components["schemas"]["Internal Server Error"];
+          "application/json": components["schemas"]["InternalServerError"];
         };
       };
     };
@@ -302,8 +294,8 @@ export interface operations {
       };
     };
     responses: {
-      /** @description Created */
-      201: {
+      /** @description Successful Response */
+      200: {
         content: {
           "application/json": components["schemas"]["Todo"];
         };
@@ -311,33 +303,19 @@ export interface operations {
       /** @description Unauthenticated */
       401: {
         content: {
-          "application/json": components["schemas"]["Unauthenticated Error"];
+          "application/json": components["schemas"]["UnauthenticatedError"];
         };
       };
       /** @description Unprocessable Entity */
       422: {
         content: {
-          "application/json": components["schemas"]["Validation Error"];
+          "application/json": components["schemas"]["ValidationError"];
         };
       };
       /** @description Internal Server Error */
       500: {
         content: {
-          "application/json": components["schemas"]["Internal Server Error"];
-        };
-      };
-    };
-  };
-  /**
-   * Json Openapi
-   * @description This sites json openapi spec
-   */
-  openapiJson: {
-    responses: {
-      /** @description Successful Response */
-      200: {
-        content: {
-          "application/json": components["schemas"]["Openapi"];
+          "application/json": components["schemas"]["InternalServerError"];
         };
       };
     };
@@ -361,19 +339,19 @@ export interface operations {
       /** @description Unauthenticated */
       401: {
         content: {
-          "application/json": components["schemas"]["Unauthenticated Error"];
+          "application/json": components["schemas"]["UnauthenticatedError"];
         };
       };
       /** @description Unprocessable Entity */
       422: {
         content: {
-          "application/json": components["schemas"]["Validation Error"];
+          "application/json": components["schemas"]["ValidationError"];
         };
       };
       /** @description Internal Server Error */
       500: {
         content: {
-          "application/json": components["schemas"]["Internal Server Error"];
+          "application/json": components["schemas"]["InternalServerError"];
         };
       };
     };
@@ -397,13 +375,13 @@ export interface operations {
       /** @description Unprocessable Entity */
       422: {
         content: {
-          "application/json": components["schemas"]["Validation Error"];
+          "application/json": components["schemas"]["ValidationError"];
         };
       };
       /** @description Internal Server Error */
       500: {
         content: {
-          "application/json": components["schemas"]["Internal Server Error"];
+          "application/json": components["schemas"]["InternalServerError"];
         };
       };
     };
@@ -425,13 +403,13 @@ export interface operations {
       /** @description Unauthenticated */
       401: {
         content: {
-          "application/json": components["schemas"]["Unauthenticated Error"];
+          "application/json": components["schemas"]["UnauthenticatedError"];
         };
       };
       /** @description Internal Server Error */
       500: {
         content: {
-          "application/json": components["schemas"]["Internal Server Error"];
+          "application/json": components["schemas"]["InternalServerError"];
         };
       };
     };
@@ -445,19 +423,19 @@ export interface operations {
       /** @description Successful Response */
       200: {
         content: {
-          "application/json": components["schemas"]["Profile Schema"];
+          "application/json": components["schemas"]["ProfileSchema"];
         };
       };
       /** @description Unauthenticated */
       401: {
         content: {
-          "application/json": components["schemas"]["Unauthenticated Error"];
+          "application/json": components["schemas"]["UnauthenticatedError"];
         };
       };
       /** @description Internal Server Error */
       500: {
         content: {
-          "application/json": components["schemas"]["Internal Server Error"];
+          "application/json": components["schemas"]["InternalServerError"];
         };
       };
     };

@@ -24,4 +24,4 @@ pre_commit:
     just test
 
 follow_logs:
-    tail -f laravel/storage/logs/laravel.log
+    tail -f laravel/storage/logs/laravel.log | jq

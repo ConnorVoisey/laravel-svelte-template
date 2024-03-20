@@ -17,7 +17,7 @@ $colors: 'primary', 'secondary', 'success', 'warning', 'error';
 	&:hover,
 	&:focus {
 		box-shadow: rgba(0, 0, 0, 0.3) 2px 8px 8px -5px;
-		transform: translate3d(0, 4px, 0);
+		transform: translate3d(0, -4px, 0);
 	}
 }
 

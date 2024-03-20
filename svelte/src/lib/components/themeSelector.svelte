@@ -74,6 +74,7 @@
 		padding: size(1);
 		width: calc((var(--circle-diameter) * 2) + 2 * (size(1) + size(1)));
 		background-color: surface(0);
+		border: solid 1px on-surface(0, 0.5);
 		box-sizing: border-box;
 		border-radius: 100vh;
 		cursor: pointer;
@@ -84,7 +85,6 @@
 			height: 0;
 			width: 0;
 			&:checked + span {
-				--svg-color: #{primary(3)};
 				transform: translateX(calc(1 * var(--circle-diameter))) rotate(360deg);
 			}
 		}

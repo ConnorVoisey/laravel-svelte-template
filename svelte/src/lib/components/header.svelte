@@ -104,7 +104,7 @@
 		position: relative;
 		width: max-content;
 		&::after {
-			background-color: on-surface(2);
+			background-color: on-surface(1);
 			@include pseudo;
 			height: 2px;
 			width: 0;

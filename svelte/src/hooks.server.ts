@@ -25,6 +25,10 @@ export const handle: Handle = async ({ event, resolve }) => {
 	// Verify we are authenticated
 	const { data, error } = await client.GET('/user');
 
+	if (data !== undefined && routeId.includes('/(noAuth)/')) {
+		// Need authentication
+		throw redirect(303, '/');
+	}
 	if (data === undefined && routeId.includes('/(auth)/')) {
 		// Need authentication
 		throw redirect(303, '/login');
