@@ -65,6 +65,7 @@
 			padding: size(2);
 			transition: color 200ms;
 			color: on-surface(1);
+			z-index: 1;
 			&::placeholder {
 				color: on-surface(2);
 			}

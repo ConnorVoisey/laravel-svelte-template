@@ -70,7 +70,7 @@
 <hr />
 
 <ul class="todos-list">
-	{#each data.todos as todo}
+	{#each data.todos as todo (todo.id)}
 		<li
 			class="todo-row"
 			class:completed={todo.completed}
