@@ -1,0 +1,14 @@
+default:
+    just --list
+
+format:
+    tsp format './**.tsp'
+
+compile:
+    tsp compile ./src
+
+compile-watch:
+    tsp compile ./src --watch --pretty
+
+serve:
+    live-server .

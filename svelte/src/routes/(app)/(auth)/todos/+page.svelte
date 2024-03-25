@@ -12,7 +12,8 @@
 		completed: false
 	};
 	const createTodo = async () => {
-		const res = await fetchClient.POST('/todo', {
+		const res = await fetchClient.POST('/todos', {
+			//@ts-ignore //TODO: fix the typing for this
 			body
 		});
 		if (res.error) error(res.response.status, res.error);
@@ -29,14 +30,14 @@
 		task: string;
 		completed: boolean;
 	}) => {
-		const res = await fetchClient.PATCH('/todo/{todo}/', {
+		const res = await fetchClient.PATCH('/todos/{id}', {
 			body: {
 				task,
 				completed
 			},
 			params: {
 				path: {
-					todo: id
+					id
 				}
 			}
 		});
@@ -46,10 +47,10 @@
 		goto('/todos', { invalidateAll: true });
 	};
 	const deleteTodo = async (id: string) => {
-		const res = await fetchClient.DELETE('/todo/{todo}/', {
+		const res = await fetchClient.DELETE('/todos/{id}', {
 			params: {
 				path: {
-					todo: id
+					id
 				}
 			}
 		});

@@ -5,67 +5,26 @@
 
 
 export interface paths {
-  "/todo": {
-    /**
-     * Get all todos
-     * @description Get all the todos assigned to the logged in user
-     */
-    get: operations["indexTodo"];
-    /**
-     * Create a todo
-     * @description Creates a todo assigned to the user.
-     */
-    post: operations["storeTodo"];
-  };
-  "/todo/{todo}/": {
-    /**
-     * Gets a todo edit
-     * @description Get one todos from its id, it must be assigned to the logged in user
-     */
-    get: operations["showTodo"];
-    /**
-     * Delete a todo
-     * @description Deletes a todo, must be assigned to the user.
-     */
-    delete: operations["deleteTodo"];
-    /**
-     * Update a todo
-     * @description Updates a todo, must be assigned to the user.
-     */
-    patch: operations["updateTodo"];
-    parameters: {
-      path: {
-        todo: string;
-      };
-    };
-  };
-  "/auth/register": {
-    /**
-     * Register
-     * @description Register route
-     */
-    post: operations["register"];
-  };
   "/auth/login": {
-    /**
-     * Login
-     * @description Login route
-     */
-    post: operations["login"];
+    post: operations["Auth_login"];
   };
   "/auth/logout": {
-    /**
-     * Logout
-     * @description Logs the current user out.
-     */
-    post: operations["logout"];
+    post: operations["Auth_logout"];
   };
-  "/user": {
-    /**
-     * Profile
-     * @description Gets the profile of the currently logged in user.
-     */
-    get: operations["/user-get"];
+  "/auth/profile": {
+    get: operations["Auth_profile"];
+  };
+  "/auth/register": {
+    post: operations["Auth_register"];
+  };
+  "/todos": {
+    get: operations["Todo_list"];
+    post: operations["Todo_create"];
+  };
+  "/todos/{id}": {
+    get: operations["Todo_show"];
+    delete: operations["Todo_delete"];
+    patch: operations["Todo_edit"];
   };
 }
 
@@ -73,72 +32,65 @@ export type webhooks = Record<string, never>;
 
 export interface components {
   schemas: {
-    Todo: {
-      /** Format: uuid */
-      id: string;
-      task: string;
-      completed?: boolean;
+    "Models.Deleted": {
+      /** @enum {string} */
+      message: "Successfully deleted";
+      /** Format: uint32 */
+      deleted_count: number;
+    };
+    "Models.Error": {
+      message: string;
+    };
+    "Models.Login": {
+      /** Format: email */
+      email: string;
+      password: components["schemas"]["password"];
+    };
+    "Models.NotFoundError": {
+      /** @enum {string} */
+      message: "Not found";
+    };
+    "Models.Todo": {
       /** Format: date-time */
       created_at: string;
       /** Format: date-time */
-      updated_at?: string;
-    };
-    TodoArray: {
-        /** Format: uuid */
-        id: string;
-        task: string;
-        completed?: boolean;
-        /** Format: date-time */
-        created_at: string;
-        /** Format: date-time */
-        updated_at?: string;
-      }[];
-    TodoCreate: {
+      updated_at: string;
+      id: components["schemas"]["uuid"];
       task: string;
+      /** @default false */
       completed?: boolean;
+      user_id: components["schemas"]["uuid"];
     };
-    TodoUpdate: {
+    "Models.TodoUpdate": {
       task?: string;
+      /** @default false */
       completed?: boolean;
     };
-    RegisterRequest: {
+    "Models.UnauthenticatedError": {
+      message: string;
+    };
+    "Models.User": {
+      /** Format: date-time */
+      created_at: string;
+      /** Format: date-time */
+      updated_at: string;
+      id: components["schemas"]["uuid"];
+      /** Format: email */
+      email: string;
       name: string;
-      /** Format: email */
-      email: string;
-      /** Format: password */
-      password: string;
-      /** Format: password */
-      password_confirmation: string;
+      /** Format: date-time */
+      email_verified_at: string | null;
     };
-    AuthenticateRequest: {
-      /** Format: email */
-      email: string;
-      /** Format: password */
-      password: string;
-    };
-    UnauthenticatedError: {
-      /** @constant */
-      message: "Unauthenticated.";
-    };
-    ValidationError: {
+    "Models.ValidationError": {
       message: string;
       errors: {
         [key: string]: string[];
       };
     };
-    InternalServerError: {
-      message: string;
-    };
-    ProfileSchema: {
-      id: string;
-      name: string;
-      email: string;
-      email_verified_at: string;
-      created_at: string;
-      updated_at: string;
-      permissions: "crud:users"[];
-      roles: ("admin" | "user")[];
-    };
+    /** Format: password */
+    password: string;
+    /** Format: uuid */
+    uuid: string;
   };
   responses: never;
   parameters: never;
@@ -153,289 +105,253 @@ export type external = Record<string, never>;
 
 export interface operations {
 
-  /**
-   * Get all todos
-   * @description Get all the todos assigned to the logged in user
-   */
-  indexTodo: {
+  Auth_login: {
+    requestBody: {
+      content: {
+        "application/json": components["schemas"]["Models.Login"];
+      };
+    };
     responses: {
-      /** @description Successful Response */
-      200: {
+      /** @description There is no content to send for this request, but the headers may be useful. */
+      204: {
+        content: never;
+      };
+      /** @description Client error */
+      422: {
         content: {
-          "application/json": components["schemas"]["TodoArray"];
+          "application/json": components["schemas"]["Models.ValidationError"];
         };
       };
-      /** @description Unauthenticated */
-      401: {
-        content: {
-          "application/json": components["schemas"]["UnauthenticatedError"];
-        };
-      };
-      /** @description Internal Server Error */
+      /** @description Server error */
       500: {
         content: {
-          "application/json": components["schemas"]["InternalServerError"];
+          "application/json": components["schemas"]["Models.Error"];
         };
       };
     };
   };
-  /**
-   * Create a todo
-   * @description Creates a todo assigned to the user.
-   */
-  storeTodo: {
-    /** @description Input */
+  Auth_logout: {
+    responses: {
+      /** @description There is no content to send for this request, but the headers may be useful. */
+      204: {
+        content: never;
+      };
+      /** @description Access is unauthorized. */
+      401: {
+        content: {
+          "application/json": components["schemas"]["Models.UnauthenticatedError"];
+        };
+      };
+      /** @description Server error */
+      500: {
+        content: {
+          "application/json": components["schemas"]["Models.Error"];
+        };
+      };
+    };
+  };
+  Auth_profile: {
+    responses: {
+      /** @description The request has succeeded. */
+      200: {
+        content: {
+          "application/json": components["schemas"]["Models.User"];
+        };
+      };
+      /** @description Access is unauthorized. */
+      401: {
+        content: {
+          "application/json": components["schemas"]["Models.UnauthenticatedError"];
+        };
+      };
+      /** @description Server error */
+      500: {
+        content: {
+          "application/json": components["schemas"]["Models.Error"];
+        };
+      };
+    };
+  };
+  Auth_register: {
     requestBody: {
       content: {
-        "application/json": components["schemas"]["TodoCreate"];
+        "application/json": components["schemas"]["Models.Login"];
       };
     };
     responses: {
-      /** @description Created */
+      /** @description There is no content to send for this request, but the headers may be useful. */
+      204: {
+        content: never;
+      };
+      /** @description Client error */
+      422: {
+        content: {
+          "application/json": components["schemas"]["Models.ValidationError"];
+        };
+      };
+      /** @description Server error */
+      500: {
+        content: {
+          "application/json": components["schemas"]["Models.Error"];
+        };
+      };
+    };
+  };
+  Todo_list: {
+    responses: {
+      /** @description The request has succeeded. */
+      200: {
+        content: {
+          "application/json": components["schemas"]["Models.Todo"][];
+        };
+      };
+      /** @description Client error */
+      422: {
+        content: {
+          "application/json": components["schemas"]["Models.ValidationError"];
+        };
+      };
+      /** @description Server error */
+      500: {
+        content: {
+          "application/json": components["schemas"]["Models.Error"];
+        };
+      };
+    };
+  };
+  Todo_create: {
+    requestBody: {
+      content: {
+        "application/json": components["schemas"]["Models.Todo"];
+      };
+    };
+    responses: {
+      /** @description The request has succeeded and a new resource has been created as a result. */
       201: {
         content: {
-          "application/json": components["schemas"]["Todo"];
+          "application/json": components["schemas"]["Models.Todo"];
         };
       };
-      /** @description Unauthenticated */
+      /** @description Access is unauthorized. */
       401: {
         content: {
-          "application/json": components["schemas"]["UnauthenticatedError"];
+          "application/json": components["schemas"]["Models.UnauthenticatedError"];
         };
       };
-      /** @description Unprocessable Entity */
+      /** @description Client error */
       422: {
         content: {
-          "application/json": components["schemas"]["ValidationError"];
+          "application/json": components["schemas"]["Models.ValidationError"];
         };
       };
-      /** @description Internal Server Error */
+      /** @description Server error */
       500: {
         content: {
-          "application/json": components["schemas"]["InternalServerError"];
+          "application/json": components["schemas"]["Models.Error"];
         };
       };
     };
   };
-  /**
-   * Gets a todo edit
-   * @description Get one todos from its id, it must be assigned to the logged in user
-   */
-  showTodo: {
+  Todo_show: {
     parameters: {
       path: {
-        todo: string;
+        id: components["schemas"]["uuid"];
       };
     };
     responses: {
-      /** @description Successful Response */
+      /** @description The request has succeeded. */
       200: {
         content: {
-          "application/json": components["schemas"]["Todo"];
+          "application/json": components["schemas"]["Models.Todo"];
         };
       };
-      /** @description Unauthenticated */
+      /** @description Access is unauthorized. */
       401: {
         content: {
-          "application/json": components["schemas"]["UnauthenticatedError"];
+          "application/json": components["schemas"]["Models.UnauthenticatedError"];
         };
       };
-      /** @description Internal Server Error */
+      /** @description The server cannot find the requested resource. */
+      404: {
+        content: {
+          "application/json": components["schemas"]["Models.NotFoundError"];
+        };
+      };
+      /** @description Server error */
       500: {
         content: {
-          "application/json": components["schemas"]["InternalServerError"];
+          "application/json": components["schemas"]["Models.Error"];
         };
       };
     };
   };
-  /**
-   * Delete a todo
-   * @description Deletes a todo, must be assigned to the user.
-   */
-  deleteTodo: {
+  Todo_delete: {
     parameters: {
       path: {
-        todo: string;
+        id: components["schemas"]["uuid"];
       };
     };
     responses: {
-      /** @description Successfully Deleted */
-      204: {
-        content: never;
-      };
-      /** @description Unauthenticated */
-      401: {
+      /** @description The request has succeeded. */
+      200: {
         content: {
-          "application/json": components["schemas"]["UnauthenticatedError"];
+          "application/json": components["schemas"]["Models.Deleted"];
         };
       };
-      /** @description Internal Server Error */
+      /** @description Access is unauthorized. */
+      401: {
+        content: {
+          "application/json": components["schemas"]["Models.UnauthenticatedError"];
+        };
+      };
+      /** @description The server cannot find the requested resource. */
+      404: {
+        content: {
+          "application/json": components["schemas"]["Models.NotFoundError"];
+        };
+      };
+      /** @description Server error */
       500: {
         content: {
-          "application/json": components["schemas"]["InternalServerError"];
+          "application/json": components["schemas"]["Models.Error"];
         };
       };
     };
   };
-  /**
-   * Update a todo
-   * @description Updates a todo, must be assigned to the user.
-   */
-  updateTodo: {
+  Todo_edit: {
     parameters: {
       path: {
-        todo: string;
+        id: components["schemas"]["uuid"];
       };
     };
-    /** @description Input */
     requestBody: {
       content: {
-        "application/json": components["schemas"]["TodoUpdate"];
+        "application/json": components["schemas"]["Models.TodoUpdate"];
       };
     };
     responses: {
-      /** @description Successful Response */
+      /** @description The request has succeeded. */
       200: {
         content: {
-          "application/json": components["schemas"]["Todo"];
+          "application/json": components["schemas"]["Models.Todo"];
         };
       };
-      /** @description Unauthenticated */
+      /** @description Access is unauthorized. */
       401: {
         content: {
-          "application/json": components["schemas"]["UnauthenticatedError"];
+          "application/json": components["schemas"]["Models.UnauthenticatedError"];
         };
       };
-      /** @description Unprocessable Entity */
-      422: {
+      /** @description The server cannot find the requested resource. */
+      404: {
         content: {
-          "application/json": components["schemas"]["ValidationError"];
+          "application/json": components["schemas"]["Models.NotFoundError"];
         };
       };
-      /** @description Internal Server Error */
+      /** @description Server error */
       500: {
         content: {
-          "application/json": components["schemas"]["InternalServerError"];
-        };
-      };
-    };
-  };
-  /**
-   * Register
-   * @description Register route
-   */
-  register: {
-    /** @description Input */
-    requestBody: {
-      content: {
-        "application/json": components["schemas"]["RegisterRequest"];
-      };
-    };
-    responses: {
-      /** @description Succssfully logged in */
-      204: {
-        content: never;
-      };
-      /** @description Unauthenticated */
-      401: {
-        content: {
-          "application/json": components["schemas"]["UnauthenticatedError"];
-        };
-      };
-      /** @description Unprocessable Entity */
-      422: {
-        content: {
-          "application/json": components["schemas"]["ValidationError"];
-        };
-      };
-      /** @description Internal Server Error */
-      500: {
-        content: {
-          "application/json": components["schemas"]["InternalServerError"];
-        };
-      };
-    };
-  };
-  /**
-   * Login
-   * @description Login route
-   */
-  login: {
-    /** @description Input */
-    requestBody: {
-      content: {
-        "application/json": components["schemas"]["AuthenticateRequest"];
-      };
-    };
-    responses: {
-      /** @description Succssfully logged in */
-      204: {
-        content: never;
-      };
-      /** @description Unprocessable Entity */
-      422: {
-        content: {
-          "application/json": components["schemas"]["ValidationError"];
-        };
-      };
-      /** @description Internal Server Error */
-      500: {
-        content: {
-          "application/json": components["schemas"]["InternalServerError"];
-        };
-      };
-    };
-  };
-  /**
-   * Logout
-   * @description Logs the current user out.
-   */
-  logout: {
-    responses: {
-      /** @description Succssfully logged out. */
-      204: {
-        content: {
-          "application/json": {
-            foo: string;
-          };
-        };
-      };
-      /** @description Unauthenticated */
-      401: {
-        content: {
-          "application/json": components["schemas"]["UnauthenticatedError"];
-        };
-      };
-      /** @description Internal Server Error */
-      500: {
-        content: {
-          "application/json": components["schemas"]["InternalServerError"];
-        };
-      };
-    };
-  };
-  /**
-   * Profile
-   * @description Gets the profile of the currently logged in user.
-   */
-  "/user-get": {
-    responses: {
-      /** @description Successful Response */
-      200: {
-        content: {
-          "application/json": components["schemas"]["ProfileSchema"];
-        };
-      };
-      /** @description Unauthenticated */
-      401: {
-        content: {
-          "application/json": components["schemas"]["UnauthenticatedError"];
-        };
-      };
-      /** @description Internal Server Error */
-      500: {
-        content: {
-          "application/json": components["schemas"]["InternalServerError"];
+          "application/json": components["schemas"]["Models.Error"];
         };
       };
     };

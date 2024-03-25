@@ -1,0 +1,12 @@
+{
+  "name": "typescec_testing",
+  "version": "0.1.0",
+  "type": "module",
+  "dependencies": {
+    "@typespec/compiler": "latest",
+    "@typespec/http": "latest",
+    "@typespec/openapi3": "^0.54.0",
+    "@typespec/rest": "latest"
+  },
+  "private": true
+}

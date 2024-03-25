@@ -23,7 +23,8 @@ export const handle: Handle = async ({ event, resolve }) => {
 		headers
 	});
 	// Verify we are authenticated
-	const { data, error } = await client.GET('/user');
+	const { data, error } = await client.GET('/auth/profile');
+	console.dir({ data, error });
 
 	if (data !== undefined && routeId.includes('/(noAuth)/')) {
 		// Need authentication

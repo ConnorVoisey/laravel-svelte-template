@@ -2,11 +2,11 @@ default:
     just --list
 
 install:
-    cd laravel && composer install
+    cd laravel-backend && composer install
     cd svelte && bun i
 
 format:
-    cd laravel && composer format
+    cd laravel-backend && composer format
     cd svelte && bun format
 
 generate_docs:
@@ -16,7 +16,7 @@ test:
     just generate_docs
     cd svelte && bun check
     bun test
-    cd laravel && composer test
+    cd laravel-backend && composer test
 
 pre_commit:
     just generate_docs
@@ -24,4 +24,8 @@ pre_commit:
     just test
 
 follow_logs:
-    tail -f laravel/storage/logs/laravel.log | jq
+    tail -f laravel-backend/storage/logs/laravel.log | jq
+
+link_openapi:
+    ln typespec-openapi/tsp-output/@typespec/openapi3/openapi.yaml `pwd`/laravel-backend/public/openapi.yaml
+
