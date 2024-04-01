@@ -1,6 +1,18 @@
 default:
     just --list
 
+pre_req:
+    bun -v
+    php -v
+    npm -v
+    node -v
+    echo 'This is not a complete list yet but php should be version 8.3'
+
+pre_req_install:
+    sudo update-alternatives --set php /usr/bin/php8.3
+    curl -fsSL https://bun.sh/install | bash # Install bun
+    echo 'This is not a complete list yet'
+
 initial_setup:
     cp laravel-backend/.env.example laravel-backend/.env
     cp svelte/.env.example svelte/.env
