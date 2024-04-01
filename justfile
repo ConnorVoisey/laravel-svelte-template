@@ -36,7 +36,7 @@ test:
     cd laravel-backend && composer test
 
 pre_commit:
-    just generate_docs
+    just gen_openapi
     just format
     just test
 
