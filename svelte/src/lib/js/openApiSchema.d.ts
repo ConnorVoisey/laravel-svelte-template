@@ -3,100 +3,131 @@
  * Do not make direct changes to the file.
  */
 
-
 export interface paths {
-  "/auth/login": {
-    post: operations["Auth_login"];
-  };
-  "/auth/logout": {
-    post: operations["Auth_logout"];
-  };
-  "/auth/profile": {
-    get: operations["Auth_profile"];
-  };
-  "/auth/register": {
-    post: operations["Auth_register"];
-  };
-  "/todos": {
-    get: operations["Todo_list"];
-    post: operations["Todo_create"];
-  };
-  "/todos/{id}": {
-    get: operations["Todo_show"];
-    delete: operations["Todo_delete"];
-    patch: operations["Todo_edit"];
-  };
+	'/auth/login': {
+		post: operations['Auth_login'];
+	};
+	'/auth/logout': {
+		post: operations['Auth_logout'];
+	};
+	'/auth/profile': {
+		get: operations['Auth_profile'];
+	};
+	'/auth/register': {
+		post: operations['Auth_register'];
+	};
+	'/todos': {
+		get: operations['Todo_list'];
+		post: operations['Todo_create'];
+	};
+	'/todos/{id}': {
+		get: operations['Todo_show'];
+		delete: operations['Todo_delete'];
+		patch: operations['Todo_edit'];
+	};
+	'/users': {
+		get: operations['User_list'];
+		post: operations['User_create'];
+	};
+	'/users/{id}': {
+		get: operations['User_show'];
+		delete: operations['User_delete'];
+		patch: operations['User_edit'];
+	};
 }
 
 export type webhooks = Record<string, never>;
 
 export interface components {
-  schemas: {
-    "Models.Deleted": {
-      /** @enum {string} */
-      message: "Successfully deleted";
-      /** Format: uint32 */
-      deleted_count: number;
-    };
-    "Models.Error": {
-      message: string;
-    };
-    "Models.Login": {
-      /** Format: email */
-      email: string;
-      password: components["schemas"]["password"];
-    };
-    "Models.NotFoundError": {
-      /** @enum {string} */
-      message: "Not found";
-    };
-    "Models.Todo": {
-      /** Format: date-time */
-      created_at: string;
-      /** Format: date-time */
-      updated_at: string;
-      id: components["schemas"]["uuid"];
-      task: string;
-      /** @default false */
-      completed?: boolean;
-      user_id: components["schemas"]["uuid"];
-    };
-    "Models.TodoUpdate": {
-      task?: string;
-      /** @default false */
-      completed?: boolean;
-    };
-    "Models.UnauthenticatedError": {
-      message: string;
-    };
-    "Models.User": {
-      /** Format: date-time */
-      created_at: string;
-      /** Format: date-time */
-      updated_at: string;
-      id: components["schemas"]["uuid"];
-      /** Format: email */
-      email: string;
-      name: string;
-      /** Format: date-time */
-      email_verified_at: string | null;
-    };
-    "Models.ValidationError": {
-      message: string;
-      errors: {
-        [key: string]: string[];
-      };
-    };
-    /** Format: password */
-    password: string;
-    /** Format: uuid */
-    uuid: string;
-  };
-  responses: never;
-  parameters: never;
-  requestBodies: never;
-  headers: never;
-  pathItems: never;
+	schemas: {
+		'Models.Deleted': {
+			/** @enum {string} */
+			message: 'Successfully deleted';
+			/** Format: uint32 */
+			deleted_count: number;
+		};
+		'Models.Error': {
+			message: string;
+		};
+		'Models.Login': {
+			/** Format: email */
+			email: string;
+			password: components['schemas']['password'];
+		};
+		'Models.NotFoundError': {
+			/** @enum {string} */
+			message: 'Not found';
+		};
+		'Models.Todo': {
+			/** Format: date-time */
+			created_at: string;
+			/** Format: date-time */
+			updated_at: string;
+			id: components['schemas']['uuid'];
+			task: string;
+			/** @default false */
+			completed?: boolean;
+			user_id: components['schemas']['uuid'];
+		};
+		'Models.TodoUpdate': {
+			task?: string;
+			/** @default false */
+			completed?: boolean;
+		};
+		'Models.UnauthenticatedError': {
+			message: string;
+		};
+		'Models.UnauthorizedError': {
+			message: string;
+		};
+		'Models.User': {
+			/** Format: date-time */
+			created_at: string;
+			/** Format: date-time */
+			updated_at: string;
+			id: components['schemas']['uuid'];
+			/** Format: email */
+			email: string;
+			name: string;
+			/** Format: date-time */
+			email_verified_at: string | null;
+			/** @enum {string|null} */
+			role_name: 'admin' | 'user' | null;
+		};
+		'Models.UserCreate': {
+			/** Format: email */
+			email: string;
+			name: string;
+			/** Format: password */
+			password: string;
+			/** Format: password */
+			password_confirmation: string;
+			/** @enum {string|null} */
+			role_name: 'admin' | 'user' | null;
+		};
+		'Models.UserUpdate': {
+			/** Format: email */
+			email?: string;
+			name?: string;
+			/** @enum {string|null} */
+			role_name?: 'admin' | 'user' | null;
+		};
+		'Models.ValidationError': {
+			message: string;
+			errors: {
+				[key: string]: string[];
+			};
+		};
+		/** Format: password */
+		password: string;
+		/** Format: uuid */
+		uuid: string;
+	};
+	responses: never;
+	parameters: never;
+	requestBodies: never;
+	headers: never;
+	pathItems: never;
 }
 
 export type $defs = Record<string, never>;
@@ -104,256 +135,450 @@ export type $defs = Record<string, never>;
 export type external = Record<string, never>;
 
 export interface operations {
-
-  Auth_login: {
-    requestBody: {
-      content: {
-        "application/json": components["schemas"]["Models.Login"];
-      };
-    };
-    responses: {
-      /** @description There is no content to send for this request, but the headers may be useful. */
-      204: {
-        content: never;
-      };
-      /** @description Client error */
-      422: {
-        content: {
-          "application/json": components["schemas"]["Models.ValidationError"];
-        };
-      };
-      /** @description Server error */
-      500: {
-        content: {
-          "application/json": components["schemas"]["Models.Error"];
-        };
-      };
-    };
-  };
-  Auth_logout: {
-    responses: {
-      /** @description There is no content to send for this request, but the headers may be useful. */
-      204: {
-        content: never;
-      };
-      /** @description Access is unauthorized. */
-      401: {
-        content: {
-          "application/json": components["schemas"]["Models.UnauthenticatedError"];
-        };
-      };
-      /** @description Server error */
-      500: {
-        content: {
-          "application/json": components["schemas"]["Models.Error"];
-        };
-      };
-    };
-  };
-  Auth_profile: {
-    responses: {
-      /** @description The request has succeeded. */
-      200: {
-        content: {
-          "application/json": components["schemas"]["Models.User"];
-        };
-      };
-      /** @description Access is unauthorized. */
-      401: {
-        content: {
-          "application/json": components["schemas"]["Models.UnauthenticatedError"];
-        };
-      };
-      /** @description Server error */
-      500: {
-        content: {
-          "application/json": components["schemas"]["Models.Error"];
-        };
-      };
-    };
-  };
-  Auth_register: {
-    requestBody: {
-      content: {
-        "application/json": components["schemas"]["Models.Login"];
-      };
-    };
-    responses: {
-      /** @description There is no content to send for this request, but the headers may be useful. */
-      204: {
-        content: never;
-      };
-      /** @description Client error */
-      422: {
-        content: {
-          "application/json": components["schemas"]["Models.ValidationError"];
-        };
-      };
-      /** @description Server error */
-      500: {
-        content: {
-          "application/json": components["schemas"]["Models.Error"];
-        };
-      };
-    };
-  };
-  Todo_list: {
-    responses: {
-      /** @description The request has succeeded. */
-      200: {
-        content: {
-          "application/json": components["schemas"]["Models.Todo"][];
-        };
-      };
-      /** @description Client error */
-      422: {
-        content: {
-          "application/json": components["schemas"]["Models.ValidationError"];
-        };
-      };
-      /** @description Server error */
-      500: {
-        content: {
-          "application/json": components["schemas"]["Models.Error"];
-        };
-      };
-    };
-  };
-  Todo_create: {
-    requestBody: {
-      content: {
-        "application/json": components["schemas"]["Models.Todo"];
-      };
-    };
-    responses: {
-      /** @description The request has succeeded and a new resource has been created as a result. */
-      201: {
-        content: {
-          "application/json": components["schemas"]["Models.Todo"];
-        };
-      };
-      /** @description Access is unauthorized. */
-      401: {
-        content: {
-          "application/json": components["schemas"]["Models.UnauthenticatedError"];
-        };
-      };
-      /** @description Client error */
-      422: {
-        content: {
-          "application/json": components["schemas"]["Models.ValidationError"];
-        };
-      };
-      /** @description Server error */
-      500: {
-        content: {
-          "application/json": components["schemas"]["Models.Error"];
-        };
-      };
-    };
-  };
-  Todo_show: {
-    parameters: {
-      path: {
-        id: components["schemas"]["uuid"];
-      };
-    };
-    responses: {
-      /** @description The request has succeeded. */
-      200: {
-        content: {
-          "application/json": components["schemas"]["Models.Todo"];
-        };
-      };
-      /** @description Access is unauthorized. */
-      401: {
-        content: {
-          "application/json": components["schemas"]["Models.UnauthenticatedError"];
-        };
-      };
-      /** @description The server cannot find the requested resource. */
-      404: {
-        content: {
-          "application/json": components["schemas"]["Models.NotFoundError"];
-        };
-      };
-      /** @description Server error */
-      500: {
-        content: {
-          "application/json": components["schemas"]["Models.Error"];
-        };
-      };
-    };
-  };
-  Todo_delete: {
-    parameters: {
-      path: {
-        id: components["schemas"]["uuid"];
-      };
-    };
-    responses: {
-      /** @description The request has succeeded. */
-      200: {
-        content: {
-          "application/json": components["schemas"]["Models.Deleted"];
-        };
-      };
-      /** @description Access is unauthorized. */
-      401: {
-        content: {
-          "application/json": components["schemas"]["Models.UnauthenticatedError"];
-        };
-      };
-      /** @description The server cannot find the requested resource. */
-      404: {
-        content: {
-          "application/json": components["schemas"]["Models.NotFoundError"];
-        };
-      };
-      /** @description Server error */
-      500: {
-        content: {
-          "application/json": components["schemas"]["Models.Error"];
-        };
-      };
-    };
-  };
-  Todo_edit: {
-    parameters: {
-      path: {
-        id: components["schemas"]["uuid"];
-      };
-    };
-    requestBody: {
-      content: {
-        "application/json": components["schemas"]["Models.TodoUpdate"];
-      };
-    };
-    responses: {
-      /** @description The request has succeeded. */
-      200: {
-        content: {
-          "application/json": components["schemas"]["Models.Todo"];
-        };
-      };
-      /** @description Access is unauthorized. */
-      401: {
-        content: {
-          "application/json": components["schemas"]["Models.UnauthenticatedError"];
-        };
-      };
-      /** @description The server cannot find the requested resource. */
-      404: {
-        content: {
-          "application/json": components["schemas"]["Models.NotFoundError"];
-        };
-      };
-      /** @description Server error */
-      500: {
-        content: {
-          "application/json": components["schemas"]["Models.Error"];
-        };
-      };
-    };
-  };
+	Auth_login: {
+		requestBody: {
+			content: {
+				'application/json': components['schemas']['Models.Login'];
+			};
+		};
+		responses: {
+			/** @description There is no content to send for this request, but the headers may be useful. */
+			204: {
+				content: never;
+			};
+			/** @description Client error */
+			422: {
+				content: {
+					'application/json': components['schemas']['Models.ValidationError'];
+				};
+			};
+			/** @description Server error */
+			500: {
+				content: {
+					'application/json': components['schemas']['Models.Error'];
+				};
+			};
+		};
+	};
+	Auth_logout: {
+		responses: {
+			/** @description There is no content to send for this request, but the headers may be useful. */
+			204: {
+				content: never;
+			};
+			/** @description Access is unauthorized. */
+			401: {
+				content: {
+					'application/json': components['schemas']['Models.UnauthenticatedError'];
+				};
+			};
+			/** @description Server error */
+			500: {
+				content: {
+					'application/json': components['schemas']['Models.Error'];
+				};
+			};
+		};
+	};
+	Auth_profile: {
+		responses: {
+			/** @description The request has succeeded. */
+			200: {
+				content: {
+					'application/json': components['schemas']['Models.User'];
+				};
+			};
+			/** @description Access is unauthorized. */
+			401: {
+				content: {
+					'application/json': components['schemas']['Models.UnauthenticatedError'];
+				};
+			};
+			/** @description Server error */
+			500: {
+				content: {
+					'application/json': components['schemas']['Models.Error'];
+				};
+			};
+		};
+	};
+	Auth_register: {
+		requestBody: {
+			content: {
+				'application/json': components['schemas']['Models.Login'];
+			};
+		};
+		responses: {
+			/** @description There is no content to send for this request, but the headers may be useful. */
+			204: {
+				content: never;
+			};
+			/** @description Client error */
+			422: {
+				content: {
+					'application/json': components['schemas']['Models.ValidationError'];
+				};
+			};
+			/** @description Server error */
+			500: {
+				content: {
+					'application/json': components['schemas']['Models.Error'];
+				};
+			};
+		};
+	};
+	Todo_list: {
+		parameters: {
+			query?: {
+				offset?: number;
+				limit?: number;
+				sort?: unknown[][];
+				filters?: unknown[][];
+			};
+		};
+		responses: {
+			/** @description The request has succeeded. */
+			200: {
+				content: {
+					'application/json': {
+						data: components['schemas']['Models.Todo'][];
+						/** Format: uint32 */
+						count: number;
+					};
+				};
+			};
+			/** @description Access is unauthorized. */
+			401: {
+				content: {
+					'application/json': components['schemas']['Models.UnauthenticatedError'];
+				};
+			};
+			/** @description Access is forbidden */
+			403: {
+				content: {
+					'application/json': components['schemas']['Models.UnauthorizedError'];
+				};
+			};
+			/** @description Server error */
+			500: {
+				content: {
+					'application/json': components['schemas']['Models.Error'];
+				};
+			};
+		};
+	};
+	Todo_create: {
+		requestBody: {
+			content: {
+				'application/json': components['schemas']['Models.Todo'];
+			};
+		};
+		responses: {
+			/** @description The request has succeeded and a new resource has been created as a result. */
+			201: {
+				content: {
+					'application/json': components['schemas']['Models.Todo'];
+				};
+			};
+			/** @description Access is unauthorized. */
+			401: {
+				content: {
+					'application/json': components['schemas']['Models.UnauthenticatedError'];
+				};
+			};
+			/** @description Client error */
+			422: {
+				content: {
+					'application/json': components['schemas']['Models.ValidationError'];
+				};
+			};
+			/** @description Server error */
+			500: {
+				content: {
+					'application/json': components['schemas']['Models.Error'];
+				};
+			};
+		};
+	};
+	Todo_show: {
+		parameters: {
+			path: {
+				id: components['schemas']['uuid'];
+			};
+		};
+		responses: {
+			/** @description The request has succeeded. */
+			200: {
+				content: {
+					'application/json': components['schemas']['Models.Todo'];
+				};
+			};
+			/** @description Access is unauthorized. */
+			401: {
+				content: {
+					'application/json': components['schemas']['Models.UnauthenticatedError'];
+				};
+			};
+			/** @description The server cannot find the requested resource. */
+			404: {
+				content: {
+					'application/json': components['schemas']['Models.NotFoundError'];
+				};
+			};
+			/** @description Server error */
+			500: {
+				content: {
+					'application/json': components['schemas']['Models.Error'];
+				};
+			};
+		};
+	};
+	Todo_delete: {
+		parameters: {
+			path: {
+				id: components['schemas']['uuid'];
+			};
+		};
+		responses: {
+			/** @description The request has succeeded. */
+			200: {
+				content: {
+					'application/json': components['schemas']['Models.Deleted'];
+				};
+			};
+			/** @description Access is unauthorized. */
+			401: {
+				content: {
+					'application/json': components['schemas']['Models.UnauthenticatedError'];
+				};
+			};
+			/** @description The server cannot find the requested resource. */
+			404: {
+				content: {
+					'application/json': components['schemas']['Models.NotFoundError'];
+				};
+			};
+			/** @description Server error */
+			500: {
+				content: {
+					'application/json': components['schemas']['Models.Error'];
+				};
+			};
+		};
+	};
+	Todo_edit: {
+		parameters: {
+			path: {
+				id: components['schemas']['uuid'];
+			};
+		};
+		requestBody: {
+			content: {
+				'application/json': components['schemas']['Models.TodoUpdate'];
+			};
+		};
+		responses: {
+			/** @description The request has succeeded. */
+			200: {
+				content: {
+					'application/json': components['schemas']['Models.Todo'];
+				};
+			};
+			/** @description Access is unauthorized. */
+			401: {
+				content: {
+					'application/json': components['schemas']['Models.UnauthenticatedError'];
+				};
+			};
+			/** @description The server cannot find the requested resource. */
+			404: {
+				content: {
+					'application/json': components['schemas']['Models.NotFoundError'];
+				};
+			};
+			/** @description Server error */
+			500: {
+				content: {
+					'application/json': components['schemas']['Models.Error'];
+				};
+			};
+		};
+	};
+	User_list: {
+		parameters: {
+			query?: {
+				offset?: number;
+				limit?: number;
+				sort?: unknown[][];
+				filters?: unknown[][];
+			};
+		};
+		responses: {
+			/** @description The request has succeeded. */
+			200: {
+				content: {
+					'application/json': {
+						data: components['schemas']['Models.User'][];
+						/** Format: uint32 */
+						count: number;
+					};
+				};
+			};
+			/** @description Access is unauthorized. */
+			401: {
+				content: {
+					'application/json': components['schemas']['Models.UnauthenticatedError'];
+				};
+			};
+			/** @description Access is forbidden */
+			403: {
+				content: {
+					'application/json': components['schemas']['Models.UnauthorizedError'];
+				};
+			};
+			/** @description Server error */
+			500: {
+				content: {
+					'application/json': components['schemas']['Models.Error'];
+				};
+			};
+		};
+	};
+	User_create: {
+		requestBody: {
+			content: {
+				'application/json': components['schemas']['Models.UserCreate'];
+			};
+		};
+		responses: {
+			/** @description The request has succeeded and a new resource has been created as a result. */
+			201: {
+				content: {
+					'application/json': components['schemas']['Models.User'];
+				};
+			};
+			/** @description Access is unauthorized. */
+			401: {
+				content: {
+					'application/json': components['schemas']['Models.UnauthenticatedError'];
+				};
+			};
+			/** @description Client error */
+			422: {
+				content: {
+					'application/json': components['schemas']['Models.ValidationError'];
+				};
+			};
+			/** @description Server error */
+			500: {
+				content: {
+					'application/json': components['schemas']['Models.Error'];
+				};
+			};
+		};
+	};
+	User_show: {
+		parameters: {
+			path: {
+				id: components['schemas']['uuid'];
+			};
+		};
+		responses: {
+			/** @description The request has succeeded. */
+			200: {
+				content: {
+					'application/json': components['schemas']['Models.User'];
+				};
+			};
+			/** @description Access is unauthorized. */
+			401: {
+				content: {
+					'application/json': components['schemas']['Models.UnauthenticatedError'];
+				};
+			};
+			/** @description The server cannot find the requested resource. */
+			404: {
+				content: {
+					'application/json': components['schemas']['Models.NotFoundError'];
+				};
+			};
+			/** @description Server error */
+			500: {
+				content: {
+					'application/json': components['schemas']['Models.Error'];
+				};
+			};
+		};
+	};
+	User_delete: {
+		parameters: {
+			path: {
+				id: components['schemas']['uuid'];
+			};
+		};
+		responses: {
+			/** @description The request has succeeded. */
+			200: {
+				content: {
+					'application/json': components['schemas']['Models.Deleted'];
+				};
+			};
+			/** @description Access is unauthorized. */
+			401: {
+				content: {
+					'application/json': components['schemas']['Models.UnauthenticatedError'];
+				};
+			};
+			/** @description The server cannot find the requested resource. */
+			404: {
+				content: {
+					'application/json': components['schemas']['Models.NotFoundError'];
+				};
+			};
+			/** @description Server error */
+			500: {
+				content: {
+					'application/json': components['schemas']['Models.Error'];
+				};
+			};
+		};
+	};
+	User_edit: {
+		parameters: {
+			path: {
+				id: components['schemas']['uuid'];
+			};
+		};
+		requestBody: {
+			content: {
+				'application/json': components['schemas']['Models.UserUpdate'];
+			};
+		};
+		responses: {
+			/** @description The request has succeeded. */
+			200: {
+				content: {
+					'application/json': components['schemas']['Models.User'];
+				};
+			};
+			/** @description Access is unauthorized. */
+			401: {
+				content: {
+					'application/json': components['schemas']['Models.UnauthenticatedError'];
+				};
+			};
+			/** @description The server cannot find the requested resource. */
+			404: {
+				content: {
+					'application/json': components['schemas']['Models.NotFoundError'];
+				};
+			};
+			/** @description Server error */
+			500: {
+				content: {
+					'application/json': components['schemas']['Models.Error'];
+				};
+			};
+		};
+	};
 }

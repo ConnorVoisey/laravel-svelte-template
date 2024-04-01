@@ -38,3 +38,8 @@ interface Auth {
 @route("/todos")
 @tag("Todos")
 interface Todo extends global.Resource.Crud<Models.Todo> {}
+
+
+@route("/users")
+@tag("Manage Users")
+interface User extends global.Resource.Crud<Models.User> {}

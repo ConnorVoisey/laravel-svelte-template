@@ -1,7 +1,7 @@
 import "./scalar.tsp";
 
 namespace Models;
-
+alias Role = "admin" | "user";
 model User is Timestamps {
     @key
     @visibility("read")
@@ -14,6 +14,15 @@ model User is Timestamps {
 
     @visibility("read")
     email_verified_at: utcDateTime | null;
+
+    @visibility("create")
+    @format("password")
+    password: string;
+    @visibility("create")
+    @format("password")
+    password_confirmation: string;
+
+    role_name: Role | null
 }
 
 model Login {
@@ -55,9 +64,7 @@ model Timestamps {
 
 model Paginated<Item> {
     data: Item[];
-    totalCount: uint32;
-    offset: uint32;
-    page: uint16;
+    count: uint32;
 }
 
 model Deleted {
@@ -72,6 +79,11 @@ model Error {
 
 @error
 model UnauthenticatedError {
+    message: string;
+}
+
+@error
+model UnauthorizedError {
     message: string;
 }
 

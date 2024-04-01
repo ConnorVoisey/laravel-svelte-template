@@ -3,6 +3,7 @@
 use App\Http\Controllers\OpenapiController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\TodoController;
+use App\Http\Controllers\UserController;
 use App\Http\Middleware\ViewDocs;
 use Illuminate\Support\Facades\Route;
 
@@ -28,6 +29,7 @@ Route::group(['middleware' => [ViewDocs::class]], function () {
 Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::apiResource('/todos', TodoController::class);
     Route::get('/auth/profile', [ProfileController::class, 'user'])->name('profile-user');
+    Route::apiResource('/users', UserController::class);
 });
 
 require __DIR__.'/auth.php';

@@ -17,6 +17,11 @@ alias UnauthenticatedErorRes = {
     @statusCode statusCode: 401;
 };
 
+alias UnauthorizedErorRes = {
+    @body body: Models.UnauthorizedError;
+    @statusCode statusCode: 403;
+};
+
 alias NotFoundRes = {
     @body body: Models.NotFoundError;
     @statusCode statusCode: 404;

@@ -8,8 +8,26 @@ using TypeSpec.Rest;
 namespace Resource;
 
 interface Crud<Item> {
-    //   @get list(): Models.Paginated<Item> | Res.ErrorRes | Res.ValidationErrorRes;
-    @get list(): Item[] | Res.ErrorRes | Res.ValidationErrorRes;
+    @get list(
+        @query offset?: uint32,
+        @query limit?: uint32,
+
+        @query({
+            name: "sort",
+            format: "multi",
+        })
+        sort?: [string, "asc" | "desc"][],
+
+        @query({
+            name: "filters",
+            format: "multi",
+        })
+        fitlers?: [string, string][],
+    ): 
+    | Models.Paginated<Item> 
+    | Res.UnauthenticatedErorRes
+    | Res.UnauthorizedErorRes
+    | Res.ErrorRes;
 
     @post create(@body body: Item):
         | Res.CreatedRes<Item>
