@@ -8,7 +8,9 @@ using TypeSpec.Rest;
 namespace Res;
 
 alias CreatedRes<Item> = {
-    @body body: Item;
+    @body body: {
+        data: Item;
+    };
     @statusCode statusCode: 201;
 };
 

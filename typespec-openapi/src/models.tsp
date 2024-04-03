@@ -18,11 +18,12 @@ model User is Timestamps {
     @visibility("create")
     @format("password")
     password: string;
+
     @visibility("create")
     @format("password")
     password_confirmation: string;
 
-    role_name: Role | null
+    role_name: Role | null;
 }
 
 model Login {
@@ -69,7 +70,6 @@ model Paginated<Item> {
 
 model Deleted {
     message: "Successfully deleted";
-    deleted_count: uint32;
 }
 
 @error

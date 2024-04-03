@@ -1,15 +1,22 @@
 import "@typespec/http";
 import "@typespec/rest";
+import "@typespec/versioning";
 import "./models.tsp";
 import "./resource.tsp";
 
+@server("/v1", "/v1")
 @service({
-    title: "Media Org Service",
+    title: "Laravel Backend",
 })
+@versioned(Versions)
 namespace MediaOrgService;
+enum Versions {
+    v1,
+}
 
 using TypeSpec.Http;
 using TypeSpec.Rest;
+using TypeSpec.Versioning;
 
 @route("/auth")
 @tag("Auth")
@@ -38,7 +45,6 @@ interface Auth {
 @route("/todos")
 @tag("Todos")
 interface Todo extends global.Resource.Crud<Models.Todo> {}
-
 
 @route("/users")
 @tag("Manage Users")

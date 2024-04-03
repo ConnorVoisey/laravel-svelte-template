@@ -23,11 +23,11 @@ interface Crud<Item> {
             format: "multi",
         })
         fitlers?: [string, string][],
-    ): 
-    | Models.Paginated<Item> 
-    | Res.UnauthenticatedErorRes
-    | Res.UnauthorizedErorRes
-    | Res.ErrorRes;
+    ):
+        | Models.Paginated<Item>
+        | Res.UnauthenticatedErorRes
+        | Res.UnauthorizedErorRes
+        | Res.ErrorRes;
 
     @post create(@body body: Item):
         | Res.CreatedRes<Item>
@@ -38,7 +38,9 @@ interface Crud<Item> {
     @route("{id}")
     @get
     show(@path id: uuid):
-        | Item
+        | {
+              data: Item;
+          }
         | Res.UnauthenticatedErorRes
         | Res.NotFoundRes
         | Res.ErrorRes;
@@ -46,7 +48,9 @@ interface Crud<Item> {
     @route("{id}")
     @patch
     edit(@path id: uuid, @body body: Item):
-        | Item
+        | {
+              data: Item;
+          }
         | Res.UnauthenticatedErorRes
         | Res.NotFoundRes
         | Res.ErrorRes;

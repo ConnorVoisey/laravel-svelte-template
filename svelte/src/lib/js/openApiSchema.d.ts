@@ -43,8 +43,6 @@ export interface components {
 		'Models.Deleted': {
 			/** @enum {string} */
 			message: 'Successfully deleted';
-			/** Format: uint32 */
-			deleted_count: number;
 		};
 		'Models.Error': {
 			message: string;
@@ -118,6 +116,8 @@ export interface components {
 				[key: string]: string[];
 			};
 		};
+		/** @enum {string} */
+		Versions: 'v1';
 		/** Format: password */
 		password: string;
 		/** Format: uuid */
@@ -277,7 +277,9 @@ export interface operations {
 			/** @description The request has succeeded and a new resource has been created as a result. */
 			201: {
 				content: {
-					'application/json': components['schemas']['Models.Todo'];
+					'application/json': {
+						data: components['schemas']['Models.Todo'];
+					};
 				};
 			};
 			/** @description Access is unauthorized. */
@@ -310,7 +312,9 @@ export interface operations {
 			/** @description The request has succeeded. */
 			200: {
 				content: {
-					'application/json': components['schemas']['Models.Todo'];
+					'application/json': {
+						data: components['schemas']['Models.Todo'];
+					};
 				};
 			};
 			/** @description Access is unauthorized. */
@@ -381,7 +385,9 @@ export interface operations {
 			/** @description The request has succeeded. */
 			200: {
 				content: {
-					'application/json': components['schemas']['Models.Todo'];
+					'application/json': {
+						data: components['schemas']['Models.Todo'];
+					};
 				};
 			};
 			/** @description Access is unauthorized. */
@@ -454,7 +460,9 @@ export interface operations {
 			/** @description The request has succeeded and a new resource has been created as a result. */
 			201: {
 				content: {
-					'application/json': components['schemas']['Models.User'];
+					'application/json': {
+						data: components['schemas']['Models.User'];
+					};
 				};
 			};
 			/** @description Access is unauthorized. */
@@ -487,7 +495,9 @@ export interface operations {
 			/** @description The request has succeeded. */
 			200: {
 				content: {
-					'application/json': components['schemas']['Models.User'];
+					'application/json': {
+						data: components['schemas']['Models.User'];
+					};
 				};
 			};
 			/** @description Access is unauthorized. */
@@ -558,7 +568,9 @@ export interface operations {
 			/** @description The request has succeeded. */
 			200: {
 				content: {
-					'application/json': components['schemas']['Models.User'];
+					'application/json': {
+						data: components['schemas']['Models.User'];
+					};
 				};
 			};
 			/** @description Access is unauthorized. */

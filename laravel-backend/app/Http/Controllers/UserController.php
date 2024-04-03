@@ -48,7 +48,7 @@ class UserController extends Controller
             'email' => 'required|email|unique:users',
             'name' => 'required',
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
-            'role_name' => ['nullable', 'exists:roles,name'],
+            'role_name' => ['required', 'exists:roles,name'],
         ]);
 
         $user = new User();
@@ -58,7 +58,7 @@ class UserController extends Controller
         $user->role_id = Role::where('name', $request->role_name)->first()->id;
         $user->save();
 
-        return response()->json(new UserResource($user), Response::HTTP_CREATED);
+        return response()->json(['data' => new UserResource($user)], Response::HTTP_CREATED);
     }
 
     /**
@@ -68,7 +68,7 @@ class UserController extends Controller
      */
     public function show(User $user)
     {
-        return new UserResource($user);
+        return ['data' => new UserResource($user)];
     }
 
     /**
@@ -99,7 +99,7 @@ class UserController extends Controller
 
         $user->save();
 
-        return response()->json(new UserResource($user), Response::HTTP_OK);
+        return response()->json(['data' => new UserResource($user)], Response::HTTP_OK);
     }
 
     /**

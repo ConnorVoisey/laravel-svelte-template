@@ -38,7 +38,7 @@ format:
 gen_openapi:
     cd typespec-openapi && just compile
     rm -if laravel-backend/public/openapi.yaml
-    ln typespec-openapi/tsp-output/@typespec/openapi3/openapi.yaml `pwd`/laravel-backend/public/openapi.yaml
+    ln typespec-openapi/tsp-output/@typespec/openapi3/openapi.v1.yaml `pwd`/laravel-backend/public/openapi.yaml
     cd svelte && bun gen_backend_types
 
 test:
